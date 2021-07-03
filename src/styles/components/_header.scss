@@ -1,0 +1,259 @@
+#header {
+  height: $navbar-height*1px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+
+  .navbar {
+    padding: 0;
+  }
+
+  .nav-link {
+    padding: 0;
+  }
+
+  .navbar-brand {
+    line-height: $navbar-height*1px;
+    height: 50px;
+    display: inline-block;
+    padding: 0;
+  }
+
+  .avatar__dropdown {
+    color: white;
+    border-right: 1px solid #f8b3b379;
+    padding-right: 20px;
+
+    a {
+      display: inline-block;
+      margin-left: 40px;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      margin-right: 10px;
+      border-radius: 100px;
+      position: absolute;
+      left: -50px;
+      top: -6px;
+      border: 1px solid $primary;
+    }
+  }
+
+  .dropdown:hover {
+    .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-toggle {
+      color: $primary;
+    }
+  }
+
+  .dropdown-menu {
+    border-top: 2px solid $primary;
+    min-width: 200px;
+    right: 0;
+
+    .dropdown-item {
+      color: white;
+      font-size: 15px;
+      font-weight: 300;
+      padding: 10px 16px;
+    }
+  }
+
+  .nav-link {
+    color: white;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &__register {
+      margin-left: 15px;
+      border: 1px solid white;
+      border-radius: 3px;
+
+      &:hover {
+        border: 1px solid $primary;
+      }
+    }
+  }
+}
+
+//Offcanvas
+.offcanvas-open {
+  padding-right: 0 !important;
+}
+
+#offcanvas {
+  .avatar__collapse {
+    color: white;
+    padding-right: 20px;
+
+    a {
+      display: inline-block;
+      margin-left: 40px;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      margin-right: 10px;
+      border-radius: 100px;
+      border: 1px solid $primary;
+    }
+  }
+
+  background-color: $dark;
+  border-left: 5px solid $primary;
+
+  .offcanvas-header {
+    position: relative;
+
+    .icon-logo-full {
+      color: white;
+      position: absolute;
+      transform: translateX(-50%);
+      top: -10px;
+      left: 50%;
+      font-size: 3.5rem;
+    }
+  }
+
+  a,
+  .a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    border: 1px solid transparent;
+
+    &:hover {
+      color: $primary;
+      border: 1px solid $primary;
+    }
+  }
+
+  .collapse--hover {
+    &::after {
+      @include dropdownIcon(10px);
+    }
+  }
+
+  .collapse-group {
+    .collapse {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      transition: all .3s;
+    }
+
+    &:hover {
+      .collapse {
+        max-height: 20rem;
+      }
+
+      .collapse--hover {
+        color: $primary;
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+  .collapse__menu {
+    list-style: none;
+
+    a,
+    .a {
+      border: none;
+      display: block;
+      height: 100%;
+    }
+
+    li {
+      padding-left: 1em;
+      height: 2.2rem;
+
+      &:hover {
+        background: linear-gradient(45deg, #717171d1, transparent);
+      }
+    }
+  }
+}
+
+//shopcart
+#shopcart {
+  a {
+    border: 1px solid $primary;
+    padding: 0 1px 0 5px !important;
+    border-radius: 5px;
+  }
+}
+
+.shopcart__item {
+  width: 20px;
+  text-align: center;
+  position: absolute;
+  font-size: 16px;
+  color: black;
+  line-height: 100%;
+  padding-top: 2px;
+  right: pxToRem(18);
+  transform: translateX(50%);
+  top: 12px;
+  border-radius: 0 0 5px 5px;
+}
+
+.shopcart__noti {
+  position: absolute;
+  top: 100%;
+  transform: translateX(-18%);
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  white-space: nowrap;
+  width: fit-content;
+  @include boxShadow();
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+    animation: hp-fadein .3s ease-in-out;
+  }
+
+  &.hide {
+    visibility: hidden;
+    animation: hp-fadeout .5s ease-in-out;
+  }
+}
+
+.shopcart__noti--top {
+  position: absolute;
+  left: 60%;
+  top: -0.5em;
+  transform: translateX(80%);
+  display: inline-block;
+  content: "";
+  border-right: .6em solid transparent;
+  border-bottom: .6em solid white;
+  border-left: .6em solid transparent;
+
+}
+
+//Login-form
+#login-form {
+  max-height: 90vh;
+  min-width: 280px;
+  width: 60vw;
+  position: fixed;
+  left: 50%;
+  top: 5vh;
+  transform: translateX(-50%);
+  background-color: white;
+  z-index: 1052;
+  padding: 60px 2vw;
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px 2px #00000033;
+}

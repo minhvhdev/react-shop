@@ -1,0 +1,91 @@
+:root {
+    --bg: #{$c-white};
+    --bg2: #{$c-grey-50};
+    --text: #{$c-black};
+    --text2: #{$c-white};
+    --primary: #{$primary};
+}
+
+body {
+    overflow: overlay;
+}
+
+#app {
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(11, 199, 22);
+}
+
+#content {
+    padding-top: $navbar-height*1px;
+    background-color: var(--c-bg);
+    min-height: 70vh;
+}
+
+
+.image-wrapper {
+    @include ratioImage(100);
+}
+
+.image-wrapper img {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+a,
+img {
+    -webkit-user-drag: none;
+}
+
+
+.page-content {
+    min-height: $page-min-height;
+    padding-top: $navbar-height*1px;
+}
+
+.close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.backdrop {
+    background-color: rgba(0, 0, 0, 0.199);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1051;
+}
+
+.icon {
+    display: inline-block;
+    margin-bottom: 5px;
+    svg{
+        stroke: inherit !important;
+    }
+}
+
+.img-thumbnail:hover {
+    border: 2px solid $primary;
+}

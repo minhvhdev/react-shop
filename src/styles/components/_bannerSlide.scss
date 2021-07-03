@@ -1,0 +1,44 @@
+#banner-slide {
+    .image-wrapper {
+        @include ratioImage(50);
+        display: block !important;
+    }
+
+    .slick-dots {
+        bottom: 5px;
+    }
+
+    .slick-dots li button:before {
+        color: white;
+    }
+
+    .slick-prev,
+    .slick-next {
+        transition: opacity .3s;
+        width: 35px;
+        height: 100%;
+        z-index: 100;
+        color: $primary;
+        opacity: 0;
+
+        &:hover {
+            opacity: 1 !important;
+        }
+    }
+
+    .slick-prev {
+        left: 0;
+    }
+
+    .slick-next {
+        right: 0
+    }
+
+    &:hover {
+
+        .slick-prev,
+        .slick-next {
+            opacity: .5;
+        }
+    }
+}

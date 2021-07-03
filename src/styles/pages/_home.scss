@@ -1,0 +1,47 @@
+#about {
+    .logo-about {
+        font-size: calc(4rem + 4vw);
+        margin: 2rem 0;
+    }
+}
+
+#procedure {
+    background-image: url(/assets/img/bgCoffee.jpg);
+    background-size: cover;
+
+    .icon-procedure {
+        display: inline-block;
+        font-size: 6rem;
+        border-radius: 100px;
+        border: 2px solid white;
+        margin: auto;
+        background-color: #000;
+        line-height: 1;
+    }
+}
+
+#know {
+    img {
+        user-select: none;
+    }
+
+    .main-img-know {
+        position: absolute;
+        transform: translateX(-54%) rotateZ(-70deg);
+        width: 20rem;
+        left: 50%;
+        top: 40%;
+    }
+
+    .img-know-left {
+        width: 3rem;
+        position: absolute;
+        right: -3rem;
+    }
+
+    .img-know-right {
+        width: 3rem;
+        position: absolute;
+        left: -3rem;
+    }
+}

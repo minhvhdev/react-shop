@@ -1,0 +1,12 @@
+
+.product-card{
+    .image-wrapper {
+        @include ratioImage(50)
+    }
+    a{
+        &:focus-visible{
+            outline: none;
+        }
+    }
+}
+    

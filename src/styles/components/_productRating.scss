@@ -1,0 +1,53 @@
+#rating {
+    min-height: 100px;
+    .star-ratings {
+        line-height: 100%;
+    }
+}
+
+#rating__form {}
+
+#rating__filter {
+    width: 100%;
+    height: pxToRem(36);
+    text-align-last: center;
+}
+
+.rating__filter--label {
+    line-height: pxToRem(36);
+    vertical-align: bottom;
+    margin-right: 10px;
+    min-width: fit-content;
+
+}
+
+.rate__container {
+    background-color: $light;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: pxToRem(5);
+    padding: 15px;
+}
+
+.rate__avatar {
+    width: 40px;
+    margin-right: 10px;
+
+    img {
+        width: 100%;
+        height: 40px;
+        border: 1px solid $primary;
+        border-radius: 100px;
+
+    }
+}
+
+.rate__info {
+    .fullname {
+        font-weight: 600;
+        margin-bottom: -10px;
+    }
+}
+

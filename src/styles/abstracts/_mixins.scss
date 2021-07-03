@@ -1,0 +1,19 @@
+@mixin dropdownIcon($bottom:0.3em) {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: $bottom;
+    border-left: .3em solid transparent;
+}
+
+@mixin ratioImage($height) {
+    position: relative;
+    width: 100%;
+    padding-top: $height*1%;
+}
+@mixin boxShadow() {
+    box-shadow: 1px 1px 4px 0px #888888;
+}

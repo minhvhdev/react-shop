@@ -1,0 +1,35 @@
+@charset "UTF-8";
+//Không thay đổi thứ tự các import!!! Chỉ thêm import cở components và pages
+@import 
+'abstracts/variables',
+'abstracts/functions',
+'abstracts/mixins';
+
+
+@import 
+'./base/fonts',
+'./base/base',
+'./base/typography',
+'./base/helpers';
+
+//components
+@import 
+'./components/header',
+'./components/message',
+'./components/productRating',
+'./components/productDetail',
+'./components/topProductSlide',
+'./components/productCard',
+'./components/topPost',
+'./components/showCartItem',
+'./components/inputNumber',
+'./components/checkOut',
+'./components/bannerSlide';
+
+//pages
+@import 
+'./pages/home';
+
+@import 
+'./pages/layout/footer',
+'./pages/layout/notfound';

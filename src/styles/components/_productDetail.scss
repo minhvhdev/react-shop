@@ -1,0 +1,48 @@
+.product__info{
+    border-left: 1px solid $primary;
+    padding: 5px 0 0 5px;
+    margin-left: 5px;
+}
+
+.cafe-type .active .icon-attribute {
+    display: block;
+}
+
+.product__type {
+    line-height: 29px;
+    margin-top: pxToRem(20);
+    .a {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        display: inline-block;
+        width: 3rem;
+        font-size: 1rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-left: 0.4rem;
+        text-align: center;
+        color: black;
+        vertical-align: middle;
+
+        &:hover {
+            color: $primary !important;
+            background-color: $dark;
+        }
+    }
+
+    .icon-attribute {
+        position: absolute;
+        top: -7px;
+        right: -1px;
+        display: none;
+    }
+
+    .active {
+        .icon-attribute {
+            display: block;
+        }
+        color: $primary !important;
+        background-color: $dark;
+    }
+}

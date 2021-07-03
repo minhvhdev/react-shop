@@ -1,0 +1,4 @@
+//chuyển px sang rem, vd pxToRem(16) = 1rem;
+@function pxToRem($pixel){
+    @return ($pixel/$base-font-size)*1rem;
+}
