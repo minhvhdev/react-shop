@@ -1,7 +1,8 @@
 import Loading from "pages/layout/Loading";
 import React from "react";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -10,7 +11,6 @@ import ProductCard from "./ProductCard";
 function TopProductSlide() {
   // @ts-ignore
   const products = useSelector((state) => state.products);
-  console.log(products);
   return (
     <div id="top-products" className="py-5">
       <Container className="px-4 text-center">
@@ -60,9 +60,9 @@ function TopProductSlide() {
             })}
           </Slider>
         ) : null}
-        <Button href="/allProduct" size="lg" className="mt-5 px-5">
+        <Link to="/allProduct" className="btn btn-lg btn-primary mt-5 px-5">
           Xem tất cả sản phẩm
-        </Button>
+        </Link>
       </Container>
     </div>
   );

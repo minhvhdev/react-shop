@@ -8,5 +8,8 @@
             outline: none;
         }
     }
+    .card-body p{
+        height: pxToRem(48);
+    }
 }
     

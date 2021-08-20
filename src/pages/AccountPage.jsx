@@ -1,34 +1,45 @@
-import React from "react";
-import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
+import AddressTab from "components/AddressTab";
+import ChangePasswordForm from "components/Form/ChangePasswordForm";
+import InfoTab from "components/InfoTab";
+import React, { useState } from "react";
+import { Breadcrumb, Col, Container, Nav, Row, Tab } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function AccountPage() {
+  const [show,setShow] = useState(false);
   return (
     <Container>
-      <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+      <Breadcrumb className="fs--11 mt-3">
+        <li className="breadcrumb-item">
+          <Link to="/">Trang chủ</Link>
+        </li>
+        <Breadcrumb.Item active>Quản lý tài khoản</Breadcrumb.Item>
+      </Breadcrumb>
+      <Tab.Container id="left-tabs-example" defaultActiveKey="1">
         <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
+          <Col xs={12} md={3} className="mb-3 mb-md-0">
+            <Nav variant="pills" className="flex-row flex-md-column shadow-lg">
               <Nav.Item>
-                <Nav.Link eventKey="first">Tab 1</Nav.Link>
+                <Nav.Link eventKey="1"  onClick={()=>setShow(false)}>Thông tin</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="second">Tab 2</Nav.Link>
+                <Nav.Link eventKey="2"  onClick={()=>setShow(false)}>Địa chỉ</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="3" onClick={()=>setShow(true)}>Mật khẩu</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
-          <Col sm={9}>
+          <Col xs={12} md={9}>
             <Tab.Content>
-              <Tab.Pane eventKey="first">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Pariatur, ut autem aliquid quaerat facere nesciunt, quod unde
-                eligendi, perspiciatis illum accusamus id quis amet explicabo
-                nisi expedita? Soluta, rem aliquid?
+              <Tab.Pane eventKey="1">
+                <InfoTab/>
               </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
-                molestiae, repellendus inventore voluptatum illum sint accusamus
-                nesciunt adipisci autem? Consectetur maiores aspernatur
-                recusandae ea dolor ipsam beatae pariatur saepe iste!
+              <Tab.Pane eventKey="2">
+                <AddressTab/>
+              </Tab.Pane>
+              <Tab.Pane eventKey="3">
+                {show?<ChangePasswordForm/>:null}
               </Tab.Pane>
             </Tab.Content>
           </Col>
@@ -38,4 +49,4 @@ function AccountPage() {
   );
 }
 
-export default AccountPage;
+export default React.memo(AccountPage);

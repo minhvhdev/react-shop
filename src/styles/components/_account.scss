@@ -1,0 +1,10 @@
+//Address Tab
+.address__item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: $box-shadow;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}

@@ -7,13 +7,13 @@ export const fetchAllProduct = createAsyncThunk(
     // @ts-ignore
     async (params, thunkAPI) => {
         const response = await ProductApi.getAll()
-        console.log(typeof response);
         return response
     }
 );
 const productsSlice = createSlice({
     name: 'products',
     initialState: { status: 'idle', data: getWithExpiry("_products") || [], error: {} },
+    // initialState: { status: 'idle', data:[], error: {} },
     reducers: {},
     extraReducers: {
         // @ts-ignore
@@ -25,7 +25,7 @@ const productsSlice = createSlice({
             state.status = 'idle';
             state.data = action.payload;
             state.error = {};
-            setWithExpiry("_products", action.payload, 1);
+            setWithExpiry("_products", action.payload, 7);
         },
         // @ts-ignore
         [fetchAllProduct.rejected.type]: (state, action) => {

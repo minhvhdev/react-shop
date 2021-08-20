@@ -1,9 +1,13 @@
-import { unwrapResult } from '@reduxjs/toolkit';
+
 import { fetchAllPost } from 'app/slice/postsSlice';
 import { fetchAllProduct } from 'app/slice/productSlice';
+import store from 'app/store';
 import Header from 'components/Header/Header';
-import OAuth2RedirectHandler from 'components/OAuth2RedirectHandler';
+import AdminRoute from 'components/Route/AdminRoute';
+import UserRoute from 'components/Route/UserRoute';
+import { VERSION } from 'constants/index';
 import AccountPage from 'pages/AccountPage';
+import AdminPage from 'pages/admin/AdminPage';
 import AllPostPage from 'pages/AllPostPage';
 import AllProductPage from 'pages/AllProductPage';
 import CheckOutPage from 'pages/CheckOutPage';
@@ -12,53 +16,63 @@ import Footer from 'pages/layout/Footer';
 import Loading from 'pages/layout/Loading';
 import NotFound from 'pages/layout/NotFound';
 import ScrollToTop from 'pages/layout/ScrollToTop';
+import LikedProductPage from 'pages/LikedProductPage';
+import MyOrdersPage from 'pages/MyOrdersPage';
+import PostPage from 'pages/PostPage';
 import ProductPage from 'pages/ProductPage';
 import ShopcartPage from 'pages/ShopcartPage';
 import SignUpPage from 'pages/SignUpPage';
 import React, { Suspense, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import ReactNotification from "react-notifications-component";
+import { useSelector } from 'react-redux';
+import { Switch } from 'react-router-dom';
 import './App.scss';
 function App() {
-  const dispatch = useDispatch();
   // @ts-ignore
   const products = useSelector((state) => state.products);
+  const version = localStorage.getItem("_version");
+  const isUpdate = !(version === VERSION);
+  localStorage.setItem("_version", VERSION)
   // @ts-ignore
   const posts = useSelector((state) => state.posts);
   const productsLen = products.data.length;
   const postsLen = posts.data.length;
+  // @ts-ignore
+  const isAdmin = useSelector((state) => state.isAdmin).status;
   useEffect(() => {
-    if (productsLen === 0) {
-      // @ts-ignore
-      dispatch(fetchAllProduct()).then(unwrapResult);
+    if (productsLen === 0 || isUpdate) {
+      store.dispatch(fetchAllProduct());
     }
-    if (postsLen === 0) {
-      // @ts-ignore
-      dispatch(fetchAllPost()).then(unwrapResult);
+    if (postsLen === 0 || isUpdate) {
+      store.dispatch(fetchAllPost())
     }
-  }, [productsLen, postsLen, dispatch]);
+  }, [productsLen, postsLen, isUpdate]);
   return (
     <div className="App">
-      <Header />
-      <div className="page-content">
+      {isAdmin ? null : <Header />}
+      <ReactNotification className="fs--1" />
+      <div className={isAdmin ? null : "page-content"}>
         {console.log("Render APP")}
         <Suspense fallback={<Loading />}>
-          <ScrollToTop/>
+          <ScrollToTop />
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/product" component={ProductPage} />
-            <Route path="/shopcart" component={ShopcartPage} />
-            <Route path="/checkout" component={CheckOutPage} />
-            <Route path="/allPost" component={AllPostPage} />
-            <Route path="/allProduct" component={AllProductPage} />
-            <Route path="/account" component={AccountPage} />
-            <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>
-            <Route component={NotFound} />
+            <UserRoute exact path="/" component={HomePage} />
+            <UserRoute path="/signup" component={SignUpPage} />
+            <UserRoute path="/product" component={ProductPage} />
+            <UserRoute path="/post" component={PostPage} />
+            <UserRoute path="/shopcart" component={ShopcartPage} />
+            <UserRoute path="/checkout" component={CheckOutPage} />
+            <UserRoute path="/allPost" component={AllPostPage} />
+            <UserRoute path="/allProduct" component={AllProductPage} />
+            <UserRoute role={true} path="/myfavs" component={LikedProductPage} />
+            <UserRoute role={true} path="/myOrder" component={MyOrdersPage} />
+            <UserRoute role={true} path="/myAccount" component={AccountPage} />
+            <AdminRoute exact path="/admin" component={AdminPage} />
+            <UserRoute component={NotFound} />
           </Switch>
         </Suspense>
       </div>
-      <Footer />
+      {isAdmin ? null : <Footer />}
     </div>
   );
 }

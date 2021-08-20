@@ -10,13 +10,15 @@
         text-align: center;
         justify-content: center;
         display: flex;
-        background-color: var(--bg2);
-        border: none;
+        background-color: $light;
+        background-position: center;
+        border: 1px solid #00ff072b;
 
         &:hover {
-            background-color: var(--primary);
+            background-color: $dark;
             color: white;
             box-shadow: -5px 5px 5px #888888;
+            border: none;
         }
     }
 

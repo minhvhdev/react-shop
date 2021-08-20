@@ -2,24 +2,23 @@ import ProductCard from "components/ProductCard";
 import { sortJSON } from "lib/Helper";
 import Loading from "pages/layout/Loading";
 import NullPage from "pages/layout/NullPage";
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 ListAllProduct.propTypes = {
   coffee: PropTypes.bool.isRequired,
   other: PropTypes.bool.isRequired,
   range: PropTypes.number.isRequired,
+  products: PropTypes.object.isRequired,
 };
 function ListAllProduct(props) {
   const coffee = props.coffee;
   const other = props.other;
   const range = props.range;
-  const products = useSelector((state) => state.products);
+  const products = props.products;
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const perPage = 12;
@@ -27,29 +26,27 @@ function ListAllProduct(props) {
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setOffset(selectedPage * perPage);
-    window.scrollTo(0,120)
+    window.scrollTo(0, 120);
   };
   const handleSort = (evt) => {
     const value = evt.target.value;
-    if (value == 0) {
-      console.log("tăng dần");
+    if (+value === 0) {
       setList([...sortJSON(list, "price")]);
     } else {
-      console.log("giảm dần");
       setList([...sortJSON(list, "price", false)]);
     }
   };
   useEffect(() => {
     let a = [];
     if (coffee && other) {
-      a = [...products.data];
+      a = [...products];
     } else if (coffee) {
-      a = [...products.data].filter((item) => {
-        return item.coffee == true;
+      a = [...products].filter((item) => {
+        return item.coffee === true;
       });
     } else {
-      a = [...products.data].filter((item) => {
-        return item.coffee == false;
+      a = [...products].filter((item) => {
+        return item.coffee === false;
       });
     }
     if (range < 1000000) {
@@ -59,7 +56,7 @@ function ListAllProduct(props) {
     }
     setList(a);
     setPageCount(Math.ceil(a.length / perPage));
-  }, [props, products.data]);
+  }, [coffee, other, range, products]);
   return (
     <>
       <div className="d-flex justify-content-end mb-3">
@@ -69,9 +66,9 @@ function ListAllProduct(props) {
           className="ms-2 mb-1"
           id="product-sort"
           onChange={handleSort}
-          defaultValue={"-1"}
+          defaultValue="-1"
         >
-          <option hidden disabled selected value="-1">
+          <option disabled hidden value="-1">
             --- Lựa chọn ---
           </option>
           <option value="0">Giá tăng dần</option>
@@ -87,8 +84,8 @@ function ListAllProduct(props) {
               return (
                 <Col
                   xs={12}
-                  className="ssm-6 mb-3 text-center"
-                  md={4}
+                  className="col-ssm-6 mb-3 text-center"
+                  lg={4}
                   xxl={3}
                   key={i}
                 >
@@ -97,22 +94,24 @@ function ListAllProduct(props) {
               );
             })}
 
-            <div className="d-flex justify-content-center mt-2">
-              <ReactPaginate
-                previousLabel={<GrCaretPrevious />}
-                nextLabel={<GrCaretNext />}
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                containerClassName="pagination"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                activeClassName="active"
-              />
-            </div>
+            {pageCount > 1 ? (
+              <div className="d-flex justify-content-center mt-2">
+                <ReactPaginate
+                  previousLabel={<GrCaretPrevious />}
+                  nextLabel={<GrCaretNext />}
+                  pageCount={pageCount}
+                  onPageChange={handlePageClick}
+                  containerClassName="pagination"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  activeClassName="active"
+                />
+              </div>
+            ) : null}
           </>
         ) : (
           <NullPage />

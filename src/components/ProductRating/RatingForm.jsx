@@ -44,16 +44,19 @@ const RatingForm = (props) => {
           id: +props.productId,
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          if(rated)
-          store.dispatch(
-            addRate({
-              ...values,
-              createDate: new Date(),
-              fullName: logged.data.fullName,
-              avatarLink: logged.data.avatarLink,
-            })
-          );
-          store.dispatch(updateRate({ ...values }));
+          if (rated) {
+            store.dispatch(updateRate({ ...values }));
+          } else {
+            store.dispatch(
+              addRate({
+                ...values,
+                createDate: new Date(),
+                fullName: logged.data.fullName,
+                avatarLink: logged.data.avatarLink,
+                yourRate:true
+              })
+            );
+          }
           handleClose();
           RatingApi.rating(values);
         }}

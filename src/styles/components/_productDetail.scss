@@ -10,7 +10,6 @@
 
 .product__type {
     line-height: 29px;
-    margin-top: pxToRem(20);
     .a {
         cursor: pointer;
         user-select: none;
@@ -45,4 +44,12 @@
         color: $primary !important;
         background-color: $dark;
     }
+}
+.like__button{
+    position: absolute;
+    font-size: 40px;
+    right: 0;
+    top:6px;
+    color:$primary;
+    cursor: pointer;
 }

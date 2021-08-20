@@ -87,8 +87,31 @@ export function sortJSON(arr = [], prop = "", asc = true) {
         if (asc) {
             return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
         } else {
-            return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+            return (a[prop] < b[prop]) ? 1 : ((a[prop] > b[prop]) ? -1 : 0);
         }
     });
     return arr;
+}
+export function asyncShopcart (localCart, serverCart){
+    for (let i = 0; i < serverCart.length; i++) {
+        const item = serverCart[i];
+        for (let j = 0; j < localCart.length; j++) {
+            const item2 = localCart[j];
+            if (
+                item.product.id === item2.product.id &&
+                item.type === item2.type
+            ) {
+                localCart[j].id=item.id;
+                serverCart[i] = null;
+            }
+        }
+    }
+    localCart.push(...serverCart);
+    return localCart.filter((item) => {
+        return item != null;
+    });
+};
+export function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }

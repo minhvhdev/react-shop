@@ -1,9 +1,11 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Accordion, Nav } from "react-bootstrap";
 import { BiUserCircle } from "react-icons/bi";
 
-export function NotLoggedNav(props) {
+function NavBar(props) {
   const showLoginForm = props.showLoginForm;
+  const showSignupForm = props.showSignupForm;
+  console.log("render not logged");
   return (
     <div>
       <Nav className="d-none d-lg-flex text-white">
@@ -15,14 +17,17 @@ export function NotLoggedNav(props) {
           </span>
           <ul className="dropdown-menu dropdown-menu-dark fw-4">
             <li>
-              <span onClick={showLoginForm} className="dropdown-item cursor--pointer pl-2">
+              <span
+                onClick={showLoginForm}
+                className="dropdown-item cursor--pointer pl-2"
+              >
                 Đăng nhập
               </span>
             </li>
             <li>
-              <a className="dropdown-item" href="/signup">
+              <span onClick={showSignupForm} className="dropdown-item">
                 Đăng ký
-              </a>
+              </span>
             </li>
           </ul>
         </div>
@@ -30,23 +35,37 @@ export function NotLoggedNav(props) {
     </div>
   );
 }
-export function NotLoggedOffcanvas(props) {
+function Offcanvas(props) {
   const showLoginForm = props.showLoginForm;
+  const showSignupForm = props.showSignupForm;
   return (
     <>
-      <span className="nav-link align-items-center a collapsed collapse--hover">
-        <i className="icon-user"></i> Tài khoản
-      </span>
-      <div className="collapse" id="user-collapse">
-        <ul className="collapse__menu fs--9 fw--3">
-          <li>
-            <span className="a cursor--pointer" onClick={showLoginForm}>Đăng nhập</span>
-          </li>
-          <li>
-            <a href="/signup">Đăng ký</a>
-          </li>
-        </ul>
-      </div>
+      <Accordion>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>
+            <span className="nav-link collapse--hover a avatar__collapse">
+              <i className="icon-user"></i> Tài khoản
+            </span>
+          </Accordion.Header>
+          <Accordion.Body>
+            <ul className="collapse__menu fs--9 fw--3">
+              <li>
+                <span className="a cursor--pointer" onClick={showLoginForm}>
+                  Đăng nhập
+                </span>
+              </li>
+              <li>
+                <span className="a cursor--pointer" onClick={showSignupForm}>
+                  Đăng ký
+                </span>
+              </li>
+            </ul>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </>
   );
 }
+const NotLoggedOffcanvas = React.memo(Offcanvas);
+const NotLoggedNav = React.memo(NavBar);
+export { NotLoggedOffcanvas, NotLoggedNav };

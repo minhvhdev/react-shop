@@ -1,19 +1,19 @@
+import { NOTI } from "constants/index";
 import React, { forwardRef, memo, useState } from "react";
+//@ts-ignore
+import { store as noti } from "react-notifications-component";
 import Message from "./Message";
 
 function InputNumber(props, ref) {
   const [value, setValue] = useState(props.value || 1);
-  const [show, setShow] = useState(0);
   const [oldValue, setOldValue] = useState(value);
-  const [message, setMessage] = useState({ content: "", type: 0 });
   const index = props.index || 0;
-  console.log("Render inputNum");
-  const handleShowMessage = (message) => {
-    setShow(1);
-    setMessage(message);
-    setTimeout(() => {
-      setShow(-1);
-    }, 20000);
+  const options = {
+    ...NOTI,
+    type: "warning",
+    dismiss: {
+      duration: 2000,
+    },
   };
   const handleChange = (evt) => {
     setValue(evt.target.value);
@@ -23,14 +23,14 @@ function InputNumber(props, ref) {
     const value = +evt.target.value;
     if (!Number.isInteger(value)) {
       setValue(oldValue);
-      handleShowMessage({
-        content: "Vui lòng nhập số",
-        type: 1,
+      noti.addNotification({
+        ...options,
+        message: <Message type="warning" mess="Vui lòng nhập số"/>,
       });
     } else if (value > 999 || value < 1) {
-      handleShowMessage({
-        content: "Nhập số từ 1-999",
-        type: 1,
+      noti.addNotification({
+        ...options,
+        message: <Message type="warning" mess="Vui lòng nhập số từ 1-999"/>,
       });
       setValue(oldValue);
     } else {
@@ -44,7 +44,7 @@ function InputNumber(props, ref) {
     if (+value !== 999) {
       setValue(+value + 1);
       if (handleChangeExtra) {
-        handleChangeExtra(value+1, index);
+        handleChangeExtra(value + 1, index);
       }
     }
   };
@@ -52,7 +52,7 @@ function InputNumber(props, ref) {
     if (+value !== 1) {
       setValue(+value - 1);
       if (handleChangeExtra) {
-        handleChangeExtra(value-1, index);
+        handleChangeExtra(value - 1, index);
       }
     }
   };
@@ -89,7 +89,6 @@ function InputNumber(props, ref) {
           </span>
         </li>
       </ul>
-      <Message content={message.content} show={show} type={message.type} />
     </>
   );
 }

@@ -1,63 +1,94 @@
-import { removeItem, updateQuantity } from "app/slice/shopcartSlice";
+import ShopcartApi from "api/ShopcartApi";
+import { removeItem } from "app/slice/shopcartSlice";
 import InputNumber from "components/InputNumber";
+import Message from "components/Message";
+import { NOTI } from "constants/index";
 import { comma, renderImageLink } from "lib/Helper";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { CloseButton, Col, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
+import { GoTrashcan } from "react-icons/go";
+// @ts-ignore
+import { store as noti } from "react-notifications-component";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-AllCartItem.propTypes = {
-  shopcart: PropTypes.array.isRequired,
-};
-function AllCartItem(props) {
+function AllCartItem(props, refs) {
+  //@ts-ignore
   const shopcart = useSelector((state) => state.shopcart).data;
-  const arrLength = shopcart.length;
-  const [totalPrice, setTotalPrice] = useState(0);
+  const totalPrice = shopcart.reduce((total, item) => {
+    return +item.quantity * +item.product.price + total;
+  }, 0);
+  const [quantity, setQuantity] = useState("[]");
   const dispatch = useDispatch();
   const handleChange = (value, index) => {
-    dispatch(updateQuantity({ value, index }));
+    const quan = JSON.parse(quantity);
+    let isExist = false;
+    quan.forEach((element) => {
+      if (element.index === index) {
+        element.value = value;
+        isExist = true;
+      }
+    });
+    if (!isExist) {
+      quan.push({ index, value });
+    }
+
+    setQuantity(JSON.stringify(quan));
   };
-  const handleRemove = (evt) => {
-    dispatch(removeItem(evt.target.getAttribute("data-index")));
+  const handleRemove = (evt, index) => {
+    noti.addNotification({
+      ...NOTI,
+      message: <Message type="success" mess="Xóa sản phẩm thành công" />,
+      type: "success",
+      dismiss: {
+        duration: 2000,
+      },
+      width: 160,
+    });
+    dispatch(removeItem(index));
+    const item = shopcart[index];
+    ShopcartApi.removeCartItem({ id: item.product.id, type: item.type });
   };
-  
-  useEffect(() => {
-    setTotalPrice(shopcart.reduce((total,item)=>{
-      console.log(item);
-      return +item.quantity*+item.product.price+total;
-    },0));
-  }, [shopcart]);
   return (
     <>
-      {console.log("render a;lsfjl;ạk")}
+      <input ref={refs} type="hidden" value={quantity} />
       <Row id="shopcart__item">
         <div className="border-bottom fs--9 fw--3 d-flex justify-content-between">
           <span>Sản phẩm trong giỏ</span>
           <span className="ms-auto">Thành tiền</span>
         </div>
         <Col xs={12}>
-          {arrLength > 0
+          {shopcart.length > 0
             ? shopcart.map((item, i) => {
                 const price = item.product.price;
                 const quantity = item.quantity;
                 const total = price * quantity;
                 return (
                   <div className="cart-item__container" key={i}>
-                    <CloseButton
-                      onClick={handleRemove}
-                      data-index={i}
+                    <Button
+                      variant="outline-danger py-0"
+                      onClick={(evt) => handleRemove(evt, i)}
                       className="close-button"
-                    ></CloseButton>
+                    >
+                      <GoTrashcan />
+                    </Button>
                     <div className="cart-item__item cart-item__thumb">
-                      <img
-                        src={renderImageLink(item.product.mainImgLink, 1)}
-                        alt=""
-                        width="100%"
-                      />
+                      <Link to={"/product?id=" + item.product.id}>
+                        <img
+                          src={renderImageLink(item.product.mainImgLink, 1)}
+                          alt=""
+                          width="100%"
+                        />
+                      </Link>
                     </div>
                     <div className="cart-item__item">
                       <div>
-                        <p>{item.product.name}</p>
+                        <Link
+                          className="link--text"
+                          to={"/product?id=" + item.product.id}
+                        >
+                          {item.product.name}
+                        </Link>
                         <p>{comma(price)}₫</p>
                         <p>{item.type}</p>
                       </div>
@@ -91,4 +122,4 @@ function AllCartItem(props) {
   );
 }
 
-export default React.memo(AllCartItem);
+export default React.memo(React.forwardRef(AllCartItem));

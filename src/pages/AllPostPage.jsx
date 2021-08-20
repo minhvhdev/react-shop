@@ -13,7 +13,6 @@ ListAllPost.propTypes = {};
 function ListAllPost(props) {
   // @ts-ignore
   const posts = useSelector((state) => state.posts);
-  console.log(posts.data);
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const perPage = 12;
@@ -39,7 +38,7 @@ function ListAllPost(props) {
   useEffect(() => {
     setList([...posts.data]);
     setPageCount(Math.ceil(posts.data.length / perPage));
-  }, []);
+  }, [posts.data]);
   return (
     <Container>
       <Breadcrumb className="fs--11 mt-3">
@@ -79,28 +78,30 @@ function ListAllPost(props) {
               <>
                 {list.slice(offset, offset + perPage).map((post, i) => {
                   return (
-                    <Col xs={12} md={6} xl={4} key={i} className="mb-3" >
+                    <Col xs={12} md={6} xl={4} key={i} className="mb-3">
                       <PostCard post={post} />
                     </Col>
                   );
                 })}
 
-                <div className="d-flex justify-content-center mt-2">
-                  <ReactPaginate
-                    previousLabel={<GrCaretPrevious />}
-                    nextLabel={<GrCaretNext />}
-                    pageCount={pageCount}
-                    onPageChange={handlePageClick}
-                    containerClassName="pagination"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    activeClassName="active"
-                  />
-                </div>
+                {pageCount > 1 ? (
+                  <div className="d-flex justify-content-center mt-2">
+                    <ReactPaginate
+                      previousLabel={<GrCaretPrevious />}
+                      nextLabel={<GrCaretNext />}
+                      pageCount={pageCount}
+                      onPageChange={handlePageClick}
+                      containerClassName="pagination"
+                      pageClassName="page-item"
+                      pageLinkClassName="page-link"
+                      previousClassName="page-item"
+                      previousLinkClassName="page-link"
+                      nextClassName="page-item"
+                      nextLinkClassName="page-link"
+                      activeClassName="active"
+                    />
+                  </div>
+                ) : null}
               </>
             ) : (
               <NullPage />

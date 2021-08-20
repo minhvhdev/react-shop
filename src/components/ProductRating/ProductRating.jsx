@@ -1,4 +1,6 @@
-import LoginForm from "components/Header/LoginForm";
+import { fetchAllRate } from "app/slice/ratingSlice";
+import store from "app/store";
+import LoginForm from "components/Form/LoginForm";
 import { formatDateTime } from "lib/Helper";
 import Loading from "pages/layout/Loading";
 import PropTypes from "prop-types";
@@ -15,6 +17,7 @@ ProductRating.propTypes = {
   productId: PropTypes.number.isRequired,
 };
 function ProductRating(props) {
+  const productId= props.productId;
   const [show, setShow] = useState(false);
   // @ts-ignore
   const logged = useSelector((state) => state.logged);
@@ -30,8 +33,8 @@ function ProductRating(props) {
     setOffset(selectedPage * perPage);
   };
   const handleSelectFilter = (filter) => {
-    if (filter === 0) {
-      setRateFilter(rates);
+    if (filter.value === 0) {
+      setRateFilter(rates.data);
     } else {
       setRateFilter(
         rates.data.filter((item) => {
@@ -40,17 +43,23 @@ function ProductRating(props) {
       );
     }
   };
+  
   useEffect(() => {
     setPageCount(Math.ceil(rates.data.length / perPage));
     setRateFilter(rates.data);
+
   }, [rates.data]);
+  useEffect(() => {
+    //@ts-ignore
+    store.dispatch(fetchAllRate({ id: productId }))
+  }, [productId,logged]);
   return (
     <>
       <div id="rating">
         {console.log("render rating")}
         {show ? (
           <>
-            {logged.data.fullName ? (
+            {logged.data ? (
               <RatingForm
                 productId={props.productId}
                 handleClose={handleCloseForm}
@@ -97,7 +106,7 @@ function ProductRating(props) {
               </div>
               <div className="col-xs-12 col-ssm-6">
                 <Button onClick={() => setShow(true)} className="w-100">
-                  Viết đánh giá
+                  Đánh giá
                 </Button>
               </div>
             </Row>

@@ -38,6 +38,7 @@
       left: -50px;
       top: -6px;
       border: 1px solid $primary;
+      box-sizing: content-box;
     }
   }
 
@@ -86,6 +87,10 @@
 //Offcanvas
 .offcanvas-open {
   padding-right: 0 !important;
+}
+
+.offcanvas-header {
+  padding: pxToRem(24) 1rem;
 }
 
 #offcanvas {
@@ -142,24 +147,23 @@
     }
   }
 
-  .collapse-group {
-    .collapse {
-      display: block;
-      max-height: 0;
-      overflow: hidden;
-      transition: all .3s;
-    }
+  .accordion-item {
+    background: transparent;
+    border: none;
+    color: white;
+  }
 
-    &:hover {
-      .collapse {
-        max-height: 20rem;
-      }
+  .accordion-button {
+    background: $dark;
+    padding: 0;
+    font-size: 20px;
+    display: block;
+    color: white;
+    box-shadow: none;
+  }
 
-      .collapse--hover {
-        color: $primary;
-        border: 1px solid $primary;
-      }
-    }
+  .accordion-body {
+    padding: 5px 0 0 0;
   }
 
   .collapse__menu {
@@ -167,6 +171,7 @@
 
     a,
     .a {
+      padding-top: 5px;
       border: none;
       display: block;
       height: 100%;
@@ -177,7 +182,7 @@
       height: 2.2rem;
 
       &:hover {
-        background: linear-gradient(45deg, #717171d1, transparent);
+        background: linear-gradient(45deg, #7171718e, transparent);
       }
     }
   }
@@ -227,33 +232,4 @@
     visibility: hidden;
     animation: hp-fadeout .5s ease-in-out;
   }
-}
-
-.shopcart__noti--top {
-  position: absolute;
-  left: 60%;
-  top: -0.5em;
-  transform: translateX(80%);
-  display: inline-block;
-  content: "";
-  border-right: .6em solid transparent;
-  border-bottom: .6em solid white;
-  border-left: .6em solid transparent;
-
-}
-
-//Login-form
-#login-form {
-  max-height: 90vh;
-  min-width: 280px;
-  width: 60vw;
-  position: fixed;
-  left: 50%;
-  top: 5vh;
-  transform: translateX(-50%);
-  background-color: white;
-  z-index: 1052;
-  padding: 60px 2vw;
-  border-radius: 5px;
-  box-shadow: 4px 4px 4px 2px #00000033;
 }

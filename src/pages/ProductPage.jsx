@@ -1,10 +1,9 @@
-import { fetchAllRate } from "app/slice/ratingSlice";
-import store from "app/store";
 import ProductDetail from "components/ProductDetail/ProductDetail";
 import ProductDetailImage from "components/ProductDetail/ProductDetailImage";
 import ProductRating from "components/ProductRating/ProductRating";
 import queryString from "query-string";
-import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import React, { useState } from "react";
 import { Breadcrumb, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,19 +11,16 @@ import Loading from "./layout/Loading";
 import NotFound from "./layout/NotFound";
 
 function ProductPage(props) {
-  const [key, setKey] = useState("rating");
-  const param = queryString.parse(window.location.search);
-  const productId = param.id;
+  const [key, setKey] = useState("description");
+  const param = queryString.parse(window.location.hash);
+  console.log(param);
+  const productId = param["product?id"];
   // @ts-ignore
   const products = useSelector((state) => state.products);
   let product = products.data.filter((value) => {
     return value.id === +productId;
   })[0];
   console.log("render ProductPage");
-  useEffect(() => {
-    // @ts-ignore
-    store.dispatch(fetchAllRate({ id: productId }));
-  }, [productId]);
   return (
     <>
       {products.status === "loading" ? (
@@ -44,7 +40,7 @@ function ProductPage(props) {
             <Col xs={12} md={6}>
               <ProductDetailImage product={product} />
             </Col>
-            <Col xs={12} lg={6}>
+            <Col xs={12} md={6}>
               <ProductDetail product={product} />
             </Col>
           </Row>
@@ -57,11 +53,10 @@ function ProductPage(props) {
                 onSelect={(k) => setKey(k)}
                 className="mb-3"
               >
-                <Tab eventKey="description" title="Mô tả sản phẩm">
-                  1Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Nisi aut ipsam unde ea velit quo similique dolor aspernatur
-                  quibusdam rerum! Vero unde possimus distinctio quasi tempore,
-                  architecto ut laudantium esse.
+                <Tab eventKey="description" title="Mô tả sản phẩm">                 
+                  <ReactMarkdown>
+                  {product.description}
+                  </ReactMarkdown>
                 </Tab>
                 <Tab eventKey="rating" title="Các đánh giá">
                   <ProductRating productId={+productId} />

@@ -1,32 +1,50 @@
-import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { checkShippingFee } from "app/slice/orderSlice";
+import store from "app/store";
 import { comma, renderImageLink } from "lib/Helper";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import React, { useEffect, useRef } from "react";
+import { Form, Row } from "react-bootstrap";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import PromotionForm from "./Form/PromotionForm";
 function CheckOutItem() {
-  const shopcart = useSelector((state) => state.shopcart).data;
+  //@ts-ignore
+  const order = useSelector((state) => state.order).data;
+  //@ts-ignore
+  const address = useSelector((state) => state.address).data;
+  const total = order.orderItem.reduce((total, item) => {
+    return +item.quantity * +item.product.price + total;
+  }, 0);
+  const discount = order.promotionCode ? order.promotionCode.discount : 0;
+  const shippingFee = order.shippingFee;
+  const shippingFeeReal = total < 200000 ? shippingFee : 0;
+  const afterDiscount = total * (discount / 100);
+  // @ts-ignore
   const showCart = useRef(null);
-  const [show, setShow] = useState(false);
   const handleShowItem = () => {
-    const status = showCart.current.classList[2];
-    if (status == "hide") {
+    const status = showCart.current.classList[4];
+    if (status === "hide") {
       showCart.current.classList.replace("hide", "show");
     } else {
       showCart.current.classList.replace("show", "hide");
     }
   };
+  useEffect(() => {
+    if (address&&address.length>0) {
+      const districtId = address.filter((item) => {
+        return item.mainAddress === true;
+      })[0].districtCode;
+      //@ts-ignore
+      store.dispatch(checkShippingFee(districtId));
+    }
+  }, [address]);
   return (
     <div className="d-flex flex-column">
       <Form.Label>Chi tiết đơn hàng</Form.Label>
-      <Row className="mb-3 order-1">
-        <Form.Group as={Col} xs={7} sm={8}>
-          <Form.Control type="text" placeholder="Mã giảm giá" />
-        </Form.Group>
-        <Form.Group as={Col} xs={5} sm={4}>
-          <Button className="w-100">Sử dụng</Button>
-        </Form.Group>
+      <Row className="mb-3 order-1 position-relative">
+        <PromotionForm />
       </Row>
-      <div ref={showCart} className="order-3 check-out hide">
-        {shopcart.map((item, i) => {
+      <div ref={showCart} className="order-5 mb-lg-3 order-lg-2 check-out show">
+        {order.orderItem.map((item, i) => {
           const quantity = item.quantity;
           const price = item.product.price;
           return (
@@ -44,7 +62,7 @@ function CheckOutItem() {
                 <p>SL:{item.quantity}</p>
               </div>
               <div className="check-out__item">
-                <p className="fs--4">
+                <p>
                   {comma(quantity * price)}
                   <span className="fs--11">₫</span>
                 </p>
@@ -53,7 +71,44 @@ function CheckOutItem() {
           );
         })}
       </div>
-      <div className="d-flex justify-content-between fs--6 order-2 order-lg-3">
+      <div className="check-out__total fs--9 order-4 order-lg-3">
+        <p>Đơn hàng:</p>
+        <div className="flex-grow-1 text-end">
+          {order.promotionCode ? (
+            <>
+              <span>
+                {comma(total - afterDiscount)}
+                <span className="fs--10">₫ </span>
+              </span>
+              <BsArrowLeftShort className="icon" />
+              <span className="text-decoration-line-through">
+                {comma(total)}
+              </span>
+            </>
+          ) : (
+            comma(total)
+          )}
+          <span className="fs--11">₫</span>
+        </div>
+      </div>
+      <div className="check-out__total fs--9 order-3 order-lg-4">
+        <p>Phí giao hàng:</p>
+        <div className="flex-grow-1 text-end">
+          {total < 200000 ? (
+            comma(shippingFee)
+          ) : (
+            <>
+              0<span className="fs--11">₫</span>
+              <BsArrowLeftShort className="icon" />
+              <span className="text-decoration-line-through">
+                {comma(shippingFee)}
+              </span>
+            </>
+          )}
+          <span className="fs--11">₫</span>
+        </div>
+      </div>
+      <div className="check-out__total fs--6 order-2 order-lg-5">
         <p className="d-none d-lg-block">Tổng cổng:</p>
         <span
           onClick={handleShowItem}
@@ -61,13 +116,8 @@ function CheckOutItem() {
         >
           Thông tin đơn hàng
         </span>
-        <div>
-          {comma(
-            shopcart.reduce((total, item) => {
-              console.log(item);
-              return +item.quantity * +item.product.price + total;
-            }, 0)
-          )}
+        <div className="flex-grow-1 text-end">
+          <span>{comma(total - afterDiscount + shippingFeeReal)}</span>
           <span className="fs--10">₫</span>
         </div>
       </div>
@@ -75,4 +125,4 @@ function CheckOutItem() {
   );
 }
 
-export default CheckOutItem;
+export default React.memo(CheckOutItem);

@@ -6,11 +6,21 @@
     color: inherit;
     text-decoration: none;
 }
+.text--link {
+    color: $primary;
+    text-decoration: underline;
+    cursor:pointer;
+    &:hover{
+        color:#00683a;
+    }
+}
 
 .cursor--pointer {
     cursor: pointer;
 }
-
+.cursor--auto {
+    cursor: auto !important;
+}
 @for $i from 1 through 12 {
     .fs--#{$i} {
         font-size: pxToRem(36-$i*2);
@@ -93,4 +103,10 @@
     display: inline-block;
     width: 100%;
     vertical-align: middle;
+}
+.btn-cycle{
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    padding-bottom: 0.1em !important;
 }

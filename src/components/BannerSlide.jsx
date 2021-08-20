@@ -8,8 +8,9 @@ function BannerSlide() {
             <Slider 
                 dots={true}
                 infinite={true}
-                speed={500}
+                speed={800}
                 autoplay={true}
+                autoplaySpeed={4000}
             >
                 <div className="image-wrapper">
                     <img src={iSlide1} className="d-block w-100" alt="slide1" />

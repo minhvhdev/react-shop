@@ -11,17 +11,16 @@ $c-grey-50: #f3f5f8;
 $primary: #008248;
 $danger: #F34A38;
 $danger: #F34A38;
-$success: #4267B2;
 $btn-border-radius: 100px;
 $btn-border-radius-sm: 100px;
 $btn-border-radius-lg: 100px;
-$grid-breakpoints: (
-  xs: 0,
+$grid-breakpoints: (xs: 0,
   ssm:350px,
   sm: 576px,
   md: 768px,
   lg: 992px,
   xl: 1200px,
-  xxl: 1400px
-);
-@import "~bootstrap/scss/bootstrap";
+  xxl: 1400px);
+  
+@import 'react-notifications-component/dist/scss/notification.scss',
+ "~bootstrap/scss/bootstrap";

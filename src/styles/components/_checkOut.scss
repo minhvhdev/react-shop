@@ -45,10 +45,69 @@
             }
         }
     }
+
+    &__address {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        border: 1px solid $border-color;
+        border-radius: $border-radius-lg;
+        cursor: pointer;
+    }
+    &__total{        
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-content: flex-end;
+    }
+
+
+
+    @media (min-width: 768px) {
+        &__model {
+            width: 75%;
+            max-width: none !important;
+        }
+    }
 }
 
 @media (min-width: 992px) {
     .check-out.hide {
         height: fit-content;
+    }
+}
+
+.promotion--success {
+    $h: pxToRem(38);
+    display: flex;
+    height: $h;
+    line-height: $h;
+    text-align: center;
+    font-size: 1.3rem;
+    border-top: 1px solid $primary;
+    border-bottom: 1px solid $primary;
+    border-right: 1px solid $primary;
+}
+
+.promotion__item {
+    &:nth-child(1) {
+        flex-grow: 2;
+        border-right: 3px dotted white;
+        text-transform: uppercase;
+        padding-top: pxToRem(2);
+        background-color: $primary;
+        color: white;
+        flex-basis: 160px;
+    }
+
+    &:nth-child(2) {
+        flex-basis: 80px;
+        flex-grow: 1;
+    }
+
+    &:nth-child(3) {
+        background-color: $danger;
+        flex-basis: pxToRem(40);
+        cursor: pointer;
     }
 }

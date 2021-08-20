@@ -13,6 +13,7 @@ export const fetchAllPost = createAsyncThunk(
 const postsSlice = createSlice({
     name: 'posts',
     initialState: { status: 'idle', data: getWithExpiry("_posts") || [], error: {} },
+    // initialState: { status: 'idle', data: [], error: {} },
     reducers: {
     },
     extraReducers: {
@@ -23,7 +24,7 @@ const postsSlice = createSlice({
             state.status = 'idle';
             state.data = action.payload;
             state.error = {};
-            setWithExpiry("_posts", action.payload, 1);
+            setWithExpiry("_posts", action.payload, 7);
         },
         [fetchAllPost.rejected.type]: (state, action) => {
             state.status = 'idle';

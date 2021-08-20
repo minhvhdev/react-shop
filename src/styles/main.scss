@@ -10,26 +10,32 @@
 './base/fonts',
 './base/base',
 './base/typography',
+'./base/animation',
 './base/helpers';
 
 //components
 @import 
 './components/header',
-'./components/message',
 './components/productRating',
 './components/productDetail',
 './components/topProductSlide',
+'./components/account',
 './components/productCard',
 './components/topPost',
 './components/showCartItem',
 './components/inputNumber',
 './components/checkOut',
+'./components/datePickerForm',
 './components/bannerSlide';
-
 //pages
 @import 
+'./pages/postPage',
 './pages/home';
 
 @import 
 './pages/layout/footer',
 './pages/layout/notfound';
+
+@import 
+'./components/admin/home'
+;

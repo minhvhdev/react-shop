@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { REACT_APP_API_URL } from 'constants/index';
 import queryString from 'query-string';
 import Cookie from 'universal-cookie';
 
@@ -12,7 +13,7 @@ export const getToken = () => {
     return token.accessToken;
 }
 const AxiosClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: REACT_APP_API_URL,
     // @ts-ignore
     header: {
         'content-type': 'application/json',
@@ -29,7 +30,7 @@ AxiosClient.interceptors.request.use((config) => {
 })
 
 AxiosClient.interceptors.response.use((response) => {
-    if (response && response.data) {
+    if (response && 'data' in response) {
         return response.data
     }
     return response;

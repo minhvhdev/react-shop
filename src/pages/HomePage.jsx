@@ -13,10 +13,22 @@ import TopProductSlide from "components/TopProductSlide";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import LazyLoad from "react-lazyload";
+import queryString from "query-string";
+import store from "app/store";
+import { login } from "app/slice/userSlice";
+import { socialAsyncCart } from "app/slice/shopcartSlice";
+import { socialAsyncAddress } from "app/slice/addressSlice";
 
 function HomePage() {
+  const res = queryString.parse(window.location.search);
+  if (res.accessToken) {
+    store.dispatch(login({ ...res }));
+    store.dispatch(socialAsyncCart());
+    store.dispatch(socialAsyncAddress());
+    window.history.pushState("page2", "Title", "/");
+  }
   return (
-    <section className="pt-5">
+    <section className="pt-3 pt-md-5">
       <Container>
         <Row>
           <BannerSlide />
@@ -40,7 +52,7 @@ function HomePage() {
             <p>
               Cà phê nguyên chất rang mộc Thơ Dũng là sản phẩm cà phê rang củi
               truyền thống của công ty TNHH TM cà phê Minh Dũng tại 176 Nguyễn
-              Trí Thanh, thị trấn Quảng Phú, huyện CưMgar, tỉnh Đăk Lăk. Hiện
+              Chí Thanh, thị trấn Quảng Phú, huyện CưMgar, tỉnh Đăk Lăk. Hiện
               tại công ty có các sản phẩm cà phê nguyên chất Robusta, Robusta
               Culi, Arabica,... Với kinh nghiệm hơn 20 năm trong ngành cà phê
               chúng tôi luôn đảm bảo mang tới những hạt cà phê ngon nhất, tốt
@@ -55,78 +67,82 @@ function HomePage() {
       </LazyLoad>
 
       <LazyLoad>
-        <Row id="procedure" className="py-5 px-2 px-md-5 m-0 text-white">
-          <Col xs={12} className="text-center">
-            <h2 className="font-custom">
-              Quy Trình Làm Ra Ly Cà Phê Sạch Nguyên Chất
-            </h2>
-            <i className="icon-coffee"></i>
-          </Col>
-          <Col xs={12} className="text-center">
-            <p className="mb-5">
-              Lựa chọn vùng nguyên liệu hữu cơ; Áp dụng quy trình sơ chế - rang
-              xay chuyên biệt; <br />
-              Phối trộn theo gu vị là các yếu tố cốt lõi tạo nên sản phẩm cà phê
-              sạch nguyên chất tại cà phê Thơ Dũng
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-01 icon-procedure"></i>
-            <h4>Vùng nguyên liệu hữu cơ</h4>
-            <p>
-              Tại cà phê Thơ Dũng, hạt cà phê được tuyển chọn từ Tây Nguyên với
-              nguyên liệu canh tác hữu cơ. Trái cà phê được hái chín 100% qua sự
-              chọn lọc bởi bàn tay cần mẫn của người nông dân.
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-02 icon-procedure"></i>
-            <h4>Phương pháp sơ chế chuẩn</h4>
-            <p>
-              Thấu hiểu hạt cà phê từng vùng nguyên liệu, cà phê Thơ Dũng chọn
-              phương pháp sơ chế phù hợp: chế biến khô, chế biến ướt, chế biến
-              honey để tạo ra vị cafe nguyên chất đậm đà, quyến rũ.
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-03 icon-procedure"></i>
-            <h4>Kỹ thuật rang xay thủ công</h4>
-            <p>
-              Hạt cà phê được lựa chọn tỉ mỉ và được rang bằng đôi bàn tay đầy
-              nghệ thuật của người có kinh nghiệm hơn 20 năm trong ngành cà phê.
-              Sẽ cho ra hương vị, màu sắc đặc trưng và chất lượng
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-04 icon-procedure"></i>
-            <h4>Phối trộn theo gu vị </h4>
-            <p>
-              Hiểu đặc tính dòng cà phê Arabica, Robusta, thử nghiệm hương vị
-              từng mẻ rang, cà phê Thơ Dũng tiến hành phối trộn theo tỉ lệ bí
-              quyết riêng để tạo ra chất cafe phù hợp từng gu vị.{" "}
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-05 icon-procedure"></i>
-            <h4>Đóng gói theo tiêu chuẩn </h4>
-            <p>
-              Cà phê sau khi phối trộn theo gu vị sẽ được đóng gói bằng túi
-              chuyên dụng có khóa zipper, giúp bảo quản cafe tốt hơn, cafe giữ
-              được hương vị lâu hơn sau khi mở bao bì.{" "}
-            </p>
-          </Col>
-          <Col xs={12} sm={6} lg={4} className="text-center">
-            <i className="icon-BC-06 icon-procedure"></i>
-            <h4>Ly cafe tuyệt hảo </h4>
-            <p>
-              Hạt cà phê rang xay, cafe bột nguyên chất được phân phối đến người
-              tiêu dùng qua dịch vụ chuyển phát. Bạn có thể thưởng thức bằng
-              cách pha phin hoặc máy pha Espresso.
-            </p>
-          </Col>
-        </Row>
+        <div id="procedure">
+          <Container>
+            <Row className="py-5 px-2 px-md-5 m-0 text-white">
+              <Col xs={12} className="text-center">
+                <h2 className="font-custom">
+                  Quy Trình Làm Ra Ly Cà Phê Sạch Nguyên Chất
+                </h2>
+                <i className="icon-coffee"></i>
+              </Col>
+              <Col xs={12} className="text-center">
+                <p className="mb-5">
+                  Lựa chọn vùng nguyên liệu hữu cơ; Áp dụng quy trình sơ chế -
+                  rang xay chuyên biệt; <br />
+                  Phối trộn theo gu vị là các yếu tố cốt lõi tạo nên sản phẩm cà
+                  phê sạch nguyên chất tại cà phê Thơ Dũng
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-01 icon-procedure"></i>
+                <h4>Vùng nguyên liệu hữu cơ</h4>
+                <p>
+                  Tại cà phê Thơ Dũng, hạt cà phê được tuyển chọn từ Tây Nguyên
+                  với nguyên liệu canh tác hữu cơ. Trái cà phê được hái chín
+                  100% qua sự chọn lọc bởi bàn tay cần mẫn của người nông dân.
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-02 icon-procedure"></i>
+                <h4>Phương pháp sơ chế chuẩn</h4>
+                <p>
+                  Thấu hiểu hạt cà phê từng vùng nguyên liệu, cà phê Thơ Dũng
+                  chọn phương pháp sơ chế phù hợp: chế biến khô, chế biến ướt,
+                  chế biến honey để tạo ra vị cafe nguyên chất đậm đà, quyến rũ.
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-03 icon-procedure"></i>
+                <h4>Kỹ thuật rang xay thủ công</h4>
+                <p>
+                  Hạt cà phê được lựa chọn tỉ mỉ và được rang bằng đôi bàn tay
+                  đầy nghệ thuật của người có kinh nghiệm hơn 20 năm trong ngành
+                  cà phê. Sẽ cho ra hương vị, màu sắc đặc trưng và chất lượng
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-04 icon-procedure"></i>
+                <h4>Phối trộn theo gu vị </h4>
+                <p>
+                  Hiểu đặc tính dòng cà phê Arabica, Robusta, thử nghiệm hương
+                  vị từng mẻ rang, cà phê Thơ Dũng tiến hành phối trộn theo tỉ
+                  lệ bí quyết riêng để tạo ra chất cafe phù hợp từng gu vị.{" "}
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-05 icon-procedure"></i>
+                <h4>Đóng gói theo tiêu chuẩn </h4>
+                <p>
+                  Cà phê sau khi phối trộn theo gu vị sẽ được đóng gói bằng túi
+                  chuyên dụng có khóa zipper, giúp bảo quản cafe tốt hơn, cafe
+                  giữ được hương vị lâu hơn sau khi mở bao bì.{" "}
+                </p>
+              </Col>
+              <Col xs={12} sm={6} lg={4} className="text-center">
+                <i className="icon-BC-06 icon-procedure"></i>
+                <h4>Ly cafe tuyệt hảo </h4>
+                <p>
+                  Hạt cà phê rang xay, cafe bột nguyên chất được phân phối đến
+                  người tiêu dùng qua dịch vụ chuyển phát. Bạn có thể thưởng
+                  thức bằng cách pha phin hoặc máy pha Espresso.
+                </p>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </LazyLoad>
-      
+
       <LazyLoad>
         <div className="py-5 position-relative" id="know">
           <Container>
