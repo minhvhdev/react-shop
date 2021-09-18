@@ -30,7 +30,7 @@ export function setWithExpiry(key, value, ttl = 1) {
     }
     localStorage.setItem(key, JSON.stringify(item))
 }
-export function getWithExpiry(key) {
+export function getWithExpiry(key, isArray = true) {
     const itemStr = localStorage.getItem(key)
     if (!itemStr) {
         return null
@@ -74,12 +74,12 @@ export function renderImageLink(data, type) {
     return link;
 }
 
-export function formatDateTime(date, isTime=true) {
+export function formatDateTime(date, isTime = true) {
     let d = new Date(date);
     if (isTime) {
         return new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(d)
-    }else{
-        return new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit'}).format(d)
+    } else {
+        return new Intl.DateTimeFormat('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d)
     }
 }
 export function sortJSON(arr = [], prop = "", asc = true) {
@@ -92,7 +92,7 @@ export function sortJSON(arr = [], prop = "", asc = true) {
     });
     return arr;
 }
-export function asyncShopcart (localCart, serverCart){
+export function asyncShopcart(localCart, serverCart) {
     for (let i = 0; i < serverCart.length; i++) {
         const item = serverCart[i];
         for (let j = 0; j < localCart.length; j++) {
@@ -101,7 +101,7 @@ export function asyncShopcart (localCart, serverCart){
                 item.product.id === item2.product.id &&
                 item.type === item2.type
             ) {
-                localCart[j].id=item.id;
+                localCart[j].id = item.id;
                 serverCart[i] = null;
             }
         }

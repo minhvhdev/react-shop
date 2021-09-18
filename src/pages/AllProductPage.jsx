@@ -13,14 +13,6 @@ function AllProductPage(props) {
   const [range, setRange] = useState(300000);
   const [coffee, setCoffee] = useState(param.type === "0" ? false : true);
   const [other, setOther] = useState(param.type === "1" ? false : true);
-  const [show, setShow] = useState(false);
-  const handleShow = () => {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  };
   const handleRange = (evt) => {
     setRange(evt.target.value);
   };

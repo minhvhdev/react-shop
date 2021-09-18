@@ -1,8 +1,8 @@
-// export const REACT_APP_API_URL = "http://localhost:8080/api";
-// export const API_BASE_URL = 'http://localhost:8080';
+export const REACT_APP_API_URL = "http://localhost:8080/api";
+export const API_BASE_URL = 'http://localhost:8080';
 // export const OAUTH2_REDIRECT_URI = 'http://localhost:3000/'
-export const REACT_APP_API_URL = "https://caphethodung.xyz/api";
-export const API_BASE_URL = 'https://caphethodung.xyz';
+// export const REACT_APP_API_URL = "https://caphethodung.xyz/api";
+// export const API_BASE_URL = 'https://caphethodung.xyz';
 export const OAUTH2_REDIRECT_URI = 'https://caphethodung.vn'
 export const ACCESS_TOKEN = 'accessToken';
 export const VERSION = '3.0';

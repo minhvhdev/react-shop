@@ -60,9 +60,9 @@ function ListAllPost(props) {
                 className="ms-2 mb-1"
                 id="post-sort"
                 onChange={handleSort}
-                defaultValue={"-1"}
+                defaultValue="-1"
               >
-                <option hidden disabled selected value="-1">
+                <option disabled hidden value="-1">
                   --- Lựa chọn ---
                 </option>
                 <option value="0">Lượt xem</option>
@@ -112,7 +112,5 @@ function ListAllPost(props) {
     </Container>
   );
 }
-
-ListAllPost.propTypes = {};
 
 export default React.memo(ListAllPost);

@@ -177,7 +177,7 @@ const InfoTab = (props) => {
               </BForm.Group>
               <BForm.Group className="mb-3" controlId="fullName">
                 <BForm.Label>Ngày sinh:</BForm.Label>
-                <DatePickerForm name="dob" />
+                <DatePickerForm name="dob" placeholder="Nhập ngày sinh (dd/MM/YYYY)" />
               </BForm.Group>
               <BForm.Group className="mb-3" controlId="fullName">
                 <BForm.Label>Số điện thoại:</BForm.Label>

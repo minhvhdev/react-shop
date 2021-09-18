@@ -15,9 +15,9 @@ function BannerSlide() {
                 <div className="image-wrapper">
                     <img src={iSlide1} className="d-block w-100" alt="slide1" />
                 </div>
-                <div className="image-wrapper">
+                {/* <div className="image-wrapper">
                     <img src={iSlide2} className="d-block w-100" alt="slide1" />
-                </div>
+                </div> */}
                 <div className="image-wrapper">
                     <img src={iSlide3} className="d-block w-100" alt="slide1" />
                 </div>

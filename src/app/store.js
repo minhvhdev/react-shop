@@ -6,8 +6,6 @@ import ratingReducer from './slice/ratingSlice';
 import shopcart from './slice/shopcartSlice';
 import order from './slice/orderSlice';
 import address from './slice/addressSlice';
-import isAdmin from './slice/pageSlice';
-
 const store = configureStore({
     reducer: {
         logged: loggedReducer,
@@ -17,7 +15,6 @@ const store = configureStore({
         shopcart: shopcart,
         order: order,
         address: address,
-        isAdmin:isAdmin,
     }
 })
 export default store;

@@ -47,6 +47,11 @@ export function LoggedNav(props) {
               Đơn hàng của tôi
             </Link>
           </li>
+          <li>
+            <Link className="dropdown-item" to="/admin">
+              Trang quản trị
+            </Link>
+          </li>
           <li
             className="dropdown-item cursor--pointer"
             onClick={handleLogoutClick}

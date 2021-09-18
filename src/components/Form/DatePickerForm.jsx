@@ -9,6 +9,7 @@ function DatePickerForm(props) {
   const [field] = useField(props);
   return (
     <DatePicker
+      placeholderText={props.placeholder}
       locale="vi"
       dateFormat="dd/MM/yyyy"
       {...field}

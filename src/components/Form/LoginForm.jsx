@@ -8,16 +8,18 @@ import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { asyncShopcart } from "lib/Helper";
 import Loading from "pages/layout/Loading";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form as BForm, Modal } from "react-bootstrap";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { GrFacebookOption } from "react-icons/gr";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as Yup from "yup";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 
 const LoginForm = (props) => {
   const handleClose = props.handleClose;
   const handleShowSignup = props.handleShowSignup;
+  const history = useHistory();
   const handleForgetPassword = () => {
     setStatus("forget");
   };
@@ -27,14 +29,14 @@ const LoginForm = (props) => {
     localStorage.setItem("_search", window.location.search);
   };
   return (
-    <div>
+    <>
       <Modal
         show={true}
         onHide={handleClose}
         fullscreen="sm-down"
         backdrop="static"
       >
-      {console.log("render login form")}
+        {console.log("render login form")}
         <Modal.Header closeButton>
           <Modal.Title>Đăng nhập</Modal.Title>
         </Modal.Header>
@@ -55,6 +57,10 @@ const LoginForm = (props) => {
                 UserApi.login(values)
                   .then((res) => {
                     store.dispatch(login(res));
+                    // @ts-ignore
+                    if (res.role === "ROLE_ADMIN") {
+                      history.push("/#admin/pendingOrder");
+                    }
                     const localCart =
                       JSON.parse(localStorage.getItem("_shopcart")) || [];
                     //@ts-ignore
@@ -72,7 +78,6 @@ const LoginForm = (props) => {
                     setStatus("idle");
                   })
                   .catch((res) => {
-                    
                     setStatus("wrong");
                   });
               }}
@@ -94,6 +99,7 @@ const LoginForm = (props) => {
                   <Field name="email">
                     {({ field }) => (
                       <BForm.Control
+                        autoComplete="email"
                         type="text"
                         {...field}
                         placeholder="Nhập email của bạn"
@@ -109,6 +115,7 @@ const LoginForm = (props) => {
                   <Field name="password">
                     {({ field }) => (
                       <BForm.Control
+                        autoComplete="password"
                         type="password"
                         {...field}
                         placeholder="Nhập mật khẩu"
@@ -174,7 +181,7 @@ const LoginForm = (props) => {
           )}
         </Modal.Body>
       </Modal>
-    </div>
+    </>
   );
 };
 export default React.memo(LoginForm);

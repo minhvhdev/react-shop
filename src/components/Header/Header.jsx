@@ -1,3 +1,4 @@
+import SignUpForm from "components/Form/SignUpForm";
 import React, { useState } from "react";
 import { Accordion, CloseButton, Container, Nav } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
@@ -5,11 +6,10 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { LoggedNav, LoggedOffcanvas } from "./Logged";
 import LoginForm from "../Form/LoginForm";
+import { LoggedNav, LoggedOffcanvas } from "./Logged";
 import { NotLoggedNav, NotLoggedOffcanvas } from "./NotLogged";
 import Shopcart from "./Shopcart";
-import SignUpForm from "components/Form/SignUpForm";
 
 function Header() {
   const [show, setShow] = useState(false);
@@ -32,11 +32,9 @@ function Header() {
     setShowSignup(true);
   };
   // @ts-ignore
-  const logged = useSelector((state) => state.logged);
-  console.log("render header");
+  const logged = useSelector((state) => state.logged); 
   return (
-    <div>
-      {console.log("render Header")}
+    <>
       <Navbar id="header" bg="dark" variant="dark">
         <Container fluid="xl">
           <Link className="navbar-brand" to="/">
@@ -157,7 +155,7 @@ function Header() {
         />
       ) : null}
       {showSignup ? <SignUpForm handleClose={handleCloseSignup} /> : null}
-    </div>
+    </>
   );
 }
 

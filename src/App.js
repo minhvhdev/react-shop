@@ -2,17 +2,19 @@
 import { fetchAllPost } from 'app/slice/postsSlice';
 import { fetchAllProduct } from 'app/slice/productSlice';
 import store from 'app/store';
-import Header from 'components/Header/Header';
 import AdminRoute from 'components/Route/AdminRoute';
 import UserRoute from 'components/Route/UserRoute';
 import { VERSION } from 'constants/index';
 import AccountPage from 'pages/AccountPage';
-import AdminPage from 'pages/admin/AdminPage';
+import AdminAllOrderPage from 'pages/admin/AdminAllOrderPage';
+import AdminOrderPage from 'pages/admin/AdminOrderPage';
+import AdminPendingOrderPage from 'pages/admin/AdminPendingOrderPage';
+import AdminPromotionPage from 'pages/admin/AdminPromotionPage';
+import AdminShippingOrderPage from 'pages/admin/AdminShippingOrderPage';
 import AllPostPage from 'pages/AllPostPage';
 import AllProductPage from 'pages/AllProductPage';
 import CheckOutPage from 'pages/CheckOutPage';
 import HomePage from 'pages/HomePage';
-import Footer from 'pages/layout/Footer';
 import Loading from 'pages/layout/Loading';
 import NotFound from 'pages/layout/NotFound';
 import ScrollToTop from 'pages/layout/ScrollToTop';
@@ -37,8 +39,6 @@ function App() {
   const posts = useSelector((state) => state.posts);
   const productsLen = products.data.length;
   const postsLen = posts.data.length;
-  // @ts-ignore
-  const isAdmin = useSelector((state) => state.isAdmin).status;
   useEffect(() => {
     if (productsLen === 0 || isUpdate) {
       store.dispatch(fetchAllProduct());
@@ -48,32 +48,32 @@ function App() {
     }
   }, [productsLen, postsLen, isUpdate]);
   return (
-    <div className="App">
-      {isAdmin ? null : <Header />}
+    <>
       <ReactNotification className="fs--1" />
-      <div className={isAdmin ? null : "page-content"}>
-        {console.log("Render APP")}
-        <Suspense fallback={<Loading />}>
-          <ScrollToTop />
-          <Switch>
-            <UserRoute exact path="/" component={HomePage} />
-            <UserRoute path="/signup" component={SignUpPage} />
-            <UserRoute path="/product" component={ProductPage} />
-            <UserRoute path="/post" component={PostPage} />
-            <UserRoute path="/shopcart" component={ShopcartPage} />
-            <UserRoute path="/checkout" component={CheckOutPage} />
-            <UserRoute path="/allPost" component={AllPostPage} />
-            <UserRoute path="/allProduct" component={AllProductPage} />
-            <UserRoute role={true} path="/myfavs" component={LikedProductPage} />
-            <UserRoute role={true} path="/myOrder" component={MyOrdersPage} />
-            <UserRoute role={true} path="/myAccount" component={AccountPage} />
-            <AdminRoute exact path="/admin" component={AdminPage} />
-            <UserRoute component={NotFound} />
-          </Switch>
-        </Suspense>
-      </div>
-      {isAdmin ? null : <Footer />}
-    </div>
+      <Suspense fallback={<Loading />}>
+        <ScrollToTop />
+        <Switch>
+          <UserRoute exact path="/" component={HomePage} />
+          <UserRoute path="/signup" component={SignUpPage} />
+          <UserRoute path="/product" component={ProductPage} />
+          <UserRoute path="/post" component={PostPage} />
+          <UserRoute path="/shopcart" component={ShopcartPage} />
+          <UserRoute path="/checkout" component={CheckOutPage} />
+          <UserRoute path="/allPost" component={AllPostPage} />
+          <UserRoute path="/allProduct" component={AllProductPage} />
+          <UserRoute role={true} path="/myfavs" component={LikedProductPage} />
+          <UserRoute role={true} path="/myOrder" component={MyOrdersPage} />
+          <UserRoute role={true} path="/myAccount" component={AccountPage} />
+          <AdminRoute exact path="/admin" component={AdminPendingOrderPage} />
+          <AdminRoute path="/admin/pendingOrder" component={AdminPendingOrderPage} />
+          <AdminRoute path="/admin/order" component={AdminOrderPage} />
+          <AdminRoute path="/admin/shippingOrder" component={AdminShippingOrderPage} />
+          <AdminRoute path="/admin/allOrder" component={AdminAllOrderPage} />
+          <AdminRoute path="/admin/promotion" component={AdminPromotionPage} />
+          <UserRoute component={NotFound} />
+        </Switch>
+      </Suspense>
+    </>
   );
 }
 

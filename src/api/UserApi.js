@@ -2,7 +2,6 @@ import axiosClient from "./AxiosClient";
 
 const UserApi = {
     login: function (data) {
-        // await new Promise(resolve => setTimeout(resolve, 3000));
         const url = '/user/login';
         return axiosClient.post(url, data);
     },

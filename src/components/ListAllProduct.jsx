@@ -12,7 +12,7 @@ ListAllProduct.propTypes = {
   coffee: PropTypes.bool.isRequired,
   other: PropTypes.bool.isRequired,
   range: PropTypes.number.isRequired,
-  products: PropTypes.object.isRequired,
+  products: PropTypes.array.isRequired,
 };
 function ListAllProduct(props) {
   const coffee = props.coffee;
@@ -120,7 +120,4 @@ function ListAllProduct(props) {
     </>
   );
 }
-
-ListAllProduct.propTypes = {};
-
 export default React.memo(ListAllProduct);
