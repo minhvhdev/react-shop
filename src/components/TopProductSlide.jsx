@@ -1,8 +1,8 @@
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -60,8 +60,8 @@ function TopProductSlide() {
             })}
           </Slider>
         ) : null}
-        <Link to="/allProduct" className="btn btn-lg btn-primary mt-5 px-5">
-          Xem tất cả sản phẩm
+        <Link href="/allProduct">
+          <a className="btn btn-lg btn-primary mt-5 px-5">Xem tất cả sản phẩm</a>
         </Link>
       </Container>
     </div>

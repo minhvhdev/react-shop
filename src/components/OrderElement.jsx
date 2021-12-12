@@ -1,7 +1,7 @@
 import { comma, formatDateTime, renderImageLink } from "lib/Helper";
 import React, { useState } from "react";
 import { FaPercentage, FaShippingFast } from "react-icons/fa";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 
 function OrderElement(props) {
   const order = props.order;
@@ -14,7 +14,7 @@ function OrderElement(props) {
     }
   };
   const total = order.orderItem.reduce((ini, item) => {
-    return ini + item.price*item.quantity;
+    return ini + item.price * item.quantity;
   }, 0);
   return (
     <div className="shadow p-3 mb-3">
@@ -55,17 +55,19 @@ function OrderElement(props) {
                 className="check-out__container border-top pt-3 mt-3"
               >
                 <div className="check-out__item cart-item__thumb">
-                  <Link to={`/product?id=` + item.product.id}>
-                    <img
-                      src={renderImageLink(item.product.mainImgLink, 1)}
-                      alt=""
-                      width="100%"
-                    />
+                  <Link href={`/product?id=` + item.product.id}>
+                    <a>
+                      <img
+                        src={renderImageLink(item.product.mainImgLink, 1)}
+                        alt=""
+                        width="100%"
+                      />
+                    </a>
                   </Link>
                 </div>
                 <div className="check-out__item">
-                  <Link to={`/product?id=` + item.product.id}>
-                    {item.product.name}
+                  <Link href={`/product?id=` + item.product.id}>
+                    <a>{item.product.name}</a>
                   </Link>
                   <p>{item.type}</p>
                   <p>SL:{item.quantity}</p>

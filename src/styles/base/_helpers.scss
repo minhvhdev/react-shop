@@ -6,30 +6,32 @@
     color: inherit;
     text-decoration: none;
 }
+
 .text--link {
     color: $primary;
     text-decoration: underline;
-    cursor:pointer;
-    &:hover{
-        color:#00683a;
+    cursor: pointer;
+    &:hover {
+        color: #00683a;
     }
 }
 
 .cursor--pointer {
     cursor: pointer;
 }
+
 .cursor--auto {
     cursor: auto !important;
 }
+
 @for $i from 1 through 12 {
     .fs--#{$i} {
         font-size: pxToRem(36-$i*2);
     }
-
     .fw--#{$i} {
         font-weight: $i*100;
     }
-    .min-line--#{$i}{
+    .min-line--#{$i} {
         line-height: 1.5em;
         min-height: $i*1.5*1em;
     }
@@ -73,7 +75,6 @@
         visibility: hidden;
         opacity: 0;
     }
-
     to {
         visibility: visible;
         opacity: 1;
@@ -85,7 +86,6 @@
         visibility: visible;
         opacity: 1;
     }
-
     to {
         visibility: hidden;
         opacity: 0;
@@ -104,9 +104,20 @@
     width: 100%;
     vertical-align: middle;
 }
-.btn-cycle{
+
+.btn-cycle {
     width: 2.5em;
     height: 2.5em;
     border-radius: 50%;
     padding-bottom: 0.1em !important;
+}
+
+.back-drop {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.308);
+    z-index: 2000;
 }

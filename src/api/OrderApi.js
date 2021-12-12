@@ -1,15 +1,15 @@
-import axiosClient from "./AxiosClient";
+import axiosClient from './AxiosClient';
 
 const OrderApi = {
-    checkPromotion: function (params) {
+    checkPromotion: function(params) {
         const url = '/order/checkPromotion';
         return axiosClient.get(url, { params });
     },
-    createOrder: function (data) {
+    createOrder: function(data) {
         const url = '/order/createOrder';
         return axiosClient.post(url, data);
     },
-    checkShippingFee: function (districtID) {
+    checkShippingFee: function(districtID) {
         const axios = require('axios');
         const config = {
             method: 'get',

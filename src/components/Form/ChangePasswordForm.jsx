@@ -1,6 +1,6 @@
 import UserApi from "api/UserApi";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React, { useState } from "react";
 import { Button, Col, Form as BForm, Row } from "react-bootstrap";
 import * as Yup from "yup";

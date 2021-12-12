@@ -4,18 +4,13 @@ import { login } from "app/slice/userSlice";
 import store from "app/store";
 import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React, { useState } from "react";
-import {
-  Button,
-  Col, Form as BForm,
-  Modal,
-  Row
-} from "react-bootstrap";
+import { Button, Col, Form as BForm, Modal, Row } from "react-bootstrap";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { GrFacebookOption } from "react-icons/gr";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 import * as Yup from "yup";
 import VerifyForm from "./VerifyForm";
 
@@ -57,8 +52,9 @@ const SignUpForm = (props) => {
           .then((res) => {
             setStatus("verify");
             UserApi.sendVerify().then((jwtCode) => {
-              //@ts-ignore
-              sessionStorage.setItem("_jwtCode", jwtCode);
+              if (typeof window !== "undefined") {
+                sessionStorage.setItem("_jwtCode", jwtCode);
+              }
             });
             if (shopcart.length !== 0) {
               ShopcartApi.asyncCart(shopcart);
@@ -167,8 +163,10 @@ const SignUpForm = (props) => {
                       label={
                         <span>
                           Tôi đã đọc và đồng ý với{" "}
-                          <Link to="/policy">chính sách</Link> của Cà phê Thơ
-                          Dũng
+                          <Link href="/policy">
+                            <a>chính sách</a>
+                          </Link>{" "}
+                          của Cà phê Thơ Dũng
                         </span>
                       }
                     />

@@ -6,7 +6,7 @@ import Timer from "components/Timer";
 import { NOTI } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { validateEmail } from "lib/Helper";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Button, Form as BForm } from "react-bootstrap";

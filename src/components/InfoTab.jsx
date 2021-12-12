@@ -3,14 +3,9 @@ import { updateEmail, updateInfo } from "app/slice/userSlice";
 import store from "app/store";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { validateEmail } from "lib/Helper";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Col, Form as BForm,
-  Modal,
-  Row
-} from "react-bootstrap";
+import { Button, Col, Form as BForm, Modal, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import DatePickerForm from "./Form/DatePickerForm";
@@ -28,20 +23,21 @@ const InfoTab = (props) => {
   const handleShowVerify = () => {
     setVerify(true);
     UserApi.sendVerify().then((jwtCode) => {
-      //@ts-ignore
-      sessionStorage.setItem("_jwtCode", jwtCode);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("_jwtCode", jwtCode);
+      }
     });
   };
   const handleCloseVerify = () => {
     setVerify(false);
   };
   const handleChangeEmail = (evt) => {
-    const value =evt.target.value;
+    const value = evt.target.value;
     setEmail(value);
-    if(value===serverInfo.email){
-      setChange(false)
-    }else{
-      setChange(true)
+    if (value === serverInfo.email) {
+      setChange(false);
+    } else {
+      setChange(true);
     }
   };
   const handleUpdateEmail = () => {
@@ -114,9 +110,7 @@ const InfoTab = (props) => {
                 </Button>
               )}
               <Button
-                variant={`primary w-100 ${
-                  !change ? "disabled" : null
-                } `}
+                variant={`primary w-100 ${!change ? "disabled" : null} `}
                 onClick={handleUpdateEmail}
               >
                 Thay đổi
@@ -177,7 +171,10 @@ const InfoTab = (props) => {
               </BForm.Group>
               <BForm.Group className="mb-3" controlId="fullName">
                 <BForm.Label>Ngày sinh:</BForm.Label>
-                <DatePickerForm name="dob" placeholder="Nhập ngày sinh (dd/MM/YYYY)" />
+                <DatePickerForm
+                  name="dob"
+                  placeholder="Nhập ngày sinh (dd/MM/YYYY)"
+                />
               </BForm.Group>
               <BForm.Group className="mb-3" controlId="fullName">
                 <BForm.Label>Số điện thoại:</BForm.Label>

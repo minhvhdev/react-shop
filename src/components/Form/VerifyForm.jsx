@@ -4,12 +4,10 @@ import store from "app/store";
 import Message from "components/Message";
 import Timer from "components/Timer";
 import { NOTI } from "constants/index";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import {
-  Button, Form as BForm
-} from "react-bootstrap";
+import { Button, Form as BForm } from "react-bootstrap";
 //@ts-ignore
 import { store as noti } from "react-notifications-component";
 
@@ -24,8 +22,9 @@ function VerifyForm(props) {
   const handleReSend = () => {
     setTimeOut(false);
     UserApi.sendVerify().then((jwtCode) => {
-      //@ts-ignore
-      sessionStorage.setItem("_jwtCode", jwtCode);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("_jwtCode", jwtCode);
+      }
     });
   };
   const handleSubmit = () => {
@@ -33,11 +32,13 @@ function VerifyForm(props) {
     if (code === "") {
       setStatus("null");
     }
-    const jwtCode = sessionStorage.getItem("_jwtCode");
+    let jwtCode = "";
+    if (typeof window !== "undefined") {
+      jwtCode = sessionStorage.getItem("_jwtCode");
+    }
     UserApi.verify({ code, jwtCode })
       .then(() => {
         store.dispatch(verifySuccess());
-        sessionStorage.removeItem("_jwtCode");
         noti.addNotification({
           ...NOTI,
           message: <Message type="success" mess="Xác thực thành công" />,

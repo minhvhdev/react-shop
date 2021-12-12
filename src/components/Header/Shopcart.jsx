@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { AiFillShopping } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 
 function Shopcart() {
   // @ts-ignore
@@ -20,10 +20,12 @@ function Shopcart() {
   }, [shopcart]);
   return (
     <Nav id="shopcart">
-      <Link to="/shopcart" className="ms-2 position-relative nav-link">
-        Giỏ hàng
-        <AiFillShopping className="icon fs--1" />
-        <span className="shopcart__item">{numItem}</span>
+      <Link href="/shopcart">
+        <a className="ms-2 position-relative nav-link">
+          Giỏ hàng
+          <AiFillShopping className="icon fs--1" />
+          <span className="shopcart__item">{numItem}</span>
+        </a>
       </Link>
     </Nav>
   );

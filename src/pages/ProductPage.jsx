@@ -6,9 +6,9 @@ import ReactMarkdown from "react-markdown";
 import React, { useState } from "react";
 import { Breadcrumb, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Loading from "./layout/Loading";
-import NotFound from "./layout/NotFound";
+import Link from "next/link";
+import Loading from "../layout/Loading";
+import NotFound from "../layout/NotFound";
 
 function ProductPage(props) {
   const [key, setKey] = useState("description");
@@ -29,10 +29,10 @@ function ProductPage(props) {
         <Container>
           <Breadcrumb className="fs--11 mt-3">
             <li className="breadcrumb-item">
-              <Link to="/">Trang chủ</Link>
+              <Link href="/"><a>Trang chủ</a></Link>
             </li>
             <li className="breadcrumb-item">
-              <Link to="/allProduct">Tất cả sản phẩm</Link>
+              <Link href="/allProduct"><a>Tất cả sản phẩm</a></Link>
             </li>
             <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
           </Breadcrumb>

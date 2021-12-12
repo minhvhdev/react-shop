@@ -1,4 +1,3 @@
-import { iSlide1, iSlide2, iSlide3 } from 'assets/img/index';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import Slider from 'react-slick';
@@ -13,13 +12,13 @@ function BannerSlide() {
                 autoplaySpeed={4000}
             >
                 <div className="image-wrapper">
-                    <img src={iSlide1} className="d-block w-100" alt="slide1" />
+                    <img src="/statics/img/iSlide1.jpg" className="d-block w-100" alt="slide1" />
                 </div>
                 {/* <div className="image-wrapper">
                     <img src={iSlide2} className="d-block w-100" alt="slide1" />
                 </div> */}
                 <div className="image-wrapper">
-                    <img src={iSlide3} className="d-block w-100" alt="slide1" />
+                    <img src="/statics/img/iSlide3.jpg" className="d-block w-100" alt="slide1" />
                 </div>
             </Slider>
         </Col>

@@ -3,8 +3,8 @@ import queryString from "query-string";
 import ReactMarkdown from "react-markdown";
 import { useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
-import Loading from "./layout/Loading";
-import NotFound from "./layout/NotFound";
+import Loading from "../layout/Loading";
+import NotFound from "../layout/NotFound";
 import { formatDateTime, renderImageLink } from "lib/Helper";
 import {
   AiOutlineClockCircle,

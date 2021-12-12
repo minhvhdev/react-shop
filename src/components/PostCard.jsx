@@ -3,16 +3,21 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Card } from "react-bootstrap";
 import { BsClock, BsEye } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 function PostCard(props) {
   const post = props.post;
   return (
     <Card>
-      <Link to={"/post?id=" + post.id}>
-        <div className="image-wrapper">
-          <img alt="Cà phê Thơ Dũng" src={renderImageLink(post.mainImgLink, 3)} />
-        </div>
+      <Link href={"/post?id=" + post.id}>
+        <a>
+          <div className="image-wrapper">
+            <img
+              alt="Cà phê Thơ Dũng"
+              src={renderImageLink(post.mainImgLink, 3)}
+            />
+          </div>
+        </a>
       </Link>
       <Link className="text-decoration-none " to={"post?id=" + post.id}>
         <Card.Body>

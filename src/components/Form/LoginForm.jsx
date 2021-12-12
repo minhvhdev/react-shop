@@ -7,26 +7,27 @@ import store from "app/store";
 import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { asyncShopcart } from "lib/Helper";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React, { useEffect, useState } from "react";
 import { Button, Form as BForm, Modal } from "react-bootstrap";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { GrFacebookOption } from "react-icons/gr";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as Yup from "yup";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 
 const LoginForm = (props) => {
   const handleClose = props.handleClose;
   const handleShowSignup = props.handleShowSignup;
-  const history = useHistory();
   const handleForgetPassword = () => {
     setStatus("forget");
   };
   const [status, setStatus] = useState("idle");
   const redirect = () => {
-    localStorage.setItem("_pathname", window.location.pathname);
-    localStorage.setItem("_search", window.location.search);
+    const isClient = typeof window !== "undefined";
+    if (isClient) {
+      localStorage.setItem("_pathname", window.location.pathname);
+      localStorage.setItem("_search", window.location.search);
+    }
   };
   return (
     <>
@@ -59,21 +60,17 @@ const LoginForm = (props) => {
                     store.dispatch(login(res));
                     // @ts-ignore
                     if (res.role === "ROLE_ADMIN") {
-                      history.push("/#admin/pendingOrder");
+                      // history.push("/#admin/pendingOrder");
                     }
-                    const localCart =
-                      JSON.parse(localStorage.getItem("_shopcart")) || [];
+                    const localCart =[];
                     //@ts-ignore
-                    const serverCart = res.shopcart;
-                    const shopcart = asyncShopcart(localCart, serverCart);
+                    const serverCart = res.shopCart;
+                    const shopCart = asyncShopcart(localCart, serverCart);
                     //@ts-ignore
                     const address = res.address;
-                    //@ts-ignore
-                    localStorage.setItem("_address", JSON.stringify(address));
-                    localStorage.setItem("_shopcart", JSON.stringify(shopcart));
-                    store.dispatch(asyncCart(shopcart));
+                    store.dispatch(asyncCart(shopCart));
                     store.dispatch(asyncAddress(address));
-                    ShopcartApi.asyncCart(shopcart);
+                    ShopcartApi.asyncCart(shopCart);
                     handleClose();
                     setStatus("idle");
                   })

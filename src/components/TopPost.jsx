@@ -1,8 +1,8 @@
 import { renderImageLink } from "lib/Helper";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 function TopPost() {
   // @ts-ignore
@@ -34,9 +34,11 @@ function TopPost() {
             );
           })
         ) : null}
-        <Link to="/AllPost" className="d-inline-block fs--10 fw--7 mt-2">
-          Xem tất cả bài viết
-          <i className="icon-arrow-right vertical-align--bottom"></i>
+        <Link href="/tat-ca-bai-viet">
+          <a className="d-inline-block fs--10 fw--7 mt-2">
+            Xem tất cả bài viết
+            <i className="icon-arrow-right vertical-align--bottom"></i>
+          </a>
         </Link>
       </div>
       <i className="icon-coffee text-center my-3"></i>

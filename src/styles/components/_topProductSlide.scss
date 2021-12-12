@@ -6,7 +6,7 @@
         width: 35px;
         height: 35px;
         z-index: 100;
-        &::before{
+        &::before {
             font-size: 35px;
             color: $primary;
         }
@@ -14,5 +14,5 @@
     .slick-dots li button:before {
         color: white;
     }
-    background-image: url(/assets/img/bgCoffee.jpg);
+    background-image: url(/statics/img/bgCoffee.jpg);
 }

@@ -1,8 +1,8 @@
 import AddressApi from "api/AddressApi";
 import { removeAddress, saveAddress, setDefault } from "app/slice/addressSlice";
 import store from "app/store";
-import Loading from "pages/layout/Loading";
-import NullPage from "pages/layout/NullPage";
+import Loading from "layout/Loading";
+import NullPage from "layout/NullPage";
 import React, { createRef, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { GoLocation, GoPlus, GoTrashcan } from "react-icons/go";

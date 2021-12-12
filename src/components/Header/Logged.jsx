@@ -6,7 +6,7 @@ import store from "app/store";
 import React from "react";
 import { Accordion, Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const handleLogoutClick = () => {
   store.dispatch(logout());
@@ -33,25 +33,27 @@ export function LoggedNav(props) {
         </span>
         <ul className="dropdown-menu dropdown-menu-dark fw-4">
           <li>
-            <Link className="dropdown-item" to="/myAccount">
-              Tài khoản
+            <Link className="dropdown-item" href="/myAccount">
+              <a>Tài khoản</a>
             </Link>
           </li>
           <li>
-            <Link className="dropdown-item" to="/myfavs">
-              Sản phẩm yêu thích
+            <Link className="dropdown-item" href="/myfavs">
+              <a>Sản phẩm yêu thích</a>
             </Link>
           </li>
           <li>
-            <Link className="dropdown-item" to="/myOrder">
-              Đơn hàng của tôi
+            <Link className="dropdown-item" href="/myOrder">
+              <a>Đơn hàng của tôi</a>
             </Link>
           </li>
-          <li>
-            <Link className="dropdown-item" to="/admin">
-              Trang quản trị
-            </Link>
-          </li>
+          {logged.data.role === "ROLE_ADMIN" ? (
+            <li>
+              <Link className="dropdown-item" href="/admin">
+                <a>Trang quản trị</a>
+              </Link>
+            </li>
+          ) : null}
           <li
             className="dropdown-item cursor--pointer"
             onClick={handleLogoutClick}
@@ -86,13 +88,13 @@ export function LoggedOffcanvas(props) {
           <Accordion.Body>
             <ul className="collapse__menu fs--8 fw--3">
               <li onClick={handleClose}>
-                <Link to="/myAccount">Tài khoản</Link>
+                <Link href="/myAccount"><a>Tài khoản</a></Link>
               </li>
               <li onClick={handleClose}>
-                <Link to="/myfavs">Sản phẩm yêu thích</Link>
+                <Link href="/myfavs"><a>Sản phẩm yêu thích</a></Link>
               </li>
               <li onClick={handleClose}>
-                <Link to="/myOrder">Đơn hàng của tôi</Link>
+                <Link href="/myOrder"><a>Đơn hàng của tôi</a></Link>
               </li>
               <li onClick={handleClose}>
                 <span className="a cursor--pointer" onClick={handleLogoutClick}>

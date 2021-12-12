@@ -1,26 +1,22 @@
 .post-page {
     &__bg {
-        background: url(/assets/img/bgPost.jpg) no-repeat;
+        background: url(/statics/img/bgPost.jpg) no-repeat;
         background-attachment: fixed;
     }
-
     &__container {
         background: #fff;
         max-width: 800px;
         box-shadow: $box-shadow;
         padding: 20px 20px;
     }
-
     &__info {
         position: relative;
         margin-bottom: 16px;
-
         span {
             display: inline-block;
             color: $text-muted;
             margin-right: 10px;
         }
-
         a {
             position: absolute;
             right: 0;
@@ -30,24 +26,20 @@
             font-size: 30px;
         }
     }
-
     &__content {
         &--main-img {
             @include ratioImage(60);
         }
-
         img {
             max-width: 100%;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
-
         em {
             display: block;
             text-align: center;
-            font-size:16px;
+            font-size: 16px;
         }
     }
-
 }

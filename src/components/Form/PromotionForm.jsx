@@ -3,7 +3,7 @@ import { addPromotion, removePromotion } from "app/slice/orderSlice";
 import store from "app/store";
 import Message from "components/Message";
 import { NOTI } from "constants/index";
-import Loading from "pages/layout/Loading";
+import Loading from "layout/Loading";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";

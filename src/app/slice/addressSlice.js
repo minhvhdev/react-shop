@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import AddressApi from 'api/AddressApi';
 
-export const socialAsyncAddress = createAsyncThunk('user/async', async () => {
-    const address = await AddressApi.socialAsyncAddress();
-    localStorage.setItem("_address", JSON.stringify(address));
-    return address;
+export const socialAsyncAddress = createAsyncThunk('user/async', async() => {
+    return null;
 });
 const save = (arr, address) => {
     let isUpdate = false;
@@ -42,7 +39,7 @@ const addressDefault = (arr, id) => {
     const len = arr.length;
     for (let i = 0; i < len; i++) {
         const element = arr[i];
-        if(element.mainAddress){
+        if (element.mainAddress) {
             element.mainAddress = false;
         }
         if (element.id === +id) {
@@ -53,22 +50,19 @@ const addressDefault = (arr, id) => {
 }
 const addressSlice = createSlice({
     name: 'address',
-    initialState: { status: 'idle', data: JSON.parse(localStorage.getItem("_address")), error: {} },
+    initialState: { status: 'idle', data: [], error: {} },
     reducers: {
         saveAddress: (state, action) => {
             const arr = save(state.data || [], action.payload);
             state.data = arr;
-            localStorage.setItem("_address", JSON.stringify(arr));
         },
         removeAddress: (state, action) => {
             const arr = remove(state.data || [], action.payload);
             state.data = arr;
-            localStorage.setItem("_address", JSON.stringify(arr));
         },
         setDefault: (state, action) => {
             const arr = addressDefault(state.data, action.payload);
             state.data = arr;
-            localStorage.setItem("_address", JSON.stringify(arr));
         },
         asyncAddress: (state, action) => {
             state.data = action.payload;
@@ -84,5 +78,5 @@ const addressSlice = createSlice({
     },
 })
 const { reducer, actions } = addressSlice;
-export const { saveAddress, removeAddress, asyncAddress, resetAddress,setDefault } = actions;
+export const { saveAddress, removeAddress, asyncAddress, resetAddress, setDefault } = actions;
 export default reducer;

@@ -10,7 +10,7 @@ import { GoTrashcan } from "react-icons/go";
 // @ts-ignore
 import { store as noti } from "react-notifications-component";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 
 function AllCartItem(props, refs) {
   //@ts-ignore
@@ -73,21 +73,22 @@ function AllCartItem(props, refs) {
                       <GoTrashcan />
                     </Button>
                     <div className="cart-item__item cart-item__thumb">
-                      <Link to={"/product?id=" + item.product.id}>
-                        <img
-                          src={renderImageLink(item.product.mainImgLink, 1)}
-                          alt=""
-                          width="100%"
-                        />
+                      <Link href={"/product?id=" + item.product.id}>
+                        <a>
+                          <img
+                            src={renderImageLink(item.product.mainImgLink, 1)}
+                            alt=""
+                            width="100%"
+                          />
+                        </a>
                       </Link>
                     </div>
                     <div className="cart-item__item">
                       <div>
-                        <Link
-                          className="link--text"
-                          to={"/product?id=" + item.product.id}
+                        <Link                          
+                          href={"/product?id=" + item.product.id}
                         >
-                          {item.product.name}
+                          <a className="link--text">{item.product.name}</a>
                         </Link>
                         <p>{comma(price)}₫</p>
                         <p>{item.type}</p>

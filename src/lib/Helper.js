@@ -24,23 +24,29 @@ export function noComma(number) {
 }
 
 export function setWithExpiry(key, value, ttl = 1) {
-    const item = {
-        value: value,
-        expiry: new Date().getTime() + ttl * 86400000,
+    const isClient = typeof window !== "undefined";
+    if (isClient) {
+        const item = {
+            value: value,
+            expiry: new Date().getTime() + ttl * 86400000,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
     }
-    localStorage.setItem(key, JSON.stringify(item))
 }
 export function getWithExpiry(key, isArray = true) {
-    const itemStr = localStorage.getItem(key)
-    if (!itemStr) {
-        return null
+    const isClient = typeof window !== "undefined";
+    if (isClient) {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) {
+            return null
+        }
+        const item = JSON.parse(itemStr)
+        if (new Date().getTime() > item.expiry) {
+            localStorage.removeItem(key)
+            return null
+        }
+        return item.value
     }
-    const item = JSON.parse(itemStr)
-    if (new Date().getTime() > item.expiry) {
-        localStorage.removeItem(key)
-        return null
-    }
-    return item.value
 }
 
 export function renderImageLink(data, type) {
@@ -83,7 +89,7 @@ export function formatDateTime(date, isTime = true) {
     }
 }
 export function sortJSON(arr = [], prop = "", asc = true) {
-    arr.sort(function (a, b) {
+    arr.sort(function(a, b) {
         if (asc) {
             return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
         } else {

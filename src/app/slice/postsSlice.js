@@ -1,21 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import PostApi from 'api/PostApi';
-import { getWithExpiry, setWithExpiry } from 'lib/Helper';
-
+import { getWithExpiry, setWithExpiry } from '../../lib/Helper';
 export const fetchAllPost = createAsyncThunk(
     'posts/fetchAll',
     // @ts-ignore
-    async (params, thunkAPI) => {
-        const response = await PostApi.getAll()
-        return response
+    async(params, thunkAPI) => {
+        return []
     }
 );
 const postsSlice = createSlice({
     name: 'posts',
     initialState: { status: 'idle', data: getWithExpiry("_posts") || [], error: {} },
     // initialState: { status: 'idle', data: [], error: {} },
-    reducers: {
-    },
+    reducers: {},
     extraReducers: {
         [fetchAllPost.pending.type]: (state, action) => {
             state.status = 'loading';

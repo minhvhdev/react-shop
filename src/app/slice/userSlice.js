@@ -12,7 +12,6 @@ const userSlice = createSlice({
     reducers: {
         logout: (state) => {
             cookies.remove('_token', { path: '/' });
-            localStorage.removeItem('_address');
             state.data = null;
         },
         login: (state, action) => {
@@ -28,17 +27,17 @@ const userSlice = createSlice({
             state.data = token;
             cookies.set("_token", token, { path: "/", maxAge: 3153600000 });
 
-        }
-        , verifySuccess: (state) => {
+        },
+        verifySuccess: (state) => {
             state.data.emailVerify = true;
             cookies.set("_token", state.data, { path: "/", maxAge: 3153600000 });
-        }
-        , updateInfo: (state, action) => {
+        },
+        updateInfo: (state, action) => {
             state.data.phone = action.payload.phone;
             state.data.fullName = action.payload.fullName;
             cookies.set("_token", state.data, { path: "/", maxAge: 3153600000 });
-        }
-        , updateEmail: (state) => {
+        },
+        updateEmail: (state) => {
             state.data.emailVerify = false;
             cookies.set("_token", state.data, { path: "/", maxAge: 3153600000 });
         }
@@ -46,5 +45,5 @@ const userSlice = createSlice({
     },
 })
 const { reducer, actions } = userSlice;
-export const { logout, login, verifySuccess, updateInfo,updateEmail} = actions;
+export const { logout, login, verifySuccess, updateInfo, updateEmail } = actions;
 export default reducer;
