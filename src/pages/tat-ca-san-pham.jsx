@@ -1,35 +1,43 @@
 import ListAllProduct from "components/ListAllProduct";
 import { comma } from "lib/Helper";
-import queryString from "query-string";
 import React, { useEffect, useState } from "react";
-import { Accordion, Breadcrumb, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Accordion,
+  Breadcrumb,
+  Col,
+  Container,
+  Form,
+  Row,
+} from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import NullPage from "../layout/NullPage";
-function AllProductPage(props) {
-  const param = queryString.parse(props.location.search);
-  // @ts-ignore
-  const products = useSelector((state) => state.products).data;
+import { useRouter } from "next/router";
+import ProductApi from "api/ProductApi";
+function AllProductPage({products}) {
+  const router = useRouter();
+  const { type } = router.query;
   const [range, setRange] = useState(300000);
-  const [coffee, setCoffee] = useState(param.type === "0" ? false : true);
-  const [other, setOther] = useState(param.type === "1" ? false : true);
+  const [coffee, setCoffee] = useState(type === "0" ? false : true);
+  const [other, setOther] = useState(type === "1" ? false : true);
   const handleRange = (evt) => {
     setRange(evt.target.value);
   };
   const handleChangeCoffee = (evt) => {
     setCoffee(evt.target.checked);
-    console.log(coffee);
   };
   const handleChangeOther = (evt) => setOther(evt.target.checked);
   useEffect(() => {
-    setCoffee(param.type === "0" ? false : true);
-    setOther(param.type === "1" ? false : true);
-  }, [param.type]);
+    setCoffee(type === "0" ? false : true);
+    setOther(type === "1" ? false : true);
+  }, [type]);
   return (
     <Container>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
-          <Link href="/"><a>Trang chủ</a></Link>
+          <Link href="/">
+            <a>Trang chủ</a>
+          </Link>
         </li>
         <Breadcrumb.Item active>Tất cả sản phẩm</Breadcrumb.Item>
       </Breadcrumb>
@@ -151,4 +159,12 @@ function AllProductPage(props) {
   );
 }
 
+export async function getStaticProps(){
+  const products = await ProductApi.getAll();
+  return {
+    props:{
+      products
+    }
+  }
+}
 export default React.memo(AllProductPage);

@@ -1,21 +1,18 @@
+import PostApi from "api/PostApi";
 import PostCard from "components/PostCard";
-import { sortJSON } from "lib/Helper";
 import Loading from "layout/Loading";
 import NullPage from "layout/NullPage";
+import { sortJSON } from "lib/Helper";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
-import { useSelector } from "react-redux";
-import Link from "next/link";
 
-ListAllPost.propTypes = {};
-function ListAllPost(props) {
-  // @ts-ignore
-  const posts = useSelector((state) => state.posts);
+function ListAllPost({posts}) {
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
-  const perPage = 12;
+  const perPage = 2;
   const [pageCount, setPageCount] = useState(0);
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -36,9 +33,9 @@ function ListAllPost(props) {
     }
   };
   useEffect(() => {
-    setList([...posts.data]);
-    setPageCount(Math.ceil(posts.data.length / perPage));
-  }, [posts.data]);
+    setList([...posts]);
+    setPageCount(Math.ceil(posts.length / perPage));
+  }, [posts]);
   return (
     <Container>
       <Breadcrumb className="fs--11 mt-3">
@@ -72,9 +69,7 @@ function ListAllPost(props) {
             </div>
           </div>
           <Row className="position-relative">
-            {posts.status === "loading" ? (
-              <Loading type="inline" />
-            ) : list.length > 0 ? (
+            {list.length > 0 ? (
               <>
                 {list.slice(offset, offset + perPage).map((post, i) => {
                   return (
@@ -113,4 +108,10 @@ function ListAllPost(props) {
   );
 }
 
+export async function getStaticProps() {
+  const posts = await PostApi.getAll();
+  return {
+    props: { posts },
+  }
+}
 export default React.memo(ListAllPost);

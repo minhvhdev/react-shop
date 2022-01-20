@@ -22,9 +22,7 @@ function VerifyForm(props) {
   const handleReSend = () => {
     setTimeOut(false);
     UserApi.sendVerify().then((jwtCode) => {
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("_jwtCode", jwtCode);
-      }
+      sessionStorage.setItem("_jwtCode", jwtCode);
     });
   };
   const handleSubmit = () => {
@@ -33,9 +31,7 @@ function VerifyForm(props) {
       setStatus("null");
     }
     let jwtCode = "";
-    if (typeof window !== "undefined") {
-      jwtCode = sessionStorage.getItem("_jwtCode");
-    }
+    jwtCode = sessionStorage.getItem("_jwtCode");
     UserApi.verify({ code, jwtCode })
       .then(() => {
         store.dispatch(verifySuccess());

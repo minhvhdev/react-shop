@@ -47,7 +47,7 @@ function Header() {
               <a className="me-3 nav-link">Bài viết</a>
             </Link>
             <div className="dropdown">
-              <Link href="/allProduct">
+              <Link href="/tat-ca-san-pham">
                 <a className="nav-link dropdown-toggle">Sản phẩm</a>
               </Link>
               <ul
@@ -55,12 +55,12 @@ function Header() {
                 aria-labelledby=""
               >
                 <li>
-                  <Link href="/allProduct?type=1">
+                  <Link href="/tat-ca-san-pham?type=1">
                     <a className="dropdown-item">Cà phê</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/allProduct?type=0">
+                  <Link href="/tat-ca-san-pham?type=0">
                     <a className="dropdown-item">Đặc sản khác</a>
                   </Link>
                 </li>

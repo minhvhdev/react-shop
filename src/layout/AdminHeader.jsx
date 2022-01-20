@@ -10,7 +10,7 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 import { AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Link from "next/link";
 
 function AdminHeader() {
   const [show, setShow] = useState(false);
@@ -24,25 +24,26 @@ function AdminHeader() {
     <>
       <Navbar id="header" bg="dark" variant="dark">
         <Container fluid="xl">
-          <Nav className="d-block d-md-none">
+          {/* <Nav className="d-block d-md-none">
             <Nav.Link onClick={handleShow}>
               <AiOutlineMenu
                 style={{ verticalAlign: "text-top" }}
                 className="icon fs--3"
               />
             </Nav.Link>
-          </Nav>
-          <Nav className="d-none d-md-flex">
-            <Link replace 
-              className={`me-5 nav-link admin__nav--link ${
-                tab === 1 ? "active" : ""
-              }`}
-              to="/admin/pendingOrder"
-              onClick={() => setTab(1)}
-            >
-              ĐƠN ĐẶT HÀNG
+          </Nav> */}
+          <Nav className="d-flex">
+            <Link href="/admin/pendingOrder" onClick={() => setTab(1)}>
+              <a
+                className={`me-5 nav-link admin__nav--link ${
+                  tab === 1 ? "active" : ""
+                }`}
+              >
+                ĐƠN ĐẶT HÀNG
+              </a>
             </Link>
-            <Link replace 
+            {/* <Link
+              replace
               className={`me-5 nav-link admin__nav--link ${
                 tab === 2 ? "active" : ""
               }`}
@@ -51,7 +52,8 @@ function AdminHeader() {
             >
               ĐƠN ĐANG GIAO
             </Link>
-            <Link replace 
+            <Link
+              replace
               className={`me-5 nav-link admin__nav--link ${
                 tab === 3 ? "active" : ""
               }`}
@@ -60,7 +62,8 @@ function AdminHeader() {
             >
               LỊCH SỬ
             </Link>
-            <Link replace 
+            <Link
+              replace
               className={`nav-link admin__nav--link ${
                 tab === 4 ? "active" : ""
               }`}
@@ -68,7 +71,7 @@ function AdminHeader() {
               onClick={() => setTab(4)}
             >
               MÃ GIẢM GIÁ
-            </Link>
+            </Link> */}
           </Nav>
           <Nav className="ms-auto">
             <Button variant="outline-danger" onClick={handleLogout}>
@@ -77,7 +80,7 @@ function AdminHeader() {
           </Nav>
         </Container>
       </Navbar>
-      <Offcanvas
+      {/* <Offcanvas
         onHide={handleClose}
         placement="start"
         id="offcanvas"
@@ -93,18 +96,19 @@ function AdminHeader() {
         <Offcanvas.Body>
           <ul className="nav flex-column fs--8">
             <li onClick={handleClose} className="nav-item">
-              <Link replace 
-                className={`nav-link admin__nav--link ${
-                  tab === 1 ? "active" : ""
-                }`}
-                to="/admin/pendingOrder"
-                onClick={() => setTab(1)}
-              >
-                Đơn đặt hàng
+              <Link href="/admin/pendingOrder" onClick={() => setTab(1)}>
+                <a
+                  className={`me-5 nav-link admin__nav--link ${
+                    tab === 1 ? "active" : ""
+                  }`}
+                >
+                  ĐƠN ĐẶT HÀNG
+                </a>
               </Link>
             </li>
             <li onClick={handleClose} className="nav-item">
-              <Link replace 
+              <Link
+                replace
                 className={`nav-link admin__nav--link ${
                   tab === 2 ? "active" : ""
                 }`}
@@ -115,7 +119,8 @@ function AdminHeader() {
               </Link>
             </li>
             <li onClick={handleClose} className="nav-item">
-              <Link replace 
+              <Link
+                replace
                 className={`nav-link admin__nav--link ${
                   tab === 3 ? "active" : ""
                 }`}
@@ -126,7 +131,8 @@ function AdminHeader() {
               </Link>
             </li>
             <li onClick={handleClose} className="nav-item">
-              <Link replace 
+              <Link
+                replace
                 className={`nav-link admin__nav--link ${
                   tab === 4 ? "active" : ""
                 }`}
@@ -139,7 +145,7 @@ function AdminHeader() {
             <li className="pb-3 collapse-group"></li>
           </ul>
         </Offcanvas.Body>
-      </Offcanvas>
+      </Offcanvas> */}
     </>
   );
 }

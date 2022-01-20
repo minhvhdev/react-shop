@@ -14,11 +14,7 @@ ListAllProduct.propTypes = {
   range: PropTypes.number.isRequired,
   products: PropTypes.array.isRequired,
 };
-function ListAllProduct(props) {
-  const coffee = props.coffee;
-  const other = props.other;
-  const range = props.range;
-  const products = props.products;
+function ListAllProduct({products, range, other, coffee}) {
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const perPage = 12;
@@ -39,13 +35,13 @@ function ListAllProduct(props) {
   useEffect(() => {
     let a = [];
     if (coffee && other) {
-      a = [...products];
+      a = products;
     } else if (coffee) {
-      a = [...products].filter((item) => {
+      a = products.filter((item) => {
         return item.coffee === true;
       });
     } else {
-      a = [...products].filter((item) => {
+      a = products.filter((item) => {
         return item.coffee === false;
       });
     }
@@ -76,9 +72,7 @@ function ListAllProduct(props) {
         </select>
       </div>
       <Row>
-        {products.status === "loading" ? (
-          <Loading type="inline" />
-        ) : list.length > 0 ? (
+        {list.length > 0 ? (
           <>
             {list.slice(offset, offset + perPage).map((product, i) => {
               return (

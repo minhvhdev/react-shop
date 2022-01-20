@@ -18,14 +18,11 @@ const InfoTab = (props) => {
   const [serverInfo, setServerInfo] = useState({ dob: null, email: null });
   const [email, setEmail] = useState("");
   const [change, setChange] = useState(false);
-  //@ts-ignore
   const info = useSelector((state) => state.logged).data;
   const handleShowVerify = () => {
     setVerify(true);
     UserApi.sendVerify().then((jwtCode) => {
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("_jwtCode", jwtCode);
-      }
+      sessionStorage.setItem("_jwtCode", jwtCode);
     });
   };
   const handleCloseVerify = () => {
@@ -46,7 +43,6 @@ const InfoTab = (props) => {
       if (validateEmail(email)) {
         UserApi.updateEmail({ email })
           .then(() => {
-            // @ts-ignore
             setStatus1("idle");
             serverInfo.email = email;
             setServerInfo(serverInfo);
@@ -63,9 +59,7 @@ const InfoTab = (props) => {
   };
   useEffect(() => {
     UserApi.getUserInfo().then((res) => {
-      // @ts-ignore
       setServerInfo(res);
-      // @ts-ignore
       setEmail(res.email);
     });
   }, []);
@@ -76,7 +70,7 @@ const InfoTab = (props) => {
           <div className="shadow p-3">
             <div className="d-flex">
               <div>
-                <img width="96px" src={info.avatarLink} alt="" />
+                <img width="96px" src={info?.avatarLink} alt="" />
               </div>
               <div className="ms-3 w-100">
                 <BForm.Group className="mb-3" controlId="email">
@@ -84,7 +78,7 @@ const InfoTab = (props) => {
                   <BForm.Control
                     type="text"
                     defaultValue={serverInfo.email}
-                    placeholder="Nhập tên của bạn"
+                    placeholder="Nhập email của bạn"
                     onChange={handleChangeEmail}
                   />
                   <BForm.Text className="text-danger"></BForm.Text>
@@ -101,7 +95,7 @@ const InfoTab = (props) => {
               ) : null}
             </div>
             <div className="d-flex mt-3 gap-3">
-              {info.emailVerify ? null : (
+              {info?.emailVerify ? null : (
                 <Button
                   variant="outline-primary w-100"
                   onClick={handleShowVerify}
@@ -122,9 +116,9 @@ const InfoTab = (props) => {
           <Formik
             enableReinitialize
             initialValues={{
-              fullName: info.fullName,
+              fullName: info?.fullName,
               dob: serverInfo.dob ? new Date(serverInfo.dob) : null,
-              phone: info.phone,
+              phone: info?.phone,
             }}
             validationSchema={Yup.object({
               fullName: Yup.string().required("Đây là trường bắt buộc"),

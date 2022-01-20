@@ -7,16 +7,13 @@ import Loading from "layout/Loading";
 import React, { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";
-//@ts-ignore
 import { store as noti } from "react-notifications-component";
 import { useSelector } from "react-redux";
 
 function PromotionForm(props) {
   const [code, setCode] = useState("");
   const [status, setStatus] = useState("");
-  //@ts-ignore
   const logged = useSelector((state) => state.logged);
-  //@ts-ignore
   const promotion = useSelector((state) => state.order).data.promotionCode;
   const handleChange = (evt) => setCode(evt.target.value);
   const handleCheckPromotion = () => {

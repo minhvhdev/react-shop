@@ -5,11 +5,9 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 function Shopcart() {
-  // @ts-ignore
   const shopcart = useSelector((state) => state.shopcart).data;
   const [numItem, setNumItem] = useState();
   useEffect(() => {
-    console.log();
     const len = shopcart ? shopcart.length : 0;
     const quantity = len
       ? shopcart.reduce((total, item) => {
@@ -20,7 +18,7 @@ function Shopcart() {
   }, [shopcart]);
   return (
     <Nav id="shopcart">
-      <Link href="/shopcart">
+      <Link href="/buyer/shopcart">
         <a className="ms-2 position-relative nav-link">
           Giỏ hàng
           <AiFillShopping className="icon fs--1" />

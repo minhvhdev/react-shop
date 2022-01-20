@@ -3,7 +3,7 @@ import { removeItem } from "app/slice/shopcartSlice";
 import InputNumber from "components/InputNumber";
 import Message from "components/Message";
 import { NOTI } from "constants/index";
-import { comma, renderImageLink } from "lib/Helper";
+import { comma, convertToUrl, renderImageLink } from "lib/Helper";
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { GoTrashcan } from "react-icons/go";
@@ -13,13 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
 function AllCartItem(props, refs) {
-  //@ts-ignore
   const shopcart = useSelector((state) => state.shopcart).data;
   const totalPrice = shopcart.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
   }, 0);
   const [quantity, setQuantity] = useState("[]");
   const dispatch = useDispatch();
+  const productUrl = (item) => {
+    return convertToUrl(`${item.product.name}-${item.product.id}`);
+  };
   const handleChange = (value, index) => {
     const quan = JSON.parse(quantity);
     let isExist = false;
@@ -32,7 +34,6 @@ function AllCartItem(props, refs) {
     if (!isExist) {
       quan.push({ index, value });
     }
-
     setQuantity(JSON.stringify(quan));
   };
   const handleRemove = (evt, index) => {
@@ -73,7 +74,7 @@ function AllCartItem(props, refs) {
                       <GoTrashcan />
                     </Button>
                     <div className="cart-item__item cart-item__thumb">
-                      <Link href={"/product?id=" + item.product.id}>
+                      <Link href={productUrl(item)}>
                         <a>
                           <img
                             src={renderImageLink(item.product.mainImgLink, 1)}
@@ -85,9 +86,7 @@ function AllCartItem(props, refs) {
                     </div>
                     <div className="cart-item__item">
                       <div>
-                        <Link                          
-                          href={"/product?id=" + item.product.id}
-                        >
+                        <Link href={productUrl(item)}>
                           <a className="link--text">{item.product.name}</a>
                         </Link>
                         <p>{comma(price)}₫</p>

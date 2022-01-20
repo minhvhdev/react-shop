@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 function ShopcartPage() {
-  // @ts-ignore
   const shopcart = useSelector((state) => state.shopcart).data;
   const update = useRef(null);
   const handleUpdate = () => {
@@ -54,8 +53,8 @@ function ShopcartPage() {
                 </button>
               </Col>
               <Col xs={12} className="col-ssm-6">
-                <Link href="/checkout" onClick={handleCheckOut}>
-                  <a className="btn btn-primary w-100">Thanh toán</a>
+                <Link href="/buyer/check-out">
+                  <a className="btn btn-primary w-100" onClick={handleCheckOut}>Thanh toán</a>
                 </Link>
               </Col>
             </Row>

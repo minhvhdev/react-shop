@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Breadcrumb, Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
-import { Link } from "next/link";
+import Link from "next/link";
 import Loading from "../../layout/Loading";
 import NullPage from "../../layout/NullPage";
 

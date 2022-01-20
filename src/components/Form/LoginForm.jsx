@@ -23,11 +23,8 @@ const LoginForm = (props) => {
   };
   const [status, setStatus] = useState("idle");
   const redirect = () => {
-    const isClient = typeof window !== "undefined";
-    if (isClient) {
-      localStorage.setItem("_pathname", window.location.pathname);
-      localStorage.setItem("_search", window.location.search);
-    }
+    localStorage.setItem("_pathname", window.location.pathname);
+    localStorage.setItem("_search", window.location.search);
   };
   return (
     <>
@@ -58,24 +55,25 @@ const LoginForm = (props) => {
                 UserApi.login(values)
                   .then((res) => {
                     store.dispatch(login(res));
-                    // @ts-ignore
                     if (res.role === "ROLE_ADMIN") {
                       // history.push("/#admin/pendingOrder");
                     }
-                    const localCart =[];
-                    //@ts-ignore
-                    const serverCart = res.shopCart;
-                    const shopCart = asyncShopcart(localCart, serverCart);
-                    //@ts-ignore
+                    const localCart =
+                      JSON.parse(localStorage.getItem("_shopcart")) || [];
+                    const serverCart = res.shopcart;
+                    const shopcart = asyncShopcart(localCart, serverCart);
                     const address = res.address;
-                    store.dispatch(asyncCart(shopCart));
+                    localStorage.setItem("_address", JSON.stringify(address));
+                    localStorage.setItem("_shopcart", JSON.stringify(shopcart));
+                    store.dispatch(asyncCart(shopcart));
                     store.dispatch(asyncAddress(address));
-                    ShopcartApi.asyncCart(shopCart);
+                    ShopcartApi.asyncCart(shopcart);
                     handleClose();
                     setStatus("idle");
                   })
                   .catch((res) => {
                     setStatus("wrong");
+                    console.log(res);
                   });
               }}
             >
@@ -156,18 +154,9 @@ const LoginForm = (props) => {
                 </BForm.Text>
                 <div className="d-flex gap-2">
                   <Button
-                    href={FACEBOOK_AUTH_URL}
-                    className="w-50"
-                    onClick={redirect}
-                    style={{ backgroundColor: "#285091" }}
-                  >
-                    <GrFacebookOption className="icon" />
-                    Facebook
-                  </Button>
-                  <Button
                     href={GOOGLE_AUTH_URL}
                     variant="danger"
-                    className="w-50 text-white"
+                    className="w-100 text-white"
                     onClick={redirect}
                   >
                     <AiOutlineGoogle className="icon" /> Google

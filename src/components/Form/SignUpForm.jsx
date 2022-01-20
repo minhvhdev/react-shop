@@ -52,9 +52,7 @@ const SignUpForm = (props) => {
           .then((res) => {
             setStatus("verify");
             UserApi.sendVerify().then((jwtCode) => {
-              if (typeof window !== "undefined") {
-                sessionStorage.setItem("_jwtCode", jwtCode);
-              }
+              sessionStorage.setItem("_jwtCode", jwtCode);
             });
             if (shopcart.length !== 0) {
               ShopcartApi.asyncCart(shopcart);

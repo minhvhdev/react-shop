@@ -4,21 +4,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
-function TopPost() {
-  // @ts-ignore
-  const posts = useSelector((state) => state.posts);
+function TopPost({ posts }) {
   return (
     <>
       <div id="top-posts" className="col fs--10">
-        {posts.status === "loading" ? (
-          <Loading type="inline" />
-        ) : posts.data.length ? (
-          posts.data.slice(-3).map((item, index) => {
-            return (
-              <Link
+        {posts.slice(-3).map((item, index) => {
+          return (
+            <Link key={index} href={"/post?id=" + item.id}>
+              <a
                 className="card"
-                key={index}
-                to={"/post?id=" + item.id}
                 style={{
                   backgroundImage: `url(${renderImageLink(
                     item.mainImgLink,
@@ -30,10 +24,10 @@ function TopPost() {
                 }}
               >
                 <p className="card-title m-0">{item.title}</p>
-              </Link>
-            );
-          })
-        ) : null}
+              </a>
+            </Link>
+          );
+        })}
         <Link href="/tat-ca-bai-viet">
           <a className="d-inline-block fs--10 fw--7 mt-2">
             Xem tất cả bài viết

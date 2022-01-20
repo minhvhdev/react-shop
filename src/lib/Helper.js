@@ -117,7 +117,22 @@ export function asyncShopcart(localCart, serverCart) {
         return item != null;
     });
 };
+
 export function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+}
+
+export function convertToUrl(name = "") {
+    name = name.replaceAll(" ", "-");
+    name = name.replaceAll("---", "-");
+    name = name.replaceAll("--", "-");
+    name = name.replaceAll("?", "");
+    return name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D');;
+}
+
+export function getIdFromUrl(url) {
+    const index = url.lastIndexOf("-");
+    return url.substring(index + 1, url.length)
 }

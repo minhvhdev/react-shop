@@ -11,27 +11,25 @@ import { comma } from "lib/Helper";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import {
-  MdAddShoppingCart, MdFavorite, MdFavoriteBorder, MdLocalShipping,
-  MdSentimentVerySatisfied
+  MdAddShoppingCart,
+  MdFavorite,
+  MdFavoriteBorder,
+  MdLocalShipping,
+  MdSentimentVerySatisfied,
 } from "react-icons/md";
-//@ts-ignore
-
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import StarRatings from "react-star-ratings";
 import InputCoffeeType from "./InputCoffeeType";
 
-function ProductDetail(props) {
-  console.log("render detail");
-  const product = props.product;
-  // @ts-ignore
+function ProductDetail({ product }) {
   const logged = useSelector((state) => state.logged);
-  const [type, setType] = useState(product.type?"Bột":null);
+  const [type, setType] = useState(product.type ? "Bột" : null);
   const [liked, setLiked] = useState(false);
-  // @ts-ignore
   const rates = useSelector((state) => state.rates);
   const numberRate = rates.data.length || 0;
   const inputQuantity = useRef(null);
+
   let totalRating = rates.data.reduce((total, item) => {
     return total + item.star;
   }, 0);
@@ -107,11 +105,10 @@ function ProductDetail(props) {
   useEffect(() => {
     if (logged.data) {
       ProductApi.checkLiked({ id: product.id }).then((res) => {
-        // @ts-ignore
         setLiked(res);
       });
     }
-  }, [logged.data,product.id]);
+  }, [logged.data, product.id]);
   return (
     <div className="fs--9">
       <div className="fs--7">{product.name}</div>
@@ -138,11 +135,7 @@ function ProductDetail(props) {
       <div className="position-relative pt-4">
         {logged.data ? (
           <div className="like__button">
-            {liked ? (
-              <MdFavorite onClick={handleUnLike} />
-            ) : (
-              <MdFavoriteBorder onClick={handleLike} />
-            )}
+            {liked ? <MdFavorite onClick={handleUnLike}/> : <MdFavoriteBorder onClick={handleLike}/>}
           </div>
         ) : null}
         {product.type ? (
@@ -163,12 +156,13 @@ function ProductDetail(props) {
             </Button>
           </Col>
           <Col xs={12} className="ps-ssm-1 ps-sm-3  col-ssm-6">
-            <Link
-              className="btn btn-outline-primary w-100"
-              to="/checkout"
-              onClick={handleBuy}
-            >
-              Mua ngay
+            <Link href="/buyer/check-out">
+              <a
+                className="btn btn-outline-primary w-100"
+                onClick={handleBuy}
+              >
+                Mua ngay
+              </a>
             </Link>
           </Col>
         </Row>

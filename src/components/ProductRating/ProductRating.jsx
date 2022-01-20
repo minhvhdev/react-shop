@@ -19,9 +19,7 @@ ProductRating.propTypes = {
 function ProductRating(props) {
   const productId= props.productId;
   const [show, setShow] = useState(false);
-  // @ts-ignore
   const logged = useSelector((state) => state.logged);
-  // @ts-ignore
   const rates = useSelector((state) => state.rates);
   const [rateFilter, setRateFilter] = useState([]);
   const handleCloseForm = () => setShow(false);
@@ -50,7 +48,6 @@ function ProductRating(props) {
 
   }, [rates.data]);
   useEffect(() => {
-    //@ts-ignore
     store.dispatch(fetchAllRate({ id: productId }))
   }, [productId,logged]);
   return (

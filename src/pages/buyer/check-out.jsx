@@ -23,16 +23,13 @@ import Message from "components/Message";
 import { NOTI } from "constants/index";
 //@ts-ignore
 import { store as noti } from "react-notifications-component";
-import Loading from "../../layout/Loading";
+import Loading from "layout/Loading";
 import { resetCart } from "app/slice/shopcartSlice";
 
 function CheckOutPage(props) {
-  //@ts-ignore
   const order = useSelector((state) => state.order).data;
-  //@ts-ignore
   const allAddress = useSelector((state) => state.address).data;
   const refAddress = useRef(null);
-  //@ts-ignore
   const logged = useSelector((state) => state.logged).data;
   const user = logged ? logged : { fullName: "", phone: "" };
   const [status, setStatus] = useState("idle");
@@ -40,7 +37,6 @@ function CheckOutPage(props) {
   const handleClickAddress = () => setShowAddress(true);
   const handleCloseModal = () => setShowAddress(false);
   const handleOnWard = (districtCode) => {
-    // @ts-ignore
     store.dispatch(checkShippingFee(districtCode));
   };
   const handleSubmitNoLogin = (values) => {
@@ -292,6 +288,7 @@ function CheckOutPage(props) {
         //     state: { from: props.location },
         //   }}
         // />
+        null
       )}
     </>
   );

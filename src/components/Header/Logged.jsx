@@ -15,54 +15,55 @@ const handleLogoutClick = () => {
   store.dispatch(resetOrder());
 };
 export function LoggedNav(props) {
-  // @ts-ignore
   const logged = useSelector((state) => state.logged);
   return (
-    <Nav className="text-white">
-      {console.log("render logged")}
-      <div className="dropdown ms-5 d-none d-lg-block">
-        <span className="nav-link avatar__dropdown dropdown-toggle">
-          <span>
-            <img
-              alt="avatar"
-              draggable="false"
-              src={logged.data.avatarLink}
-            ></img>
-            <span>{logged.data.fullName}</span>
+    <>
+      <Nav className="text-white">
+        {console.log("render logged")}
+        <div className="dropdown ms-5 d-none d-lg-block">
+          <span className="nav-link avatar__dropdown dropdown-toggle">
+            <span>
+              <img
+                alt="avatar"
+                draggable="false"
+                src={logged.data.avatarLink}
+              ></img>
+              <span>{logged.data.fullName}</span>
+            </span>
           </span>
-        </span>
-        <ul className="dropdown-menu dropdown-menu-dark fw-4">
-          <li>
-            <Link className="dropdown-item" href="/myAccount">
-              <a>Tài khoản</a>
-            </Link>
-          </li>
-          <li>
-            <Link className="dropdown-item" href="/myfavs">
-              <a>Sản phẩm yêu thích</a>
-            </Link>
-          </li>
-          <li>
-            <Link className="dropdown-item" href="/myOrder">
-              <a>Đơn hàng của tôi</a>
-            </Link>
-          </li>
-          {logged.data.role === "ROLE_ADMIN" ? (
+          <ul className="dropdown-menu dropdown-menu-dark fw-4">
             <li>
-              <Link className="dropdown-item" href="/admin">
-                <a>Trang quản trị</a>
+              <Link href="/user/my-account">
+                <a className="dropdown-item">Tài khoản</a>
               </Link>
             </li>
-          ) : null}
-          <li
-            className="dropdown-item cursor--pointer"
-            onClick={handleLogoutClick}
-          >
-            Đăng xuất
-          </li>
-        </ul>
-      </div>
-    </Nav>
+            <li>
+              <Link href="/user/liked-product">
+                <a className="dropdown-item">Sản phẩm yêu thích</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/user/my-orders">
+                <a className="dropdown-item">Đơn hàng của tôi</a>
+              </Link>
+            </li>
+            {logged.data.role === "ROLE_ADMIN" ? (
+              <li>
+                <Link href="/admin/pending-orders">
+                  <a className="dropdown-item">Trang quản trị</a>
+                </Link>
+              </li>
+            ) : null}
+            <li
+              className="dropdown-item cursor--pointer"
+              onClick={handleLogoutClick}
+            >
+              Đăng xuất
+            </li>
+          </ul>
+        </div>
+      </Nav>
+    </>
   );
 }
 export function LoggedOffcanvas(props) {
@@ -88,13 +89,19 @@ export function LoggedOffcanvas(props) {
           <Accordion.Body>
             <ul className="collapse__menu fs--8 fw--3">
               <li onClick={handleClose}>
-                <Link href="/myAccount"><a>Tài khoản</a></Link>
+                <Link href="//user/my-account">
+                  <a>Tài khoản</a>
+                </Link>
               </li>
               <li onClick={handleClose}>
-                <Link href="/myfavs"><a>Sản phẩm yêu thích</a></Link>
+                <Link href="/user/liked-product">
+                  <a>Sản phẩm yêu thích</a>
+                </Link>
               </li>
               <li onClick={handleClose}>
-                <Link href="/myOrder"><a>Đơn hàng của tôi</a></Link>
+                <Link href="/user/my-orders">
+                  <a>Đơn hàng của tôi</a>
+                </Link>
               </li>
               <li onClick={handleClose}>
                 <span className="a cursor--pointer" onClick={handleLogoutClick}>

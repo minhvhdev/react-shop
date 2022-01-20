@@ -7,9 +7,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import PromotionForm from "./Form/PromotionForm";
 function CheckOutItem() {
-  //@ts-ignore
   const order = useSelector((state) => state.order).data;
-  //@ts-ignore
   const address = useSelector((state) => state.address).data;
   const total = order.orderItem.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
@@ -18,7 +16,6 @@ function CheckOutItem() {
   const shippingFee = order.shippingFee;
   const shippingFeeReal = total < 200000 ? shippingFee : 0;
   const afterDiscount = total * (discount / 100);
-  // @ts-ignore
   const showCart = useRef(null);
   const handleShowItem = () => {
     const status = showCart.current.classList[4];
@@ -29,11 +26,11 @@ function CheckOutItem() {
     }
   };
   useEffect(() => {
-    if (address&&address.length>0) {
+    if (address && address.length > 0) {
+      console.log(address);
       const districtId = address.filter((item) => {
         return item.mainAddress === true;
       })[0].districtCode;
-      //@ts-ignore
       store.dispatch(checkShippingFee(districtId));
     }
   }, [address]);

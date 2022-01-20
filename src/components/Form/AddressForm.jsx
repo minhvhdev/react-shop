@@ -1,5 +1,4 @@
 import AddressApi from "api/AddressApi";
-import ghnProvince from "assets/json/ghn-province.json";
 import React, { useEffect, useState } from "react";
 import { Col, Form as BForm, Row } from "react-bootstrap";
 import Select, { components } from "react-select";
@@ -7,11 +6,11 @@ import Select, { components } from "react-select";
 function AddressForm(props, refs) {
   const address = props.address;
   const handleOnWard = props.onWard;
-  const handleOnChangeWard = (data)=>{    
+  const handleOnChangeWard = (data) => {
     setWardOption(data);
-   if(handleOnWard){
-    handleOnWard(districtOption.value);
-   }
+    if (handleOnWard) {
+      handleOnWard(districtOption.value);
+    }
   };
   const [response, setResponse] = useState({});
   const [province, setProvince] = useState([]);
@@ -23,6 +22,7 @@ function AddressForm(props, refs) {
   const [wardOption, setWardOption] = useState({ value: 0, label: "" });
 
   const getProvince = () => {
+    const ghnProvince = require("../../../public/statics/json/ghn-province.json");
     const options = ghnProvince.map((item) => ({
       value: item.ProvinceID,
       label: item.ProvinceName,

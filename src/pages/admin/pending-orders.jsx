@@ -59,7 +59,7 @@ function AdminPendingOrderPage() {
                   <td>{item.fullName}</td>
                   <td>{formatDateTime(item.orderDate, false)}</td>
                   <td>
-                    <Link href={"/admin/order?id=" + item.id}>
+                    <Link href={"/admin/order-details?id=" + item.id}>
                       <a>
                         <i className="icon-eye"></i> Xem
                       </a>

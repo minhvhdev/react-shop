@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
-import queryString from "query-string";
+import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/router";
 import AdminApi from "api/AdminApi";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import Loading from "layout/Loading";
 import { comma, formatDateTime, renderImageLink } from "lib/Helper";
 import { BsArrowLeftShort } from "react-icons/bs";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 function AdminOrderPage(props) {
-  const param = queryString.parse(window.location.hash);
-  const id = param["admin/order?id"];
+  const router = useRouter();
   const [order, setOrder] = useState(null);
-  const [status, setStatus] = useState("loading");
-  const history = useHistory();
+  const [id, setId] = useState(0);
   const handleReject = () => {
     AdminApi.rejectOrder({ id })
       .then((res) => {
-        history.push("/#admin/pendingOrder");
+        // history.push("/#admin/pendingOrder");
       })
       .catch(() => {
         alert("Có lỗi xảy ra, vui lòng thử lại sau");
@@ -23,8 +20,8 @@ function AdminOrderPage(props) {
   };
   const handleAccept = () => {
     AdminApi.acceptOrder({ id })
-      .then((res) => {
-        history.push("/#admin/pendingOrder");
+      .then(() => {
+        router.push("/admin/pending-orders");
         alert("Cập nhật thành công");
       })
       .catch(() => {
@@ -44,7 +41,7 @@ function AdminOrderPage(props) {
   const handleSuccess = () => {
     AdminApi.successOrder({ id })
       .then((res) => {
-        history.push("/#admin/shippinOrder");
+        history.push("/#admin/shippingOrder");
         alert("Cập nhật thành công");
       })
       .catch(() => {
@@ -52,16 +49,16 @@ function AdminOrderPage(props) {
       });
   };
   useEffect(() => {
-    AdminApi.getOrderDetail({ id })
+    setId(router.query.id);
+    AdminApi.getOrderDetail({ id: router.query.id })
       .then((res) => {
         setOrder(res);
         setStatus("idle");
       })
       .catch((res) => {
-        setStatus("error");
-        alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+        // alert("Có lỗi xảy ra, vui lòng thử lại sau!");
       });
-  }, [id]);
+  }, []);
   return (
     <Container id="order-page" className="pt-3">
       <div>
@@ -73,9 +70,7 @@ function AdminOrderPage(props) {
         />
         <h4 className="text-center mb-3">Chi tiết đơn hàng</h4>
       </div>
-      {status === "loading" ? (
-        <Loading type="inline" />
-      ) : (
+      {order ? (
         <>
           <Row>
             <Col lg={6}>
@@ -210,9 +205,9 @@ function AdminOrderPage(props) {
             )}
           </Row>
         </>
-      )}
+      ) : null}
     </Container>
   );
 }
 
-export default AdminOrderPage;
+export default React.memo(AdminOrderPage);

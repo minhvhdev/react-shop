@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import AddressForm from "./Form/AddressForm";
 
 function AddressTab(props) {
-  //@ts-ignore
   const address = useSelector((state) => state.address);
   const [show, setShow] = useState(false);
   const [addr, setAddr] = useState({});

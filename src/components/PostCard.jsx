@@ -1,15 +1,14 @@
-import { formatDateTime, renderImageLink } from "lib/Helper";
+import { convertToUrl, formatDateTime, renderImageLink } from "lib/Helper";
 import PropTypes from "prop-types";
 import React from "react";
 import { Card } from "react-bootstrap";
 import { BsClock, BsEye } from "react-icons/bs";
 import Link from "next/link";
 
-function PostCard(props) {
-  const post = props.post;
+function PostCard({ post }) {
   return (
     <Card>
-      <Link href={"/post?id=" + post.id}>
+      <Link href={convertToUrl(`bai-viet/${post.title}-${post.id}`)}>
         <a>
           <div className="image-wrapper">
             <img
@@ -19,19 +18,22 @@ function PostCard(props) {
           </div>
         </a>
       </Link>
-      <Link className="text-decoration-none " to={"post?id=" + post.id}>
-        <Card.Body>
-          <p className="text-dark min-line--2 fs--8">{post.title}</p>
-          <div className="d-flex text-muted justify-content-between">
-            <div>
-              <BsClock className="icon" />{" "}
-              {formatDateTime(post.createDate, false)}
+      <Link href={convertToUrl(`/bai-viet/${post.title}-${post.id}`)}>
+        <a className="text-decoration-none">
+          {" "}
+          <Card.Body>
+            <p className="text-dark min-line--2 fs--8">{post.title}</p>
+            <div className="d-flex text-muted justify-content-between">
+              <div>
+                <BsClock className="icon" />{" "}
+                {formatDateTime(post.createDate, false)}
+              </div>
+              <div>
+                <BsEye className="icon fs--8" /> {post.numView}
+              </div>
             </div>
-            <div>
-              <BsEye className="icon fs--8" /> {post.numView}
-            </div>
-          </div>
-        </Card.Body>
+          </Card.Body>
+        </a>
       </Link>
     </Card>
   );

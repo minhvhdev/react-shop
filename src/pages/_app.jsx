@@ -5,6 +5,10 @@ import "../styles/index.scss";
 import { Provider } from "react-redux";
 import store from "app/store";
 import Layout from "layout/Layout";
+import { initialUser } from "app/slice/userSlice";
+import { initialCart, socialAsyncCart } from "app/slice/shopcartSlice";
+import ReactNotification from "react-notifications-component";
+import { initialAddress, socialAsyncAddress } from "app/slice/addressSlice";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -24,9 +28,15 @@ function MyApp({ Component, pageProps }) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
+  useEffect(() => {
+    store.dispatch(initialCart());
+    store.dispatch(initialUser());
+    store.dispatch(initialAddress());
+  }, []);
   return (
     <>
       <Provider store={store}>
+        <ReactNotification className="fs--1" />
         <Layout loading={loading}>
           <Component {...pageProps} />
         </Layout>

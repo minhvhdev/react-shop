@@ -1,17 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import Cookies from 'universal-cookie';
-
+import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const token = cookies.get('_token');
-
 
 const userSlice = createSlice({
-    name: 'logged',
-    initialState: { status: 'idle', data: token, error: {} },
+    name: "logged",
+    initialState: { status: "idle", data: null, error: {} },
     reducers: {
+        initialUser: (state) => {
+            state.data = cookies.get("_token");
+            state.status = "loaded";
+        },
         logout: (state) => {
-            cookies.remove('_token', { path: '/' });
+            cookies.remove("_token", { path: "/" });
             state.data = null;
         },
         login: (state, action) => {
@@ -19,14 +20,13 @@ const userSlice = createSlice({
             const token = {
                 accessToken: res.accessToken,
                 fullName: res.fullName,
-                phone: res.phone || '',
+                phone: res.phone || "",
                 avatarLink: res.avatarLink,
                 role: res.role,
-                emailVerify: res.emailVerify
-            }
+                emailVerify: res.emailVerify,
+            };
             state.data = token;
             cookies.set("_token", token, { path: "/", maxAge: 3153600000 });
-
         },
         verifySuccess: (state) => {
             state.data.emailVerify = true;
@@ -40,10 +40,16 @@ const userSlice = createSlice({
         updateEmail: (state) => {
             state.data.emailVerify = false;
             cookies.set("_token", state.data, { path: "/", maxAge: 3153600000 });
-        }
-
+        },
     },
-})
+});
 const { reducer, actions } = userSlice;
-export const { logout, login, verifySuccess, updateInfo, updateEmail } = actions;
+export const {
+    logout,
+    login,
+    verifySuccess,
+    updateInfo,
+    updateEmail,
+    initialUser,
+} = actions;
 export default reducer;
