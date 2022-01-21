@@ -14,7 +14,7 @@ import Link from "next/link";
 import NullPage from "../layout/NullPage";
 import { useRouter } from "next/router";
 import ProductApi from "api/ProductApi";
-function AllProductPage({products}) {
+function AllProductPage({ products }) {
   const router = useRouter();
   const { type } = router.query;
   const [range, setRange] = useState(300000);
@@ -41,12 +41,12 @@ function AllProductPage({products}) {
         </li>
         <Breadcrumb.Item active>Tất cả sản phẩm</Breadcrumb.Item>
       </Breadcrumb>
-      <Row>
+      <Row className="gap-2">
         <h4>Cà phê và đặc sản</h4>
         <Col className="p-0">
           <div className="shadow d-none d-md-block p-3">
             <h5 className="all-post-title pt-1">Bộ lọc</h5>
-            <div className="bg-light rounded">
+            <div className="rounded">
               <div className="mb-3 fw--3" id="type-product">
                 <p className="mb-1 fs--8 fw--4">Loại sản phẩm</p>
                 <div className="form-check form-switch">
@@ -159,12 +159,12 @@ function AllProductPage({products}) {
   );
 }
 
-export async function getStaticProps(){
+export async function getStaticProps() {
   const products = await ProductApi.getAll();
   return {
-    props:{
-      products
-    }
-  }
+    props: {
+      products,
+    },
+  };
 }
 export default React.memo(AllProductPage);

@@ -1,4 +1,4 @@
-import { renderImageLink } from "lib/Helper";
+import { convertToUrl, renderImageLink } from "lib/Helper";
 import Loading from "layout/Loading";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -10,7 +10,10 @@ function TopPost({ posts }) {
       <div id="top-posts" className="col fs--10">
         {posts.slice(-3).map((item, index) => {
           return (
-            <Link key={index} href={"/post?id=" + item.id}>
+            <Link
+              key={index}
+              href={convertToUrl(`bai-viet/${item.title}-${item.id}`)}
+            >
               <a
                 className="card"
                 style={{

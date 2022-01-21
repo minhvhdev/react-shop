@@ -35,7 +35,9 @@ function MyOrdersPage() {
     <Container>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
-          <Link href="/"><a>Trang chủ</a></Link>
+          <Link href="/">
+            <a>Trang chủ</a>
+          </Link>
         </li>
         <Breadcrumb.Item active>Đơn hàng của tôi</Breadcrumb.Item>
       </Breadcrumb>
@@ -48,9 +50,6 @@ function MyOrdersPage() {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="2">Chờ xác nhận</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="3">Chờ giao hàng</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
@@ -90,15 +89,6 @@ function MyOrdersPage() {
                   {orders
                     .filter((order) => {
                       return !order.orderStatus;
-                    })
-                    .map((order, index) => {
-                      return <OrderElement key={index} order={order} />;
-                    })}
-                </Tab.Pane>
-                <Tab.Pane eventKey="3">
-                  {orders
-                    .filter((order) => {
-                      return order.orderStatus;
                     })
                     .map((order, index) => {
                       return <OrderElement key={index} order={order} />;

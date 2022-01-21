@@ -25,8 +25,11 @@ import { NOTI } from "constants/index";
 import { store as noti } from "react-notifications-component";
 import Loading from "layout/Loading";
 import { resetCart } from "app/slice/shopcartSlice";
+import { useRouter } from "next/router";
+import NotFound from "layout/NotFound";
 
 function CheckOutPage(props) {
+  const router = useRouter();
   const order = useSelector((state) => state.order).data;
   const allAddress = useSelector((state) => state.address).data;
   const refAddress = useRef(null);
@@ -83,10 +86,14 @@ function CheckOutPage(props) {
         <Container className=" position-relative">
           <Breadcrumb className="fs--11 mt-3">
             <li className="breadcrumb-item">
-              <Link href="/"><a>Trang chủ</a></Link>
+              <Link href="/">
+                <a>Trang chủ</a>
+              </Link>
             </li>
             <li className="breadcrumb-item">
-              <Link href="/shopcart"><a>Giỏ hàng của bạn</a></Link>
+              <Link href="/shopcart">
+                <a>Giỏ hàng của bạn</a>
+              </Link>
             </li>
             <Breadcrumb.Item active>Thanh toán</Breadcrumb.Item>
           </Breadcrumb>
@@ -110,7 +117,7 @@ function CheckOutPage(props) {
                   } else {
                     request = handleSubmitNoLogin(values);
                   }
-                  if (request) {                    
+                  if (request) {
                     setStatus("loading");
                     OrderApi.createOrder({ ...order, ...request })
                       .then((res) => {
@@ -132,6 +139,7 @@ function CheckOutPage(props) {
                         if (!order.buyNow) {
                           store.dispatch(resetCart());
                         }
+                        router.push("/");
                       })
                       .catch((res) => {
                         setStatus("idle");
@@ -186,7 +194,7 @@ function CheckOutPage(props) {
                                 </div>
                               </div>
                             );
-                          }else{
+                          } else {
                             return null;
                           }
                         })
@@ -241,7 +249,7 @@ function CheckOutPage(props) {
                       {({ field }) => (
                         <BForm.Control
                           {...field}
-                          placeholder="Nhập họ và tên người nhận"
+                          placeholder="Nhập SĐT người nhận"
                         />
                       )}
                     </Field>
@@ -282,13 +290,7 @@ function CheckOutPage(props) {
           </Row>
         </Container>
       ) : (
-        // <Redirect
-        //   to={{
-        //     pathname: "/",
-        //     state: { from: props.location },
-        //   }}
-        // />
-        null
+        <NotFound />
       )}
     </>
   );
