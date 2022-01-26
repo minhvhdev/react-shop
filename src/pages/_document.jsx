@@ -10,10 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta
-            name="Cà phê nguyên chất Thơ Dũng"
-            content="Mua bán và tin tức về cà phê. Bán các loại cà phê rang xay bột hạt thương hiệu cà phê nguyên chất Thơ Dũng"
-          />
+          <meta charSet="utf-8" />
           <link rel="apple-touch-icon" href="logo192.png" />
           <link rel="manifest" href="manifest.json" />
         </Head>

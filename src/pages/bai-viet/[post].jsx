@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import queryString from "query-string";
 import ReactMarkdown from "react-markdown";
-import { useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
-import Loading from "../../layout/Loading";
 import NotFound from "../../layout/NotFound";
 import {
   convertToUrl,
   formatDateTime,
   getIdFromUrl,
   renderImageLink,
+  shortDescriptionProduct,
 } from "lib/Helper";
 import {
   AiOutlineClockCircle,
@@ -17,13 +15,31 @@ import {
   AiOutlineFacebook,
 } from "react-icons/ai";
 import PostApi from "api/PostApi";
+import Head from "next/head";
 function PostPage({ post }) {
-  const [url,setUrl] = useState("");
+  console.log(post);
+  const [url, setUrl] = useState("");
   useEffect(() => {
     setUrl(window.location.href);
-  }, [])
+  }, []);
   return (
     <div className="post-page__bg">
+      <Head>
+        <title>{post.title}</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={post.title} />
+        <meta
+          property="og:image"
+          content={renderImageLink(post.mainImgLink, 4)}
+          data-rh="true"
+        />
+        <meta
+          property="og:description"
+          content={shortDescriptionProduct(post.content)}
+        />
+        <meta property="og:url" content="https://caphethodung.vn" />
+        <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
+      </Head>
       {post ? (
         <Container className="post-page__container fs--8">
           <h1 className="post-page__title">{post.title}</h1>

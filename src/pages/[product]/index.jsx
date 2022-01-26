@@ -2,7 +2,13 @@ import ProductApi from "api/ProductApi";
 import ProductDetail from "components/ProductDetail/ProductDetail";
 import ProductDetailImage from "components/ProductDetail/ProductDetailImage";
 import ProductRating from "components/ProductRating/ProductRating";
-import { getIdFromUrl, convertToUrl } from "lib/Helper";
+import {
+  getIdFromUrl,
+  convertToUrl,
+  renderImageLink,
+  shortDescriptionProduct,
+} from "lib/Helper";
+import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Breadcrumb, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
@@ -12,6 +18,25 @@ function ProductPage({ product }) {
   const [key, setKey] = useState("description");
   return (
     <>
+      <Head>
+        <title>{`${product.coffee ? "Cà phê" : ""} ${product.name}`}</title>
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={`${product.coffee ? "Cà phê" : ""} ${product.name}`}
+        />
+        <meta
+          property="og:image"
+          content={renderImageLink(product.mainImgLink, 4)}
+          data-rh="true"
+        />
+        <meta
+          property="og:description"
+          content={shortDescriptionProduct(product.description)}
+        />
+        <meta property="og:url" content="https://caphethodung.vn" />
+        <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
+      </Head>
       <Container>
         <Breadcrumb className="fs--11 mt-3">
           <li className="breadcrumb-item">

@@ -9,11 +9,11 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import Link from "next/link";
 import NullPage from "../layout/NullPage";
 import { useRouter } from "next/router";
 import ProductApi from "api/ProductApi";
+import Head from "next/head";
 function AllProductPage({ products }) {
   const router = useRouter();
   const { type } = router.query;
@@ -33,6 +33,20 @@ function AllProductPage({ products }) {
   }, [type]);
   return (
     <Container>
+      <Head>
+        <title>Cà phê Thơ Dũng - Tất cả sản phẩm</title>
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Tất cả sản phẩm cà phê bột rang xay"
+        />
+        <meta
+          property="og:description"
+          content="Tất cả sản phẩm cà phê bột rang xay, mật ong, đặc sản được bán bởi cà phê Thơ Dũng"
+        />
+        <meta property="og:url" content="https://caphethodung.vn" />
+        <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
+      </Head>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
           <Link href="/">

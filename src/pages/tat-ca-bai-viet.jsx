@@ -1,15 +1,15 @@
 import PostApi from "api/PostApi";
 import PostCard from "components/PostCard";
-import Loading from "layout/Loading";
 import NullPage from "layout/NullPage";
 import { sortJSON } from "lib/Helper";
+import Head from "next/head";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
 
-function ListAllPost({posts}) {
+function ListAllPost({ posts }) {
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const perPage = 2;
@@ -38,9 +38,22 @@ function ListAllPost({posts}) {
   }, [posts]);
   return (
     <Container>
+      <Head>
+        <title>Cà phê Thơ Dũng - Tát cả bài viết</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Cà Phê Bột Rang Xay" />
+        <meta
+          property="og:description"
+          content="Tất cả các bài viết của cà phê Thơ Dũng"
+        />
+        <meta property="og:url" content="https://caphethodung.vn" />
+        <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
+      </Head>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
-          <Link href="/"><a>Trang chủ</a></Link>
+          <Link href="/">
+            <a>Trang chủ</a>
+          </Link>
         </li>
         <Breadcrumb.Item active>Tất cả bài viết</Breadcrumb.Item>
       </Breadcrumb>
@@ -112,6 +125,6 @@ export async function getStaticProps() {
   const posts = await PostApi.getAll();
   return {
     props: { posts },
-  }
+  };
 }
 export default React.memo(ListAllPost);

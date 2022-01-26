@@ -10,7 +10,8 @@ import TopProductSlide from "components/TopProductSlide";
 import queryString from "query-string";
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 function HomePage({ products, posts }) {
   const router = useRouter();
@@ -20,16 +21,27 @@ function HomePage({ products, posts }) {
       store.dispatch(login({ ...token }));
       store.dispatch(socialAsyncCart());
       store.dispatch(socialAsyncAddress());
-      const pathName = localStorage.getItem('_pathname');
-      const search = localStorage.getItem('_search');
-      const url = pathName+search;
+      const pathName = localStorage.getItem("_pathname");
+      const search = localStorage.getItem("_search");
+      const url = pathName + search;
       router.push(url, undefined, { shallow: true });
-      localStorage.removeItem('_pathname');
-      localStorage.removeItem('_search');
+      localStorage.removeItem("_pathname");
+      localStorage.removeItem("_search");
     }
   }, []);
   return (
     <section className="pt-3 pt-md-5">
+      <Head>
+        <title>Cà phê Thơ Dũng - Trang chủ</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Cà Phê Bột Rang Xay" />
+        <meta
+          property="og:description"
+          content="Mua bán và tin tức về cà phê. Bán các loại cà phê rang xay bột hạt thương hiệu cà phê nguyên chất Thơ Dũng"
+        />
+        <meta property="og:url" content="https://caphethodung.vn" />
+        <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
+      </Head>
       <Container>
         <Row>
           <BannerSlide />
