@@ -1,15 +1,15 @@
 import UserApi from "api/UserApi";
-import { verifySuccess } from "app/slice/userSlice";
-import store from "app/store";
 import Message from "components/Message";
 import Timer from "components/Timer";
 import { NOTI } from "constants/index";
 import Loading from "layout/Loading";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form as BForm } from "react-bootstrap";
+import { verifySuccess } from "redux/slice/userSlice";
+import store from "redux/store";
 //@ts-ignore
-import { store as noti } from "react-notifications-component";
+
 
 function VerifyForm(props) {
   const handleClose = props.close;
@@ -35,15 +35,15 @@ function VerifyForm(props) {
     UserApi.verify({ code, jwtCode })
       .then(() => {
         store.dispatch(verifySuccess());
-        noti.addNotification({
-          ...NOTI,
-          message: <Message type="success" mess="Xác thực thành công" />,
-          type: "success",
-          dismiss: {
-            duration: 2000,
-          },
-          width: 160,
-        });
+        // noti.addNotification({
+        //   ...NOTI,
+        //   message: <Message type="success" mess="Xác thực thành công" />,
+        //   type: "success",
+        //   dismiss: {
+        //     duration: 2000,
+        //   },
+        //   width: 160,
+        // });
         handleClose();
       })
       .catch(() => {

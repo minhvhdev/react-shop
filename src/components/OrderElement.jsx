@@ -56,18 +56,16 @@ function OrderElement(props) {
               >
                 <div className="check-out__item cart-item__thumb">
                   <Link href={`/product?id=` + item.product.id}>
-                    <a>
-                      <img
-                        src={renderImageLink(item.product.mainImgLink, 1)}
-                        alt=""
-                        width="100%"
-                      />
-                    </a>
+                    <img
+                      src={renderImageLink(item.product.mainImgLink, 1)}
+                      alt=""
+                      width="100%"
+                    />
                   </Link>
                 </div>
                 <div className="check-out__item">
                   <Link href={`/product?id=` + item.product.id}>
-                    <a>{item.product.name}</a>
+                    {item.product.name}
                   </Link>
                   <p>{item.type}</p>
                   <p>SL:{item.quantity}</p>

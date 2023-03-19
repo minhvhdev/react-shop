@@ -18,7 +18,7 @@ const AxiosClient = axios.create({
     header: {
         'content-type': 'application/json',
     },
-    paramsSerializer: params => queryString.stringify(params),
+    // paramsSerializer: params => queryString.stringify(params),
 })
 
 AxiosClient.interceptors.request.use((config) => {

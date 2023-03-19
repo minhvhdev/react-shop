@@ -1,5 +1,4 @@
 import ShopcartApi from "api/ShopcartApi";
-import { removeItem } from "app/slice/shopcartSlice";
 import InputNumber from "components/InputNumber";
 import Message from "components/Message";
 import { NOTI } from "constants/index";
@@ -7,10 +6,11 @@ import { comma, convertToUrl, renderImageLink } from "lib/Helper";
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { GoTrashcan } from "react-icons/go";
+import { removeItem } from "redux/slice/shopcartSlice";
 // @ts-ignore
-import { store as noti } from "react-notifications-component";
-import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+
+import { useDispatch, useSelector } from "react-redux";
 
 function AllCartItem(props, refs) {
   const shopcart = useSelector((state) => state.shopcart).data;
@@ -37,15 +37,15 @@ function AllCartItem(props, refs) {
     setQuantity(JSON.stringify(quan));
   };
   const handleRemove = (evt, index) => {
-    noti.addNotification({
-      ...NOTI,
-      message: <Message type="success" mess="Xóa sản phẩm thành công" />,
-      type: "success",
-      dismiss: {
-        duration: 2000,
-      },
-      width: 160,
-    });
+    // noti.addNotification({
+    //   ...NOTI,
+    //   message: <Message type="success" mess="Xóa sản phẩm thành công" />,
+    //   type: "success",
+    //   dismiss: {
+    //     duration: 2000,
+    //   },
+    //   width: 160,
+    // });
     dispatch(removeItem(index));
     const item = shopcart[index];
     ShopcartApi.removeCartItem({ id: item.product.id, type: item.type });
@@ -75,19 +75,17 @@ function AllCartItem(props, refs) {
                     </Button>
                     <div className="cart-item__item cart-item__thumb">
                       <Link href={productUrl(item)}>
-                        <a>
-                          <img
-                            src={renderImageLink(item.product.mainImgLink, 1)}
-                            alt=""
-                            width="100%"
-                          />
-                        </a>
+                        <img
+                          src={renderImageLink(item.product.mainImgLink, 1)}
+                          alt=""
+                          width="100%"
+                        />
                       </Link>
                     </div>
                     <div className="cart-item__item">
                       <div>
-                        <Link href={productUrl(item)}>
-                          <a className="link--text">{item.product.name}</a>
+                        <Link href={productUrl(item)} className="link--text">
+                          {item.product.name}
                         </Link>
                         <p>{comma(price)}₫</p>
                         <p>{item.type}</p>

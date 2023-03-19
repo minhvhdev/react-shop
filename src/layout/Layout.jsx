@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Header from "components/Header/Header";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import AdminHeader from "./AdminHeader";
 import Footer from "./Footer";
 import Loading from "./Loading";
-import AdminHeader from "./AdminHeader";
-import { useSelector } from "react-redux";
-import store from "app/store";
-import { initialUser } from "app/slice/userSlice";
 
 function Layout({ loading, children }) {
   const router = useRouter();

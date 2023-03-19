@@ -1,9 +1,9 @@
 import ProductApi from "api/ProductApi";
 import ListAllProduct from "components/ListAllProduct";
 import { comma } from "lib/Helper";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Accordion, Breadcrumb, Col, Container, Form, Row } from "react-bootstrap";
-import Link from "next/link";
 import Loading from "../../layout/Loading";
 import NullPage from "../../layout/NullPage";
 function LikedProductPage(props) {
@@ -41,7 +41,7 @@ function LikedProductPage(props) {
     <Container>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
-          <Link href="/"><a>Trang chủ</a></Link>
+          <Link href="/">Trang chủ</Link>
         </li>
         <Breadcrumb.Item active>Sản phẩm yêu thích</Breadcrumb.Item>
       </Breadcrumb>

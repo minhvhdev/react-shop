@@ -1,9 +1,9 @@
 import AddressTab from "components/AddressTab";
 import ChangePasswordForm from "components/Form/ChangePasswordForm";
 import InfoTab from "components/InfoTab";
+import Link from "next/link";
 import React, { useState } from "react";
 import { Breadcrumb, Col, Container, Nav, Row, Tab } from "react-bootstrap";
-import Link from "next/link";
 
 function AccountPage() {
   const [show,setShow] = useState(false);
@@ -11,7 +11,7 @@ function AccountPage() {
     <Container>
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
-          <Link href="/"><a>Trang chủ</a></Link>
+          <Link href="/">Trang chủ</Link>
         </li>
         <Breadcrumb.Item active>Quản lý tài khoản</Breadcrumb.Item>
       </Breadcrumb>

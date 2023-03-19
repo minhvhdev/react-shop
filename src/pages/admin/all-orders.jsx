@@ -1,10 +1,10 @@
 import AdminApi from "api/AdminApi";
-import { formatDateTime } from "lib/Helper";
 import Loading from "layout/Loading";
-import React, { useEffect, useState } from "react";
+import { formatDateTime } from "lib/Helper";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button, Container, Modal, Table } from "react-bootstrap";
 import { BiFilterAlt } from "react-icons/bi";
-import Link from "next/link";
 
 function AdminAllOrderPage() {
   const [orders, setOrders] = useState([]);
@@ -75,7 +75,7 @@ function AdminAllOrderPage() {
                   <td>{handleStatus(item.orderStatus)}</td>
                   <td>
                     <Link href={"/admin/order?id=" + item.id}>
-                      <a><i className="icon-eye"></i> Xem</a>
+                      <i className="icon-eye"></i> Xem
                     </Link>
                   </td>
                 </tr>

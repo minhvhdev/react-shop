@@ -1,23 +1,22 @@
 import { comma, convertToUrl, renderImageLink } from "lib/Helper";
-import React from "react";
-import { Card } from "react-bootstrap";
 import Link from "next/link";
 import PropTypes from "prop-types";
+import React from "react";
+import { Card } from "react-bootstrap";
 
 function ProductCard(props) {
   const product = props.product;
   return (
     <Card className="product-card">
       <Link href={convertToUrl(`${product.name}-${product.id}`)}>
-        <a>
+        
           <Card.Img
             variant="top"
             src={renderImageLink(product.mainImgLink, 3)}
           />
-        </a>
+        
       </Link>
-      <Link href={convertToUrl(`${product.name}-${product.id}`)}>
-        <a className="text-decoration-none ">
+      <Link href={convertToUrl(`${product.name}-${product.id}`)} className="text-decoration-none ">
           <Card.Body>
             <p className="text-dark">{product.name}</p>
             <h1 className="fs--6 mb-0">
@@ -25,7 +24,7 @@ function ProductCard(props) {
               <span className="fs--8">₫</span>
             </h1>
           </Card.Body>
-        </a>
+        
       </Link>
     </Card>
   );

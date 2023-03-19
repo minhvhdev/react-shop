@@ -1,10 +1,10 @@
 import AdminApi from "api/AdminApi";
-import { formatDateTime } from "lib/Helper";
 import Loading from "layout/Loading";
-import React, { useEffect, useState } from "react";
+import { formatDateTime } from "lib/Helper";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import { AiOutlineReload } from "react-icons/ai";
-import Link from "next/link";
 
 function AdminShippingOrderPage() {
   const [orders, setOrders] = useState([]);
@@ -60,9 +60,9 @@ function AdminShippingOrderPage() {
                   <td>{formatDateTime(item.orderDate, false)}</td>
                   <td>
                     <Link href={"/admin/order?id=" + item.id}>
-                      <a>
+                      
                         <i className="icon-eye"></i> Xem
-                      </a>
+                      
                     </Link>
                   </td>
                 </tr>

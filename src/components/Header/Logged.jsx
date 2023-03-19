@@ -1,12 +1,11 @@
-import { resetAddress } from "app/slice/addressSlice";
-import { resetOrder } from "app/slice/orderSlice";
-import { resetCart } from "app/slice/shopcartSlice";
-import { logout } from "app/slice/userSlice";
-import store from "app/store";
-import React from "react";
+import Link from "next/link";
 import { Accordion, Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Link from "next/link";
+import { resetAddress } from "redux/slice/addressSlice";
+import { resetOrder } from "redux/slice/orderSlice";
+import { resetCart } from "redux/slice/shopcartSlice";
+import { logout } from "redux/slice/userSlice";
+import store from "redux/store";
 
 const handleLogoutClick = () => {
   store.dispatch(logout());
@@ -33,24 +32,24 @@ export function LoggedNav(props) {
           </span>
           <ul className="dropdown-menu dropdown-menu-dark fw-4">
             <li>
-              <Link href="/user/my-account">
-                <a className="dropdown-item">Tài khoản</a>
+              <Link href="/user/my-account" className="dropdown-item">
+                Tài khoản
               </Link>
             </li>
             <li>
-              <Link href="/user/liked-product">
-                <a className="dropdown-item">Sản phẩm yêu thích</a>
+              <Link href="/user/liked-product" className="dropdown-item">
+                Sản phẩm yêu thích
               </Link>
             </li>
             <li>
-              <Link href="/user/my-orders">
-                <a className="dropdown-item">Đơn hàng của tôi</a>
+              <Link href="/user/my-orders" className="dropdown-item">
+                Đơn hàng của tôi
               </Link>
             </li>
             {logged.data.role === "ROLE_ADMIN" ? (
               <li>
-                <Link href="/admin/pending-orders">
-                  <a className="dropdown-item">Trang quản trị</a>
+                <Link href="/admin/pending-orders" className="dropdown-item">
+                  Trang quản trị
                 </Link>
               </li>
             ) : null}
@@ -89,19 +88,13 @@ export function LoggedOffcanvas(props) {
           <Accordion.Body>
             <ul className="collapse__menu fs--8 fw--3">
               <li onClick={handleClose}>
-                <Link href="//user/my-account">
-                  <a>Tài khoản</a>
-                </Link>
+                <Link href="//user/my-account">Tài khoản</Link>
               </li>
               <li onClick={handleClose}>
-                <Link href="/user/liked-product">
-                  <a>Sản phẩm yêu thích</a>
-                </Link>
+                <Link href="/user/liked-product">Sản phẩm yêu thích</Link>
               </li>
               <li onClick={handleClose}>
-                <Link href="/user/my-orders">
-                  <a>Đơn hàng của tôi</a>
-                </Link>
+                <Link href="/user/my-orders">Đơn hàng của tôi</Link>
               </li>
               <li onClick={handleClose}>
                 <span className="a cursor--pointer" onClick={handleLogoutClick}>

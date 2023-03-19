@@ -52,7 +52,7 @@ function ListAllPost({ posts }) {
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
           <Link href="/">
-            <a>Trang chủ</a>
+            Trang chủ
           </Link>
         </li>
         <Breadcrumb.Item active>Tất cả bài viết</Breadcrumb.Item>

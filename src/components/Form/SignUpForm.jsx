@@ -1,16 +1,16 @@
 import ShopcartApi from "api/ShopcartApi";
 import UserApi from "api/UserApi";
-import { login } from "app/slice/userSlice";
-import store from "app/store";
 import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Loading from "layout/Loading";
+import Link from "next/link";
 import React, { useState } from "react";
 import { Button, Col, Form as BForm, Modal, Row } from "react-bootstrap";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { GrFacebookOption } from "react-icons/gr";
 import { useSelector } from "react-redux";
-import Link from "next/link";
+import { login } from "redux/slice/userSlice";
+import store from "redux/store";
 import * as Yup from "yup";
 import VerifyForm from "./VerifyForm";
 
@@ -162,7 +162,7 @@ const SignUpForm = (props) => {
                         <span>
                           Tôi đã đọc và đồng ý với{" "}
                           <Link href="/policy">
-                            <a>chính sách</a>
+                            chính sách
                           </Link>{" "}
                           của Cà phê Thơ Dũng
                         </span>

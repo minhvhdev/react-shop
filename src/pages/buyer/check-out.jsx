@@ -1,32 +1,32 @@
-import AddressForm from "components/Form/AddressForm";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import React, { useRef, useState } from "react";
-import * as Yup from "yup";
-import {
-  Breadcrumb,
-  Button,
-  Col,
-  Container,
-  Form as BForm,
-  Modal,
-  Row,
-} from "react-bootstrap";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import CheckOutItem from "components/CheckOutItem";
-import store from "app/store";
-import { checkShippingFee, resetOrder } from "app/slice/orderSlice";
-import { GoLocation } from "react-icons/go";
-import AddressTab from "components/AddressTab";
 import OrderApi from "api/OrderApi";
+import AddressTab from "components/AddressTab";
+import CheckOutItem from "components/CheckOutItem";
+import AddressForm from "components/Form/AddressForm";
 import Message from "components/Message";
 import { NOTI } from "constants/index";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Link from "next/link";
+import React, { useRef, useState } from "react";
+import {
+    Breadcrumb,
+    Button,
+    Col,
+    Container,
+    Form as BForm,
+    Modal,
+    Row
+} from "react-bootstrap";
+import { GoLocation } from "react-icons/go";
+import { useSelector } from "react-redux";
+import { checkShippingFee, resetOrder } from "redux/slice/orderSlice";
+import store from "redux/store";
+import * as Yup from "yup";
 //@ts-ignore
-import { store as noti } from "react-notifications-component";
 import Loading from "layout/Loading";
-import { resetCart } from "app/slice/shopcartSlice";
-import { useRouter } from "next/router";
 import NotFound from "layout/NotFound";
+import { useRouter } from "next/router";
+
+import { resetCart } from "redux/slice/shopcartSlice";
 
 function CheckOutPage(props) {
   const router = useRouter();
@@ -87,12 +87,12 @@ function CheckOutPage(props) {
           <Breadcrumb className="fs--11 mt-3">
             <li className="breadcrumb-item">
               <Link href="/">
-                <a>Trang chủ</a>
+                Trang chủ
               </Link>
             </li>
             <li className="breadcrumb-item">
               <Link href="/shopcart">
-                <a>Giỏ hàng của bạn</a>
+                Giỏ hàng của bạn
               </Link>
             </li>
             <Breadcrumb.Item active>Thanh toán</Breadcrumb.Item>
@@ -122,19 +122,19 @@ function CheckOutPage(props) {
                     OrderApi.createOrder({ ...order, ...request })
                       .then((res) => {
                         setStatus("idle");
-                        noti.addNotification({
-                          ...NOTI,
-                          message: (
-                            <Message
-                              type="success"
-                              mess="Chúc mừng bạn đã đặt hàng thành công! Cảm ơn bạn vì đã tin tưởng sản phẩm của chúng tôi <3"
-                            />
-                          ),
-                          type: "success",
-                          dismiss: {
-                            duration: 3000,
-                          },
-                        });
+                        // noti.addNotification({
+                        //   ...NOTI,
+                        //   message: (
+                        //     <Message
+                        //       type="success"
+                        //       mess="Chúc mừng bạn đã đặt hàng thành công! Cảm ơn bạn vì đã tin tưởng sản phẩm của chúng tôi <3"
+                        //     />
+                        //   ),
+                        //   type: "success",
+                        //   dismiss: {
+                        //     duration: 3000,
+                        //   },
+                        // });
                         store.dispatch(resetOrder());
                         if (!order.buyNow) {
                           store.dispatch(resetCart());
@@ -143,19 +143,19 @@ function CheckOutPage(props) {
                       })
                       .catch((res) => {
                         setStatus("idle");
-                        noti.addNotification({
-                          ...NOTI,
-                          message: (
-                            <Message
-                              type="error"
-                              mess="Hệ thống có lỗi chưa xác định, mong bạn thông cảm và thử lại sau!"
-                            />
-                          ),
-                          type: "danger",
-                          dismiss: {
-                            duration: 3000,
-                          },
-                        });
+                        // noti.addNotification({
+                        //   ...NOTI,
+                        //   message: (
+                        //     <Message
+                        //       type="error"
+                        //       mess="Hệ thống có lỗi chưa xác định, mong bạn thông cảm và thử lại sau!"
+                        //     />
+                        //   ),
+                        //   type: "danger",
+                        //   dismiss: {
+                        //     duration: 3000,
+                        //   },
+                        // });
                       });
                   }
                 }}

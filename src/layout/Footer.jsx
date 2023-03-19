@@ -40,15 +40,9 @@ function Footer() {
           <Col xs={12} md={6} lg={4}>
             <h5>Chính sách</h5>
             <ul className="list-unstyled">
-              <li>
-                <a>Chính sách và quy định</a>
-              </li>
-              <li>
-                <a>Quy chế hoạt động</a>
-              </li>
-              <li>
-                <a>Bảo mật thông tin</a>
-              </li>
+              <li>Chính sách và quy định</li>
+              <li>Quy chế hoạt động</li>
+              <li>Bảo mật thông tin</li>
             </ul>
           </Col>
           <Col xs={12} lg={4}>

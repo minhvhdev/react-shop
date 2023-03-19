@@ -1,7 +1,6 @@
 import { NOTI } from "constants/index";
 import React, { forwardRef, memo, useState } from "react";
-//@ts-ignore
-import { store as noti } from "react-notifications-component";
+
 import Message from "./Message";
 
 function InputNumber(props, ref) {
@@ -23,15 +22,15 @@ function InputNumber(props, ref) {
     const value = +evt.target.value;
     if (!Number.isInteger(value)) {
       setValue(oldValue);
-      noti.addNotification({
-        ...options,
-        message: <Message type="warning" mess="Vui lòng nhập số"/>,
-      });
+      // noti.addNotification({
+      //   ...options,
+      //   message: <Message type="warning" mess="Vui lòng nhập số"/>,
+      // });
     } else if (value > 999 || value < 1) {
-      noti.addNotification({
-        ...options,
-        message: <Message type="warning" mess="Vui lòng nhập số từ 1-999"/>,
-      });
+      // noti.addNotification({
+      //   ...options,
+      //   message: <Message type="warning" mess="Vui lòng nhập số từ 1-999"/>,
+      // });
       setValue(oldValue);
     } else {
       setOldValue(value);

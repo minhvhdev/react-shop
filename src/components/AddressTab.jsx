@@ -1,12 +1,12 @@
 import AddressApi from "api/AddressApi";
-import { removeAddress, saveAddress, setDefault } from "app/slice/addressSlice";
-import store from "app/store";
 import Loading from "layout/Loading";
 import NullPage from "layout/NullPage";
 import React, { createRef, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { GoLocation, GoPlus, GoTrashcan } from "react-icons/go";
 import { useSelector } from "react-redux";
+import { removeAddress, saveAddress, setDefault } from "redux/slice/addressSlice";
+import store from "redux/store";
 import AddressForm from "./Form/AddressForm";
 
 function AddressTab(props) {

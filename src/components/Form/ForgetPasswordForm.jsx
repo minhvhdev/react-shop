@@ -1,17 +1,17 @@
 import UserApi from "api/UserApi";
-import { login } from "app/slice/userSlice";
-import store from "app/store";
 import Message from "components/Message";
 import Timer from "components/Timer";
 import { NOTI } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { validateEmail } from "lib/Helper";
 import Loading from "layout/Loading";
+import { validateEmail } from "lib/Helper";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Form as BForm } from "react-bootstrap";
+import { login } from "redux/slice/userSlice";
+import store from "redux/store";
 //@ts-ignore
-import { store as noti } from "react-notifications-component";
+
 import * as Yup from "yup";
 
 function ForgetPasswordForm(props) {
@@ -56,17 +56,17 @@ function ForgetPasswordForm(props) {
         UserApi.forgetChangePassword(values)
           .then((res) => {
             store.dispatch(login(res));
-            noti.addNotification({
-              ...NOTI,
-              message: (
-                <Message type="success" mess="Thay đổi mật khẩu thành công" />
-              ),
-              type: "success",
-              dismiss: {
-                duration: 2000,
-              },
-              width: 160,
-            });
+            // noti.addNotification({
+            //   ...NOTI,
+            //   message: (
+            //     <Message type="success" mess="Thay đổi mật khẩu thành công" />
+            //   ),
+            //   type: "success",
+            //   dismiss: {
+            //     duration: 2000,
+            //   },
+            //   width: 160,
+            // });
             handleClose();
             setStatus("idle");
           })

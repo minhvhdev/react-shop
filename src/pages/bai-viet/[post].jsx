@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { Container } from "react-bootstrap";
-import NotFound from "../../layout/NotFound";
+import PostApi from "api/PostApi";
 import {
   convertToUrl,
   formatDateTime,
@@ -9,13 +6,16 @@ import {
   renderImageLink,
   shortDescriptionProduct,
 } from "lib/Helper";
+import Head from "next/head";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import {
   AiOutlineClockCircle,
   AiOutlineEye,
   AiOutlineFacebook,
 } from "react-icons/ai";
-import PostApi from "api/PostApi";
-import Head from "next/head";
+import ReactMarkdown from "react-markdown";
+import NotFound from "../../layout/NotFound";
 function PostPage({ post }) {
   console.log(post);
   const [url, setUrl] = useState("");

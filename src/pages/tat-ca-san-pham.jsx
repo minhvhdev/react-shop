@@ -1,19 +1,19 @@
+import ProductApi from "api/ProductApi";
 import ListAllProduct from "components/ListAllProduct";
 import { comma } from "lib/Helper";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
-  Accordion,
-  Breadcrumb,
-  Col,
-  Container,
-  Form,
-  Row,
+    Accordion,
+    Breadcrumb,
+    Col,
+    Container,
+    Form,
+    Row
 } from "react-bootstrap";
-import Link from "next/link";
 import NullPage from "../layout/NullPage";
-import { useRouter } from "next/router";
-import ProductApi from "api/ProductApi";
-import Head from "next/head";
 function AllProductPage({ products }) {
   const router = useRouter();
   const { type } = router.query;
@@ -50,7 +50,7 @@ function AllProductPage({ products }) {
       <Breadcrumb className="fs--11 mt-3">
         <li className="breadcrumb-item">
           <Link href="/">
-            <a>Trang chủ</a>
+            Trang chủ
           </Link>
         </li>
         <Breadcrumb.Item active>Tất cả sản phẩm</Breadcrumb.Item>

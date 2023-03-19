@@ -1,8 +1,6 @@
-import { fetchAllRate } from "app/slice/ratingSlice";
-import store from "app/store";
 import LoginForm from "components/Form/LoginForm";
-import { formatDateTime } from "lib/Helper";
 import Loading from "layout/Loading";
+import { formatDateTime } from "lib/Helper";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
@@ -11,6 +9,8 @@ import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import StarRatings from "react-star-ratings";
+import { fetchAllRate } from "redux/slice/ratingSlice";
+import store from "redux/store";
 import RatingForm from "./RatingForm";
 
 ProductRating.propTypes = {

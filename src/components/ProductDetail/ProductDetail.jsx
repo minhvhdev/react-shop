@@ -1,25 +1,25 @@
 import ProductApi from "api/ProductApi";
 import ShopcartApi from "api/ShopcartApi";
-import { createBuyNowOrder } from "app/slice/orderSlice";
-import { addToCart } from "app/slice/shopcartSlice";
-import store from "app/store";
 import InputNumber from "components/InputNumber";
 import Message from "components/Message";
 import { NOTI } from "constants/index";
-import { store as noti } from "react-notifications-component";
 import { comma } from "lib/Helper";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import {
-  MdAddShoppingCart,
-  MdFavorite,
-  MdFavoriteBorder,
-  MdLocalShipping,
-  MdSentimentVerySatisfied,
+    MdAddShoppingCart,
+    MdFavorite,
+    MdFavoriteBorder,
+    MdLocalShipping,
+    MdSentimentVerySatisfied
 } from "react-icons/md";
+
 import { useSelector } from "react-redux";
-import Link from "next/link";
 import StarRatings from "react-star-ratings";
+import { createBuyNowOrder } from "redux/slice/orderSlice";
+import { addToCart } from "redux/slice/shopcartSlice";
+import store from "redux/store";
 import InputCoffeeType from "./InputCoffeeType";
 
 function ProductDetail({ product }) {
@@ -36,25 +36,25 @@ function ProductDetail({ product }) {
 
   const handleUnLike = () => {
     setLiked(false);
-    noti.addNotification({
-      ...NOTI,
-      message: <Message type="success" mess="Đã bỏ yêu thích sản phẩm" />,
-      type: "success",
-      dismiss: {
-        duration: 2000,
-      },
-    });
+    // noti.addNotification({
+    //   ...NOTI,
+    //   message: <Message type="success" mess="Đã bỏ yêu thích sản phẩm" />,
+    //   type: "success",
+    //   dismiss: {
+    //     duration: 2000,
+    //   },
+    // });
     ProductApi.updateLike({ id: product.id, status: false });
   };
   const handleLike = () => {
-    noti.addNotification({
-      ...NOTI,
-      message: <Message type="success" mess="Đã thêm yêu thích sản phẩm!" />,
-      type: "success",
-      dismiss: {
-        duration: 2000,
-      },
-    });
+    // noti.addNotification({
+    //   ...NOTI,
+    //   message: <Message type="success" mess="Đã thêm yêu thích sản phẩm!" />,
+    //   type: "success",
+    //   dismiss: {
+    //     duration: 2000,
+    //   },
+    // });
     setLiked(true);
     ProductApi.updateLike({ id: product.id, status: true });
   };
@@ -64,14 +64,14 @@ function ProductDetail({ product }) {
   const handleAddToCart = () => {
     const id = product.id;
     const quantity = +inputQuantity.current.value;
-    noti.addNotification({
-      ...NOTI,
-      message: <Message type="success" mess="Thêm sản phẩm thành công" />,
-      type: "success",
-      dismiss: {
-        duration: 2000,
-      },
-    });
+    // noti.addNotification({
+    //   ...NOTI,
+    //   message: <Message type="success" mess="Thêm sản phẩm thành công" />,
+    //   type: "success",
+    //   dismiss: {
+    //     duration: 2000,
+    //   },
+    // });
     store.dispatch(
       addToCart({
         product: {
@@ -135,7 +135,11 @@ function ProductDetail({ product }) {
       <div className="position-relative pt-4">
         {logged.data ? (
           <div className="like__button">
-            {liked ? <MdFavorite onClick={handleUnLike}/> : <MdFavoriteBorder onClick={handleLike}/>}
+            {liked ? (
+              <MdFavorite onClick={handleUnLike} />
+            ) : (
+              <MdFavoriteBorder onClick={handleLike} />
+            )}
           </div>
         ) : null}
         {product.type ? (
@@ -156,13 +160,12 @@ function ProductDetail({ product }) {
             </Button>
           </Col>
           <Col xs={12} className="ps-ssm-1 ps-sm-3  col-ssm-6">
-            <Link href="/buyer/check-out">
-              <a
-                className="btn btn-outline-primary w-100"
-                onClick={handleBuy}
-              >
-                Mua ngay
-              </a>
+            <Link
+              href="/buyer/check-out"
+              className="btn btn-outline-primary w-100"
+              onClick={handleBuy}
+            >
+              Mua ngay
             </Link>
           </Col>
         </Row>

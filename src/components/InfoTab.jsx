@@ -1,12 +1,12 @@
 import UserApi from "api/UserApi";
-import { updateEmail, updateInfo } from "app/slice/userSlice";
-import store from "app/store";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { validateEmail } from "lib/Helper";
 import Loading from "layout/Loading";
+import { validateEmail } from "lib/Helper";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form as BForm, Modal, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { updateEmail, updateInfo } from "redux/slice/userSlice";
+import store from "redux/store";
 import * as Yup from "yup";
 import DatePickerForm from "./Form/DatePickerForm";
 import VerifyForm from "./Form/VerifyForm";

@@ -3,10 +3,8 @@ import ProductDetail from "components/ProductDetail/ProductDetail";
 import ProductDetailImage from "components/ProductDetail/ProductDetailImage";
 import ProductRating from "components/ProductRating/ProductRating";
 import {
-  getIdFromUrl,
-  convertToUrl,
-  renderImageLink,
-  shortDescriptionProduct,
+    convertToUrl, getIdFromUrl, renderImageLink,
+    shortDescriptionProduct
 } from "lib/Helper";
 import Head from "next/head";
 import Link from "next/link";
@@ -41,12 +39,12 @@ function ProductPage({ product }) {
         <Breadcrumb className="fs--11 mt-3">
           <li className="breadcrumb-item">
             <Link href="/">
-              <a>Trang chủ</a>
+              Trang chủ
             </Link>
           </li>
           <li className="breadcrumb-item">
             <Link href="/allProduct">
-              <a>Tất cả sản phẩm</a>
+              Tất cả sản phẩm
             </Link>
           </li>
           <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>

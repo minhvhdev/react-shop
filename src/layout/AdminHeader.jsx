@@ -1,16 +1,8 @@
-import { logout } from "app/slice/userSlice";
-import store from "app/store";
-import React, { useState } from "react";
-import {
-  Button,
-  CloseButton,
-  Container,
-  Nav,
-  Navbar,
-  Offcanvas,
-} from "react-bootstrap";
-import { AiOutlineMenu } from "react-icons/ai";
 import Link from "next/link";
+import React, { useState } from "react";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { logout } from "redux/slice/userSlice";
+import store from "redux/store";
 
 function AdminHeader() {
   const [show, setShow] = useState(false);
@@ -33,14 +25,14 @@ function AdminHeader() {
             </Nav.Link>
           </Nav> */}
           <Nav className="d-flex">
-            <Link href="/admin/pendingOrder" onClick={() => setTab(1)}>
-              <a
-                className={`me-5 nav-link admin__nav--link ${
-                  tab === 1 ? "active" : ""
-                }`}
-              >
-                ĐƠN ĐẶT HÀNG
-              </a>
+            <Link
+              href="/admin/pendingOrder"
+              onClick={() => setTab(1)}
+              className={`me-5 nav-link admin__nav--link ${
+                tab === 1 ? "active" : ""
+              }`}
+            >
+              ĐƠN ĐẶT HÀNG
             </Link>
             {/* <Link
               replace
@@ -103,7 +95,7 @@ function AdminHeader() {
                   }`}
                 >
                   ĐƠN ĐẶT HÀNG
-                </a>
+                
               </Link>
             </li>
             <li onClick={handleClose} className="nav-item">

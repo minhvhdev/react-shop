@@ -1,10 +1,10 @@
-import { checkShippingFee } from "app/slice/orderSlice";
-import store from "app/store";
 import { comma, renderImageLink } from "lib/Helper";
 import React, { useEffect, useRef } from "react";
 import { Form, Row } from "react-bootstrap";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { checkShippingFee } from "redux/slice/orderSlice";
+import store from "redux/store";
 import PromotionForm from "./Form/PromotionForm";
 function CheckOutItem() {
   const order = useSelector((state) => state.order).data;

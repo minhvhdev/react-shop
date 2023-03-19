@@ -1,14 +1,12 @@
-import Router from "next/router";
-import React from "react";
-import { useEffect, useState } from "react";
-import "../styles/index.scss";
-import { Provider } from "react-redux";
-import store from "app/store";
 import Layout from "layout/Layout";
-import { initialUser } from "app/slice/userSlice";
-import { initialCart, socialAsyncCart } from "app/slice/shopcartSlice";
-import ReactNotification from "react-notifications-component";
-import { initialAddress, socialAsyncAddress } from "app/slice/addressSlice";
+import Router from "next/router";
+import React, { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import { initialAddress } from "redux/slice/addressSlice";
+import { initialCart } from "redux/slice/shopcartSlice";
+import { initialUser } from "redux/slice/userSlice";
+import store from "redux/store";
+import "../styles/index.scss";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -36,7 +34,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Provider store={store}>
-        <ReactNotification className="fs--1" />
         <Layout loading={loading}>
           <Component {...pageProps} />
         </Layout>

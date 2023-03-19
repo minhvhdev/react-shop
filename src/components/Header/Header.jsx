@@ -1,12 +1,12 @@
+import LoginForm from "components/Form/LoginForm";
 import SignUpForm from "components/Form/SignUpForm";
+import Link from "next/link";
 import React, { useState } from "react";
 import { Accordion, CloseButton, Container, Nav } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import Link from "next/link";
-import LoginForm from "../Form/LoginForm";
 import { LoggedNav, LoggedOffcanvas } from "./Logged";
 import { NotLoggedNav, NotLoggedOffcanvas } from "./NotLogged";
 import Shopcart from "./Shopcart";
@@ -37,31 +37,38 @@ function Header() {
     <>
       <Navbar id="header" bg="dark" variant="dark">
         <Container fluid="xl">
-          <Link href="/">
-            <a className="navbar-brand">
-              <i className="icon-logo fs--logo"></i>
-            </a>
+          <Link href="/" className="navbar-brand">
+            <i className="icon-logo fs--logo"></i>
           </Link>
           <Navbar className="d-none d-md-flex">
-            <Link href="/tat-ca-bai-viet">
-              <a className="me-3 nav-link">Bài viết</a>
+            <Link href="/tat-ca-bai-viet" className="me-3 nav-link">
+              Bài viết
             </Link>
             <div className="dropdown">
-              <Link href="/tat-ca-san-pham">
-                <a className="nav-link dropdown-toggle">Sản phẩm</a>
+              <Link
+                href="/tat-ca-san-pham"
+                className="nav-link dropdown-toggle"
+              >
+                Sản phẩm
               </Link>
               <ul
                 className="dropdown-menu dropdown-menu-dark fw-4"
                 aria-labelledby=""
               >
                 <li>
-                  <Link href="/tat-ca-san-pham?type=1">
-                    <a className="dropdown-item">Cà phê</a>
+                  <Link
+                    href="/tat-ca-san-pham?type=1"
+                    className="dropdown-item"
+                  >
+                    Cà phê
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tat-ca-san-pham?type=0">
-                    <a className="dropdown-item">Đặc sản khác</a>
+                  <Link
+                    href="/tat-ca-san-pham?type=0"
+                    className="dropdown-item"
+                  >
+                    Đặc sản khác
                   </Link>
                 </li>
               </ul>
@@ -104,15 +111,13 @@ function Header() {
         <Offcanvas.Body>
           <ul className="nav flex-column fs--8">
             <li onClick={handleClose} className="nav-item">
-              <Link href="/">
-                <a className="nav-link">
-                  <i className="icon-home"></i> Trang chủ
-                </a>
+              <Link href="/" className="nav-link">
+                <i className="icon-home"></i> Trang chủ
               </Link>
             </li>
             <li onClick={handleClose} className="nav-item">
-              <Link href="/allPost">
-                <a className="nav-link"><i className="icon-post"></i> Bài viết</a>
+              <Link href="/allPost" className="nav-link">
+                <i className="icon-post"></i> Bài viết
               </Link>
             </li>
             <li className="pb-3 collapse-group">
@@ -126,19 +131,13 @@ function Header() {
                   <Accordion.Body>
                     <ul className="collapse__menu fs--9 fw--3">
                       <li onClick={handleClose}>
-                        <Link href="/allProduct">
-                          <a>Tất cả sản phẩm</a>
-                        </Link>
+                        <Link href="/allProduct">Tất cả sản phẩm</Link>
                       </li>
                       <li onClick={handleClose}>
-                        <Link href="/allProduct?type=1">
-                          <a>Cà phê</a>
-                        </Link>
+                        <Link href="/allProduct?type=1">Cà phê</Link>
                       </li>
                       <li onClick={handleClose}>
-                        <Link href="/allProduct?type=0">
-                          <a>Đặc sản khác</a>
-                        </Link>
+                        <Link href="/allProduct?type=0">Đặc sản khác</Link>
                       </li>
                     </ul>
                   </Accordion.Body>

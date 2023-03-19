@@ -1,11 +1,11 @@
 import RatingApi from "api/RatingApi";
-import { addRate, updateRate } from "app/slice/ratingSlice";
-import store from "app/store";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Button, Form as BForm, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
+import { addRate, updateRate } from "redux/slice/ratingSlice";
+import store from "redux/store";
 
 const RatingForm = (props) => {
   const [rated, setRated] = useState();

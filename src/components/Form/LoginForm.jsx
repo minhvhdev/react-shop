@@ -1,17 +1,16 @@
 import ShopcartApi from "api/ShopcartApi";
 import UserApi from "api/UserApi";
-import { asyncAddress } from "app/slice/addressSlice";
-import { asyncCart } from "app/slice/shopcartSlice";
-import { login } from "app/slice/userSlice";
-import store from "app/store";
-import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL } from "constants/index";
+import { GOOGLE_AUTH_URL } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { asyncShopcart } from "lib/Helper";
 import Loading from "layout/Loading";
-import React, { useEffect, useState } from "react";
+import { asyncShopcart } from "lib/Helper";
+import React, { useState } from "react";
 import { Button, Form as BForm, Modal } from "react-bootstrap";
 import { AiOutlineGoogle } from "react-icons/ai";
-import { GrFacebookOption } from "react-icons/gr";
+import { asyncAddress } from "redux/slice/addressSlice";
+import { asyncCart } from "redux/slice/shopcartSlice";
+import { login } from "redux/slice/userSlice";
+import store from "redux/store";
 import * as Yup from "yup";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 

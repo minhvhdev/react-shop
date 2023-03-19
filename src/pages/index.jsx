@@ -1,17 +1,17 @@
 import PostApi from "api/PostApi";
 import ProductApi from "api/ProductApi";
-import { socialAsyncAddress } from "app/slice/addressSlice";
-import { socialAsyncCart } from "app/slice/shopcartSlice";
-import { login } from "app/slice/userSlice";
-import store from "app/store";
 import BannerSlide from "components/BannerSlide";
 import TopPost from "components/TopPost";
 import TopProductSlide from "components/TopProductSlide";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import queryString from "query-string";
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useRouter } from "next/router";
-import Head from "next/head";
+import { socialAsyncAddress } from "redux/slice/addressSlice";
+import { socialAsyncCart } from "redux/slice/shopcartSlice";
+import { login } from "redux/slice/userSlice";
+import store from "redux/store";
 
 function HomePage({ products, posts }) {
   const router = useRouter();
