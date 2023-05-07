@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'querystring';
+
 //add comma to currency
 export function comma(data: number): string {
   const number = '' + data;
@@ -78,7 +80,7 @@ export function renderImageLink(data: string, type: number): string {
   return link;
 }
 
-export function formatDateTime(date: string | number, isTime = true): string {
+export function formatDateTime(date: string | number | Date, isTime = true): string {
   let d = new Date(date);
   if (isTime) {
     return new Intl.DateTimeFormat('vi-VN', {
@@ -126,7 +128,9 @@ export function convertToUrl(name = ''): string {
     .replace(/Đ/g, 'D');
 }
 
-export function getIdFromUrl(url: string): string | number {
+export function getIdFromUrl(params: ParsedUrlQuery | undefined): string | number {
+  if (!params) return '';
+  const url = Object.values(params as Object)[0];
   const index = url.lastIndexOf('-');
   return url.substring(index + 1, url.length);
 }

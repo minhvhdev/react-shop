@@ -29,7 +29,6 @@ function Footer() {
   }, []);
   return (
     <div id="footer" className="text-white">
-      {console.log("render Footer")}
       <Container>
         <Row>
           <Col xs={12} md={6}>

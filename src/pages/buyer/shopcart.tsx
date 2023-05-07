@@ -1,19 +1,20 @@
-import AllCartItem from "components/ShowShopcart/AllCartItem";
-import NullCartItem from "components/ShowShopcart/NullCartItem";
-import Link from "next/link";
-import { useRef } from "react";
-import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { createOrder } from "redux/slice/orderSlice";
-import store from "redux/store";
+import AllCartItem from 'components/ShowShopcart/AllCartItem';
+import NullCartItem from 'components/ShowShopcart/NullCartItem';
+import Link from 'next/link';
+import { useRef } from 'react';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { createOrder } from 'redux/slice/orderSlice';
+import store, { RootState } from 'redux/store';
 
-function ShopcartPage() {
-  const shopcart = useSelector((state) => state.shopcart).data;
+const ShopcartPage: React.FC = () => {
+  const shopcart = useSelector((state: RootState) => state.shopcart).data;
   const update = useRef(null);
-  
+
   const handleCheckOut = () => {
     store.dispatch(createOrder(shopcart));
   };
+
   return (
     <Container>
       <Breadcrumb className="fs--11 mt-3">
@@ -35,12 +36,11 @@ function ShopcartPage() {
         <Row className="justify-content-end">
           <Col xs={12} lg={6}>
             <Row>
-              <Col >
+              <Col>
                 <Link
                   href="/buyer/check-out"
                   className="btn btn-primary w-100"
-                  onClick={handleCheckOut}
-                >
+                  onClick={handleCheckOut}>
                   Thanh toán
                 </Link>
               </Col>
@@ -56,6 +56,6 @@ function ShopcartPage() {
       )}
     </Container>
   );
-}
+};
 
 export default ShopcartPage;

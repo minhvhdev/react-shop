@@ -9,11 +9,11 @@ import React, { ChangeEventHandler, useEffect, useState } from 'react';
 import { Accordion, Breadcrumb, Col, Container, Form, Row } from 'react-bootstrap';
 import NullPage from '../layouts/NullPage';
 
-interface AllProductPageProps {
+interface Props {
   products: IProduct[];
 }
 
-function AllProductPage({ products }: AllProductPageProps) {
+function AllProductPage({ products }: Props) {
   const router = useRouter();
   const { type } = router.query;
   const [range, setRange] = useState(300000);

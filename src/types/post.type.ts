@@ -3,5 +3,6 @@ export default interface IPost {
   title: string;
   mainImgLink: string;
   numView: number;
+  content: string;
   createDate: string | Date;
 }

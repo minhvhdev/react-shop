@@ -1,12 +1,19 @@
+import { IPost, IProduct } from '@types';
 import postApi from 'api/postApi';
 import productApi from 'api/productApi';
 import BannerSlide from 'components/BannerSlide';
 import TopPost from 'components/TopPost';
 import TopProductSlide from 'components/TopProductSlide';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Col, Container, Row } from 'react-bootstrap';
 
-function HomePage({ products, posts }) {
+interface Props {
+  products: IProduct[];
+  posts: IPost[];
+}
+
+const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
   return (
     <section className="pt-3 pt-md-5">
       <Head>
@@ -241,13 +248,13 @@ function HomePage({ products, posts }) {
       </>
     </section>
   );
-}
-export async function getStaticProps(context) {
+};
+export const getStaticProps: GetStaticProps = async () => {
   const products = await productApi.getAll();
   const posts = await postApi.getAll();
   return {
     props: { products, posts }
   };
-}
+};
 
 export default HomePage;

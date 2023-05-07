@@ -1,3 +1,5 @@
 export default interface IOrder {
-    id: number;
+  fullName: string;
+  phone: string;
+  note: string;
 }
