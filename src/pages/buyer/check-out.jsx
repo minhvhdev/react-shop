@@ -1,9 +1,7 @@
-import OrderApi from "api/OrderApi";
+import orderApi from "api/orderApi";
 import AddressTab from "components/AddressTab";
 import CheckOutItem from "components/CheckOutItem";
 import AddressForm from "components/Form/AddressForm";
-import Message from "components/Message";
-import { NOTI } from "constants/index";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
@@ -22,8 +20,8 @@ import { checkShippingFee, resetOrder } from "redux/slice/orderSlice";
 import store from "redux/store";
 import * as Yup from "yup";
 //@ts-ignore
-import Loading from "layout/Loading";
-import NotFound from "layout/NotFound";
+import Loading from "layouts/Loading";
+import NotFound from "layouts/NotFound";
 import { useRouter } from "next/router";
 
 import { resetCart } from "redux/slice/shopcartSlice";
@@ -119,7 +117,7 @@ function CheckOutPage(props) {
                   }
                   if (request) {
                     setStatus("loading");
-                    OrderApi.createOrder({ ...order, ...request })
+                    orderApi.createOrder({ ...order, ...request })
                       .then((res) => {
                         setStatus("idle");
                         // noti.addNotification({

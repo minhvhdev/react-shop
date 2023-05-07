@@ -1,4 +1,4 @@
-import AddressApi from "api/AddressApi";
+import addressApi from "api/addressApi";
 import React, { useEffect, useState } from "react";
 import { Col, Form as BForm, Row } from "react-bootstrap";
 import Select, { components } from "react-select";
@@ -31,7 +31,7 @@ function AddressForm(props, refs) {
     return options;
   };
   const getDistrict = async (provinceCode) => {
-    const res = await AddressApi.getDistrict("province_id=" + provinceCode);
+    const res = await addressApi.getDistrict("province_id=" + provinceCode);
     const options = res.data.data.map((item) => ({
       value: item.DistrictID,
       label: item.DistrictName,
@@ -40,7 +40,7 @@ function AddressForm(props, refs) {
     return options;
   };
   const getWard = async (districtCode) => {
-    const res = await AddressApi.getWard("district_id=" + districtCode);
+    const res = await addressApi.getWard("district_id=" + districtCode);
     if (res.data.data) {
       const options = res.data.data.map((item) => ({
         value: +item.WardCode || -1,

@@ -1,5 +1,3 @@
-import LoginForm from "components/Form/LoginForm";
-import SignUpForm from "components/Form/SignUpForm";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Accordion, CloseButton, Container, Nav } from "react-bootstrap";
@@ -7,8 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { LoggedNav, LoggedOffcanvas } from "./Logged";
-import { NotLoggedNav, NotLoggedOffcanvas } from "./NotLogged";
 import Shopcart from "./Shopcart";
 
 function Header() {
@@ -75,14 +71,6 @@ function Header() {
             </div>
           </Navbar>
           <Navbar className="ms-auto">
-            {logged.data ? (
-              <LoggedNav />
-            ) : (
-              <NotLoggedNav
-                showLoginForm={handleShowLogin}
-                showSignupForm={handleShowSignup}
-              />
-            )}
             <Shopcart />
             <Nav className="d-block d-lg-none">
               <Nav.Link onClick={handleShow} className="ms-3">
@@ -144,26 +132,9 @@ function Header() {
                 </Accordion.Item>
               </Accordion>
             </li>
-            <li className="pt-3 collapse-group border-top">
-              {logged.data ? (
-                <LoggedOffcanvas close={handleClose} />
-              ) : (
-                <NotLoggedOffcanvas
-                  showLoginForm={handleShowLogin}
-                  showSignupForm={handleShowSignup}
-                />
-              )}
-            </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
-      {showLogin ? (
-        <LoginForm
-          handleClose={handleCloseLogin}
-          handleShowSignup={handleShowSignup}
-        />
-      ) : null}
-      {showSignup ? <SignUpForm handleClose={handleCloseSignup} /> : null}
     </>
   );
 }

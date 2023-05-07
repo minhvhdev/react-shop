@@ -1,9 +1,9 @@
-import { convertToUrl, formatDateTime, renderImageLink } from "lib/Helper";
+import { convertToUrl, formatDateTime, renderImageLink } from "helper";
+import Link from "next/link";
 import PropTypes from "prop-types";
 import React from "react";
 import { Card } from "react-bootstrap";
 import { BsClock, BsEye } from "react-icons/bs";
-import Link from "next/link";
 
 function PostCard({ post }) {
   return (

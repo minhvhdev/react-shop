@@ -1,8 +1,5 @@
-import ShopcartApi from "api/ShopcartApi";
 import InputNumber from "components/InputNumber";
-import Message from "components/Message";
-import { NOTI } from "constants/index";
-import { comma, convertToUrl, renderImageLink } from "lib/Helper";
+import { comma, convertToUrl, renderImageLink } from "helper";
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { GoTrashcan } from "react-icons/go";
@@ -48,7 +45,6 @@ function AllCartItem(props, refs) {
     // });
     dispatch(removeItem(index));
     const item = shopcart[index];
-    ShopcartApi.removeCartItem({ id: item.product.id, type: item.type });
   };
   return (
     <>

@@ -1,4 +1,4 @@
-import { comma, convertToUrl, renderImageLink } from "lib/Helper";
+import { comma, convertToUrl, renderImageLink } from "helper";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React from "react";

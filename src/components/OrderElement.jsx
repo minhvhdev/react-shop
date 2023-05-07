@@ -1,7 +1,7 @@
-import { comma, formatDateTime, renderImageLink } from "lib/Helper";
+import { comma, formatDateTime, renderImageLink } from "helper";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaPercentage, FaShippingFast } from "react-icons/fa";
-import Link from "next/link";
 
 function OrderElement(props) {
   const order = props.order;

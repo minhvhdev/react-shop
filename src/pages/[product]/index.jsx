@@ -1,11 +1,10 @@
-import ProductApi from "api/ProductApi";
+import productApi from "api/productApi";
 import ProductDetail from "components/ProductDetail/ProductDetail";
 import ProductDetailImage from "components/ProductDetail/ProductDetailImage";
-import ProductRating from "components/ProductRating/ProductRating";
 import {
     convertToUrl, getIdFromUrl, renderImageLink,
     shortDescriptionProduct
-} from "lib/Helper";
+} from "helper";
 import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -69,9 +68,6 @@ function ProductPage({ product }) {
               <Tab eventKey="description" title="Mô tả sản phẩm">
                 <ReactMarkdown>{product.description}</ReactMarkdown>
               </Tab>
-              <Tab eventKey="rating" title="Các đánh giá">
-                <ProductRating productId={product.id} />
-              </Tab>
             </Tabs>
           </Col>
         </Row>
@@ -82,7 +78,7 @@ function ProductPage({ product }) {
 
 export async function getStaticProps({ params }) {
   const productId = getIdFromUrl(params.product);
-  const products = await ProductApi.getAll();
+  const products = await productApi.getAll();
   const product = products.filter((el) => el.id == productId)[0];
   return {
     props: {
@@ -92,7 +88,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const products = await ProductApi.getAll();
+  const products = await productApi.getAll();
   const paths = products.map((product) => ({
     params: { product: convertToUrl(`${product.name}-${product.id}`) },
   }));

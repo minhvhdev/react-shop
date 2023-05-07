@@ -1,7 +1,6 @@
-import { NOTI } from "constants/index";
-import React, { forwardRef, memo, useState } from "react";
+import { NOTI } from "constants";
+import { forwardRef, memo, useState } from "react";
 
-import Message from "./Message";
 
 function InputNumber(props, ref) {
   const [value, setValue] = useState(props.value || 1);

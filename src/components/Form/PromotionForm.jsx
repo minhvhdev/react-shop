@@ -1,7 +1,5 @@
-import OrderApi from "api/OrderApi";
-import Message from "components/Message";
-import { NOTI } from "constants/index";
-import Loading from "layout/Loading";
+import orderApi from "api/orderApi";
+import Loading from "layouts/Loading";
 import { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";
@@ -28,7 +26,7 @@ function PromotionForm(props) {
       // });
     } else {
       setStatus("loading");
-      OrderApi.checkPromotion({ code })
+      orderApi.checkPromotion({ code })
         .then((res) => {          
           setStatus("idle");
           store.dispatch(addPromotion(res));

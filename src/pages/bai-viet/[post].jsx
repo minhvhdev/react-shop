@@ -1,21 +1,21 @@
-import PostApi from "api/PostApi";
+import postApi from "api/postApi";
 import {
-  convertToUrl,
-  formatDateTime,
-  getIdFromUrl,
-  renderImageLink,
-  shortDescriptionProduct,
-} from "lib/Helper";
+    convertToUrl,
+    formatDateTime,
+    getIdFromUrl,
+    renderImageLink,
+    shortDescriptionProduct
+} from "helper";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import {
-  AiOutlineClockCircle,
-  AiOutlineEye,
-  AiOutlineFacebook,
+    AiOutlineClockCircle,
+    AiOutlineEye,
+    AiOutlineFacebook
 } from "react-icons/ai";
 import ReactMarkdown from "react-markdown";
-import NotFound from "../../layout/NotFound";
+import NotFound from "../../layouts/NotFound";
 function PostPage({ post }) {
   console.log(post);
   const [url, setUrl] = useState("");
@@ -79,7 +79,7 @@ function PostPage({ post }) {
 
 export async function getStaticProps({ params }) {
   const postId = getIdFromUrl(params.post);
-  const posts = await PostApi.getAll();
+  const posts = await postApi.getAll();
   const post = posts.filter((el) => el.id == postId)[0];
   return {
     props: {
@@ -89,7 +89,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const posts = await PostApi.getAll();
+  const posts = await postApi.getAll();
   const paths = posts.map((post) => ({
     params: { post: convertToUrl(`${post.title}-${post.id}`) },
   }));

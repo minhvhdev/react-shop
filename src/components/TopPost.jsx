@@ -1,4 +1,4 @@
-import { convertToUrl, renderImageLink } from "lib/Helper";
+import { convertToUrl, renderImageLink } from "helper";
 import Link from "next/link";
 
 function TopPost({ posts }) {
