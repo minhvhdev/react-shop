@@ -4,7 +4,7 @@ import IPost from "./post.type";
 import IProduct from "./product.type";
 import { IExtraReducerStatusHandle, IReduxState } from "./redux.type";
 import IResponse from "./response.type";
-import IShopcart from "./shopcart.type";
+import IShopcartItem from "./shopcartItem.type";
 
 export type {
     IAddress,
@@ -13,7 +13,7 @@ export type {
     IReduxState,
     IExtraReducerStatusHandle,
     IResponse,
-    IShopcart,
+    IShopcartItem,
     IPost
 };
 

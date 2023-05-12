@@ -15,6 +15,7 @@ import NotFound from '../../layouts/NotFound';
 import { IPost } from '@types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import SendEmail from 'components/SendEmail/SendEmail';
 
 interface Props {
   post: IPost;
@@ -38,6 +39,7 @@ const PostPage: React.FC<Props> = ({ post }) => {
         <meta property="og:url" content="https://caphethodung.vn" />
         <meta property="og:site_name" content="Cà Phê Thơ Dũng" />
       </Head>
+      <SendEmail/>
       {post ? (
         <Container className="post-page__container fs--8">
           <h1 className="post-page__title">{post.title}</h1>

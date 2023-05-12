@@ -25,25 +25,40 @@ import { useRouter } from 'next/router';
 
 import { resetCart } from 'redux/slice/shopcartSlice';
 import { IOrder } from '@types';
+import { genTemplateOrderInformationEmail, sendEmail } from '@helper';
+
+interface formikValues {
+  fullName: string;
+  phone: string;
+  note: string;
+}
 
 const CheckOutPage: React.FC = () => {
   const router = useRouter();
   const order = useSelector((state: RootState) => state.order).data;
-  const refAddress = useRef(null);
+  const refAddress = useRef<{ value: string }>({ value: '' });
   const [status, setStatus] = useState('idle');
-  const [showAddress, setShowAddress] = useState(false);
+  const sendEmailCallBacks: IEmailCallbacks<IOrder> = {
+    genMessage: genTemplateOrderInformationEmail,
+    onSuccess: function (): void {
+      // TODO show notification
+      if (!order.buyNow) {
+        store.dispatch(resetCart());
+      }
+      router.push('/');
+    },
+    onError: function (): void {
+      // TODO show notification
+      setStatus('idle');
+    }
+  };
+
   const handleOnWard = (districtCode: string) => {
     store.dispatch(checkShippingFee(districtCode));
   };
 
-  const handleSubmitNoLogin = (values: IOrder) => {
-    // const addressObj = JSON.parse(refAddress.current.value as string);
-    const addressObj = {
-      province: { value: '', label: '' },
-      district: { value: '', label: '' },
-      ward: { value: '', label: '' },
-      street: ''
-    };
+  const handleSubmitNoLogin = (values: formikValues): IOrder | null => {
+    const addressObj = JSON.parse(refAddress.current.value);
     const pCode = addressObj.province.value;
     const dCode = addressObj.district.value;
     const wCode = addressObj.ward.value;
@@ -55,11 +70,21 @@ const CheckOutPage: React.FC = () => {
         fullName: values.fullName,
         phone: values.phone,
         note: values.note,
-        address: addressStr
+        address: addressStr,
+        orderItems: order.orderItem
       };
     } else {
       setStatus('miss');
       return null;
+    }
+  };
+
+  const handleSubmit = (values: formikValues) => {
+    const order = handleSubmitNoLogin(values);
+
+    if (order) {
+      setStatus('loading');
+      sendEmail(order, sendEmailCallBacks);
     }
   };
 
@@ -89,52 +114,7 @@ const CheckOutPage: React.FC = () => {
                   fullName: Yup.string().required('Đây là trường bắt buộc'),
                   phone: Yup.string().required('Đây là trường bắt buộc')
                 })}
-                onSubmit={(values) => {
-                  let request = null;
-                  request = handleSubmitNoLogin(values);
-                  if (request) {
-                    setStatus('loading');
-                    orderApi
-                      .createOrder({ ...order, ...request })
-                      .then((res) => {
-                        setStatus('idle');
-                        // noti.addNotification({
-                        //   ...NOTI,
-                        //   message: (
-                        //     <Message
-                        //       type="success"
-                        //       mess="Chúc mừng bạn đã đặt hàng thành công! Cảm ơn bạn vì đã tin tưởng sản phẩm của chúng tôi <3"
-                        //     />
-                        //   ),
-                        //   type: "success",
-                        //   dismiss: {
-                        //     duration: 3000,
-                        //   },
-                        // });
-                        store.dispatch(resetOrder());
-                        if (!order.buyNow) {
-                          store.dispatch(resetCart());
-                        }
-                        router.push('/');
-                      })
-                      .catch((res) => {
-                        setStatus('idle');
-                        // noti.addNotification({
-                        //   ...NOTI,
-                        //   message: (
-                        //     <Message
-                        //       type="error"
-                        //       mess="Hệ thống có lỗi chưa xác định, mong bạn thông cảm và thử lại sau!"
-                        //     />
-                        //   ),
-                        //   type: "danger",
-                        //   dismiss: {
-                        //     duration: 3000,
-                        //   },
-                        // });
-                      });
-                  }
-                }}>
+                onSubmit={handleSubmit}>
                 <Form>
                   <>
                     <AddressForm ref={refAddress} onWard={handleOnWard} address={{}} />

@@ -1,6 +1,6 @@
-export interface IReduxState {
+export interface IReduxState<T> {
   status: string;
-  data: any;
+  data: T;
   error: {};
 }
 

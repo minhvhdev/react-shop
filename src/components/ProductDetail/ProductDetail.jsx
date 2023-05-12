@@ -20,6 +20,7 @@ function ProductDetail({ product }) {
   const handleChangeType = (evt) => {
     setType(evt.currentTarget.getAttribute("type-coffee"));
   };
+  
   const handleAddToCart = () => {
     const id = product.id;
     const quantity = +inputQuantity.current.value;

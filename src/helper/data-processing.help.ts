@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'querystring';
 
 //add comma to currency
-export function comma(data: number): string {
+export const comma = (data: number): string => {
   const number = '' + data;
   if (number.length > 3) {
     var mod = number.length % 3;
@@ -12,18 +12,18 @@ export function comma(data: number): string {
     }
     return output;
   } else return number;
-}
+};
 
 //remove comma from currency
-export function noComma(number: string): number {
+export const noComma = (number: string): number => {
   const len = number.length / 4;
   for (var i = 0; i < len; i++) {
     number = number.replace('.', '');
   }
   return parseInt(number);
-}
+};
 
-export function setWithExpiry(key: string, value: any, ttl = 1): void {
+export const setWithExpiry = (key: string, value: any, ttl = 1): void => {
   const isClient = typeof window !== 'undefined';
   if (isClient) {
     const item = {
@@ -32,8 +32,8 @@ export function setWithExpiry(key: string, value: any, ttl = 1): void {
     };
     localStorage.setItem(key, JSON.stringify(item));
   }
-}
-export function getWithExpiry(key: string): any {
+};
+export const getWithExpiry = (key: string): any => {
   const isClient = typeof window !== 'undefined';
   if (isClient) {
     const itemStr = localStorage.getItem(key);
@@ -47,9 +47,9 @@ export function getWithExpiry(key: string): any {
     }
     return item.value;
   }
-}
+};
 
-export function renderImageLink(data: string, type: number): string {
+export const renderImageLink = (data: string, type: number): string => {
   // let link = data.slice(0, data.lastIndexOf('.jpg'));
   let link = data;
   switch (type) {
@@ -78,9 +78,9 @@ export function renderImageLink(data: string, type: number): string {
       break;
   }
   return link;
-}
+};
 
-export function formatDateTime(date: string | number | Date, isTime = true): string {
+export const formatDateTime = (date: string | number | Date, isTime = true): string => {
   let d = new Date(date);
   if (isTime) {
     return new Intl.DateTimeFormat('vi-VN', {
@@ -97,9 +97,9 @@ export function formatDateTime(date: string | number | Date, isTime = true): str
       day: '2-digit'
     }).format(d);
   }
-}
-export function sortJSON(arr: Array<any>, prop: string = '', asc: boolean = true): any[] {
-  arr.sort(function (a, b) {
+};
+export const sortJSON = (arr: Array<any>, prop: string = '', asc: boolean = true): any[] => {
+  arr.sort((a, b) => {
     if (asc) {
       return a[prop] > b[prop] ? 1 : a[prop] < b[prop] ? -1 : 0;
     } else {
@@ -107,15 +107,15 @@ export function sortJSON(arr: Array<any>, prop: string = '', asc: boolean = true
     }
   });
   return arr;
-}
+};
 
-export function validateEmail(email: string): boolean {
+export const validateEmail = (email: string): boolean => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
-}
+};
 
-export function convertToUrl(name = ''): string {
+export const convertToUrl = (name = ''): string => {
   name = name.replaceAll(' ', '-');
   name = name.replaceAll('---', '-');
   name = name.replaceAll('--', '-');
@@ -126,15 +126,15 @@ export function convertToUrl(name = ''): string {
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/đ/g, 'd')
     .replace(/Đ/g, 'D');
-}
+};
 
-export function getIdFromUrl(params: ParsedUrlQuery | undefined): string | number {
+export const getIdFromUrl = (params: ParsedUrlQuery | undefined): string | number => {
   if (!params) return '';
   const url = Object.values(params as Object)[0];
   const index = url.lastIndexOf('-');
   return url.substring(index + 1, url.length);
-}
+};
 
-export function shortDescriptionProduct(data: string): string {
+export const shortDescriptionProduct = (data: string): string => {
   return data.split('\n')[0];
-}
+};

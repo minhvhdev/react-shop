@@ -1,11 +1,23 @@
-import { convertToUrl, renderImageLink } from "helper";
-import Link from "next/link";
+import { IPost } from '@types';
+import { convertToUrl, renderImageLink } from 'helper';
+import Link from 'next/link';
+import { useMemo } from 'react';
 
-function TopPost({ posts }) {
+interface Props {
+  posts: IPost[];
+}
+
+function TopPost({ posts }: Props) {
+  console.log(typeof posts)
+  const renderPosts = useMemo(() => {
+    if (posts.length <= 3) return posts;
+    return posts.slice(-3);
+  }, [posts]);
+
   return (
     <>
       <div id="top-posts" className="col fs--10">
-        {posts.slice(-3).map((item, index) => {
+        {renderPosts.map((item, index) => {
           return (
             <Link
               key={index}
@@ -13,19 +25,15 @@ function TopPost({ posts }) {
               className="card"
               style={{
                 backgroundImage: `url(${renderImageLink(item.mainImgLink, 2)})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundBlendMode: "screen",
-              }}
-            >
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundBlendMode: 'screen'
+              }}>
               <p className="card-title m-0">{item.title}</p>
             </Link>
           );
         })}
-        <Link
-          href="/tat-ca-bai-viet"
-          className="d-inline-block fs--10 fw--7 mt-2"
-        >
+        <Link href="/tat-ca-bai-viet" className="d-inline-block fs--10 fw--7 mt-2">
           Xem tất cả bài viết
           <i className="icon-arrow-right vertical-align--bottom"></i>
         </Link>

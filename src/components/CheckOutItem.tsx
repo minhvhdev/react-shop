@@ -1,14 +1,13 @@
-import { comma, renderImageLink } from "helper";
-import React, { useEffect, useRef } from "react";
-import { Form, Row } from "react-bootstrap";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { checkShippingFee } from "redux/slice/orderSlice";
-import store from "redux/store";
-import PromotionForm from "./Form/PromotionForm";
+import { comma, renderImageLink } from 'helper';
+import React, { useEffect, useRef } from 'react';
+import { Form, Row } from 'react-bootstrap';
+import { BsArrowLeftShort } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { checkShippingFee } from 'redux/slice/orderSlice';
+import store from 'redux/store';
+import PromotionForm from './Form/PromotionForm';
 function CheckOutItem() {
   const order = useSelector((state) => state.order).data;
-  const address = useSelector((state) => state.address).data;
   const total = order.orderItem.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
   }, 0);
@@ -16,24 +15,17 @@ function CheckOutItem() {
   const shippingFee = order.shippingFee;
   const shippingFeeReal = total < 200000 ? shippingFee : 0;
   const afterDiscount = total * (discount / 100);
-  const showCart = useRef(null);
+  const showCart = useRef({ current: null });
+
   const handleShowItem = () => {
-    const status = showCart.current.classList[4];
-    if (status === "hide") {
-      showCart.current.classList.replace("hide", "show");
+    const status = showCart.current?.classList[4];
+    if (status === 'hide') {
+      showCart.current.classList.replace('hide', 'show');
     } else {
-      showCart.current.classList.replace("show", "hide");
+      showCart.current.classList.replace('show', 'hide');
     }
   };
-  useEffect(() => {
-    if (address && address.length > 0) {
-      console.log(address);
-      const districtId = address.filter((item) => {
-        return item.mainAddress === true;
-      })[0].districtCode;
-      store.dispatch(checkShippingFee(districtId));
-    }
-  }, [address]);
+
   return (
     <div className="d-flex flex-column">
       <Form.Label>Chi tiết đơn hàng</Form.Label>
@@ -47,11 +39,7 @@ function CheckOutItem() {
           return (
             <div key={i} className="check-out__container">
               <div className="check-out__item cart-item__thumb">
-                <img
-                  src={renderImageLink(item.product.mainImgLink, 1)}
-                  alt=""
-                  width="100%"
-                />
+                <img src={renderImageLink(item.product.mainImgLink, 1)} alt="" width="100%" />
               </div>
               <div className="check-out__item">
                 <p>{item.product.name}</p>
@@ -78,9 +66,7 @@ function CheckOutItem() {
                 <span className="fs--10">₫ </span>
               </span>
               <BsArrowLeftShort className="icon" />
-              <span className="text-decoration-line-through">
-                {comma(total)}
-              </span>
+              <span className="text-decoration-line-through">{comma(total)}</span>
             </>
           ) : (
             comma(total)
@@ -97,9 +83,7 @@ function CheckOutItem() {
             <>
               0<span className="fs--11">₫</span>
               <BsArrowLeftShort className="icon" />
-              <span className="text-decoration-line-through">
-                {comma(shippingFee)}
-              </span>
+              <span className="text-decoration-line-through">{comma(shippingFee)}</span>
             </>
           )}
           <span className="fs--11">₫</span>
@@ -109,8 +93,7 @@ function CheckOutItem() {
         <p className="d-none d-lg-block">Tổng cổng:</p>
         <span
           onClick={handleShowItem}
-          className="d-block d-lg-none fs--9 text-primary dropdown-toggle cursor--pointer"
-        >
+          className="d-block d-lg-none fs--9 text-primary dropdown-toggle cursor--pointer">
           Thông tin đơn hàng
         </span>
         <div className="flex-grow-1 text-end">

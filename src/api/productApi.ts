@@ -3,7 +3,7 @@ import AxiosClient from './AxiosClient';
 
 const productApi = {
   getAll: async function (): Promise<IProduct[]> {
-    const url = '/product/getAll';
+    const url = '/products';
     return await AxiosClient.get(url);
   }
 };
