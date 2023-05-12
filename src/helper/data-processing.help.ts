@@ -81,7 +81,7 @@ export const renderImageLink = (data: string, type: number): string => {
 };
 
 export const formatDateTime = (date: string | number | Date, isTime = true): string => {
-  let d = new Date(date);
+  let d = typeof date === 'object' ? date : new Date(date);
   if (isTime) {
     return new Intl.DateTimeFormat('vi-VN', {
       year: 'numeric',

@@ -28,14 +28,16 @@ export const genTemplateOrderInformationEmail = (data: IOrder): string => {
   Tên người đặt:  ${data.fullName}
   Số điện thoại:  ${data.phone}
   Địa chỉ nhận:   ${data.address}
-  Đơn hàng: ${data.orderItems.map(
-    (item) => `
+  Đơn hàng: ${data.orderItems
+    .map(
+      (item) => `
     Sản phẩm: ${item.product.name}
     Số lượng: ${item.quantity}
-    ${item.type ? `Loại:    ${item.type}` : ''}
+    ${item.type ? ` Loại:    ${item.type}` : ''}
     Giá:      ${item.product.price}
     -------------------------------------------
   `
-  )}
+    )
+    .join('\n')}
   `;
 };
