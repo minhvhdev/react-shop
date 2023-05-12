@@ -1,5 +1,5 @@
+import NullPage from "layouts/NullPage";
 import React from "react";
-import NullPage from "layout/NullPage";
 function NullCartItem() {
   return (
     <>

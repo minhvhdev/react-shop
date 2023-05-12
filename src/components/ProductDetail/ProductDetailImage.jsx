@@ -1,5 +1,5 @@
-import { renderImageLink } from "lib/Helper";
-import React, { useState } from "react";
+import { renderImageLink } from "helper";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 function ProductDetailImage(props) {

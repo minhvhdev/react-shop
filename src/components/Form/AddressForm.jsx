@@ -1,68 +1,73 @@
-import AddressApi from "api/AddressApi";
-import React, { useEffect, useState } from "react";
-import { Col, Form as BForm, Row } from "react-bootstrap";
-import Select, { components } from "react-select";
+import addressApi from 'api/addressApi';
+import React, { useEffect, useState } from 'react';
+import { Col, Form as BForm, Row } from 'react-bootstrap';
+import Select, { components } from 'react-select';
 
 function AddressForm(props, refs) {
   const address = props.address;
   const handleOnWard = props.onWard;
+  const [response, setResponse] = useState({});
+  const [province, setProvince] = useState([]);
+  const [district, setDistrict] = useState([]);
+  const [ward, setWard] = useState([]);
+  const [street, setStreet] = useState(address ? address.street : '');
+  const [provinceOption, setProvinceOption] = useState({ value: 0, label: '' });
+  const [districtOption, setDistrictOption] = useState({ value: 0, label: '' });
+  const [wardOption, setWardOption] = useState({ value: 0, label: '' });
+  
   const handleOnChangeWard = (data) => {
     setWardOption(data);
     if (handleOnWard) {
       handleOnWard(districtOption.value);
     }
   };
-  const [response, setResponse] = useState({});
-  const [province, setProvince] = useState([]);
-  const [district, setDistrict] = useState([]);
-  const [ward, setWard] = useState([]);
-  const [street, setStreet] = useState(address ? address.street : "");
-  const [provinceOption, setProvinceOption] = useState({ value: 0, label: "" });
-  const [districtOption, setDistrictOption] = useState({ value: 0, label: "" });
-  const [wardOption, setWardOption] = useState({ value: 0, label: "" });
 
   const getProvince = () => {
-    const ghnProvince = require("../../../public/statics/json/ghn-province.json");
+    const ghnProvince = require('../../../public/statics/json/ghn-province.json');
     const options = ghnProvince.map((item) => ({
       value: item.ProvinceID,
-      label: item.ProvinceName,
+      label: item.ProvinceName
     }));
     setProvince(options);
     return options;
   };
+
   const getDistrict = async (provinceCode) => {
-    const res = await AddressApi.getDistrict("province_id=" + provinceCode);
+    const res = await addressApi.getDistrict('province_id=' + provinceCode);
     const options = res.data.data.map((item) => ({
       value: item.DistrictID,
-      label: item.DistrictName,
+      label: item.DistrictName
     }));
     await setDistrict(options);
     return options;
   };
+
   const getWard = async (districtCode) => {
-    const res = await AddressApi.getWard("district_id=" + districtCode);
+    const res = await addressApi.getWard('district_id=' + districtCode);
     if (res.data.data) {
       const options = res.data.data.map((item) => ({
         value: +item.WardCode || -1,
-        label: item.WardName,
+        label: item.WardName
       }));
       setWard(options);
       return options;
     } else {
-      setWard([{ value: -1, label: "Không" }]);
+      setWard([{ value: -1, label: 'Không' }]);
     }
   };
+  
   const handleProvince = (data) => {
     setProvinceOption(data);
-    setDistrictOption({ value: 0, label: "" });
+    setDistrictOption({ value: 0, label: '' });
     getDistrict(data.value);
-    setWardOption({ value: 0, label: "" });
+    setWardOption({ value: 0, label: '' });
     setWard([]);
   };
+
   const handleDistrict = (data) => {
     setDistrictOption(data);
     getWard(data.value);
-    setWardOption({ value: 0, label: "" });
+    setWardOption({ value: 0, label: '' });
   };
 
   useEffect(() => {
@@ -75,41 +80,38 @@ function AddressForm(props, refs) {
       const wOption = await getWard(dValue);
       setProvinceOption({
         value: pValue,
-        label: { ...pOption.filter((option) => option.value === pValue)[0] }
-          .label,
+        label: { ...pOption.filter((option) => option.value === pValue)[0] }.label
       });
       setDistrictOption({
         value: dValue,
-        label: { ...dOption.filter((option) => option.value === dValue)[0] }
-          .label,
+        label: { ...dOption.filter((option) => option.value === dValue)[0] }.label
       });
       if (wOption) {
         setWardOption({
           value: wValue,
-          label: { ...wOption.filter((option) => option.value === wValue)[0] }
-            .label,
+          label: { ...wOption.filter((option) => option.value === wValue)[0] }.label
         });
       } else {
         setWardOption({
           value: -1,
-          label: "Không",
+          label: 'Không'
         });
       }
     };
     if (address.provinceCode) {
       runEffect();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
+
   useEffect(() => {
     setResponse({
       province: provinceOption,
       district: districtOption,
       ward: wardOption,
-      street: street,
+      street: street
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provinceOption, districtOption, wardOption, street]);
+
   return (
     <Row className="mb-3">
       <input ref={refs} type="hidden" value={JSON.stringify(response)} />
@@ -117,17 +119,17 @@ function AddressForm(props, refs) {
         <BForm.Label>Tỉnh/TP</BForm.Label>
         <Select
           value={provinceOption.value ? provinceOption : null}
-          placeholder={"Chọn"}
+          placeholder={'Chọn'}
           className="w-100"
           onChange={handleProvince}
           styles={{
             option: (provided, state) => ({
               ...provided,
-              backgroundColor: state.isSelected ? "#008248" : "white",
-              "&:hover": {
-                backgroundColor: "#0082487e",
-              },
-            }),
+              backgroundColor: state.isSelected ? '#008248' : 'white',
+              '&:hover': {
+                backgroundColor: '#0082487e'
+              }
+            })
           }}
           options={province}
         />
@@ -136,18 +138,18 @@ function AddressForm(props, refs) {
         <BForm.Label>Quận/Huyện</BForm.Label>
         <Select
           value={districtOption.value ? districtOption : null}
-          placeholder={"Chọn"}
+          placeholder={'Chọn'}
           className="w-100"
           onChange={handleDistrict}
           components={{ NoOptionsMessage }}
           styles={{
             option: (provided, state) => ({
               ...provided,
-              backgroundColor: state.isSelected ? "#008248" : "white",
-              "&:hover": {
-                backgroundColor: "#0082487e",
-              },
-            }),
+              backgroundColor: state.isSelected ? '#008248' : 'white',
+              '&:hover': {
+                backgroundColor: '#0082487e'
+              }
+            })
           }}
           options={district}
         />
@@ -156,18 +158,18 @@ function AddressForm(props, refs) {
         <BForm.Label>Phường/Xã</BForm.Label>
         <Select
           value={wardOption.value ? wardOption : null}
-          placeholder={"Chọn"}
+          placeholder={'Chọn'}
           className="w-100"
           onChange={handleOnChangeWard}
           components={{ NoOptionsMessage }}
           styles={{
             option: (provided, state) => ({
               ...provided,
-              backgroundColor: state.isSelected ? "#008248" : "white",
-              "&:hover": {
-                backgroundColor: "#0082487e",
-              },
-            }),
+              backgroundColor: state.isSelected ? '#008248' : 'white',
+              '&:hover': {
+                backgroundColor: '#0082487e'
+              }
+            })
           }}
           options={ward}
         />
@@ -175,7 +177,7 @@ function AddressForm(props, refs) {
       <BForm.Group as={Col} xs={12} sm={6} controlId="formGridPassword">
         <BForm.Label>Địa chỉ nhà:*</BForm.Label>
         <BForm.Control
-          defaultValue={address ? address.street : ""}
+          defaultValue={address ? address.street : ''}
           onBlur={(evt) => setStreet(evt.target.value)}
           type="text"
           placeholder="Nhập địa chỉ của bạn"

@@ -1,8 +1,8 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { AiFillShopping } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import Link from "next/link";
 
 function Shopcart() {
   const shopcart = useSelector((state) => state.shopcart).data;
@@ -18,12 +18,10 @@ function Shopcart() {
   }, [shopcart]);
   return (
     <Nav id="shopcart">
-      <Link href="/buyer/shopcart">
-        <a className="ms-2 position-relative nav-link">
-          Giỏ hàng
-          <AiFillShopping className="icon fs--1" />
-          <span className="shopcart__item">{numItem}</span>
-        </a>
+      <Link href="/buyer/shopcart" className="ms-2 position-relative nav-link">
+        Giỏ hàng
+        <AiFillShopping className="icon fs--1" />
+        <span className="shopcart__item">{numItem}</span>
       </Link>
     </Nav>
   );

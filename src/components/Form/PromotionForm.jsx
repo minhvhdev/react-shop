@@ -1,14 +1,12 @@
-import OrderApi from "api/OrderApi";
-import { addPromotion, removePromotion } from "app/slice/orderSlice";
-import store from "app/store";
-import Message from "components/Message";
-import { NOTI } from "constants/index";
-import Loading from "layout/Loading";
-import React, { useState } from "react";
+import orderApi from "api/orderApi";
+import Loading from "layouts/Loading";
+import { useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import { BsTrash } from "react-icons/bs";
-import { store as noti } from "react-notifications-component";
+
 import { useSelector } from "react-redux";
+import { addPromotion, removePromotion } from "redux/slice/orderSlice";
+import store from "redux/store";
 
 function PromotionForm(props) {
   const [code, setCode] = useState("");
@@ -18,17 +16,17 @@ function PromotionForm(props) {
   const handleChange = (evt) => setCode(evt.target.value);
   const handleCheckPromotion = () => {
     if (!logged.data) {
-      noti.addNotification({
-        ...NOTI,
-        message: <Message type="warning" mess="Bạn cần đăng nhập để sử dụng mã giảm giá" />,
-        type: "warning",
-        dismiss: {
-          duration: 3000,
-        },
-      });
+      // noti.addNotification({
+      //   ...NOTI,
+      //   message: <Message type="warning" mess="Bạn cần đăng nhập để sử dụng mã giảm giá" />,
+      //   type: "warning",
+      //   dismiss: {
+      //     duration: 3000,
+      //   },
+      // });
     } else {
       setStatus("loading");
-      OrderApi.checkPromotion({ code })
+      orderApi.checkPromotion({ code })
         .then((res) => {          
           setStatus("idle");
           store.dispatch(addPromotion(res));

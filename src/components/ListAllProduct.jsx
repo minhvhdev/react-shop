@@ -1,7 +1,6 @@
 import ProductCard from "components/ProductCard";
-import { sortJSON } from "lib/Helper";
-import Loading from "layout/Loading";
-import NullPage from "layout/NullPage";
+import { sortJSON } from "helper";
+import NullPage from "layouts/NullPage";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
