@@ -1,14 +1,13 @@
+import { useMemo } from 'react';
 import { IPost } from '@types';
 import { convertToUrl, renderImageLink } from 'helper';
 import Link from 'next/link';
-import { useMemo } from 'react';
 
 interface Props {
   posts: IPost[];
 }
 
 function TopPost({ posts }: Props) {
-  console.log(typeof posts)
   const renderPosts = useMemo(() => {
     if (posts.length <= 3) return posts;
     return posts.slice(-3);

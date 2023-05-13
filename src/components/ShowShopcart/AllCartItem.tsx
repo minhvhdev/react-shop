@@ -1,28 +1,31 @@
-import InputNumber from "components/InputNumber";
-import { comma, convertToUrl, renderImageLink } from "helper";
-import React, { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import { GoTrashcan } from "react-icons/go";
-import { removeItem } from "redux/slice/shopcartSlice";
-// @ts-ignore
-import Link from "next/link";
+import React, { useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { GoTrashcan } from 'react-icons/go';
+import { useDispatch, useSelector } from 'react-redux';
+import { IShopcartItem } from '@types';
+import { comma, convertToUrl, renderImageLink } from 'helper';
+import Link from 'next/link';
+import { removeItem } from 'redux/slice/shopcartSlice';
+import { RootState } from 'redux/store';
 
-import { useDispatch, useSelector } from "react-redux";
+import InputNumber from 'components/InputNumber';
 
-function AllCartItem(props, refs) {
-  const shopcart = useSelector((state) => state.shopcart).data;
+const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
+  const dispatch = useDispatch();
+  const shopcart = useSelector((state: RootState) => state.shopcart).data;
   const totalPrice = shopcart.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
   }, 0);
-  const [quantity, setQuantity] = useState("[]");
-  const dispatch = useDispatch();
-  const productUrl = (item) => {
+  const [quantity, setQuantity] = useState('[]');
+
+  const productUrl = (item: IShopcartItem) => {
     return convertToUrl(`${item.product.name}-${item.product.id}`);
   };
-  const handleChange = (value, index) => {
+
+  const handleChange = (value: number, index: number): void => {
     const quan = JSON.parse(quantity);
     let isExist = false;
-    quan.forEach((element) => {
+    quan.forEach((element: { index: number; value: number }) => {
       if (element.index === index) {
         element.value = value;
         isExist = true;
@@ -33,7 +36,7 @@ function AllCartItem(props, refs) {
     }
     setQuantity(JSON.stringify(quan));
   };
-  const handleRemove = (evt, index) => {
+  const handleRemove = (_: React.MouseEvent, index: number): void => {
     // noti.addNotification({
     //   ...NOTI,
     //   message: <Message type="success" mess="Xóa sản phẩm thành công" />,
@@ -44,11 +47,11 @@ function AllCartItem(props, refs) {
     //   width: 160,
     // });
     dispatch(removeItem(index));
-    const item = shopcart[index];
   };
+
   return (
     <>
-      <input ref={refs} type="hidden" value={quantity} />
+      <input ref={ref} type="hidden" value={quantity} />
       <Row id="shopcart__item">
         <div className="border-bottom fs--9 fw--3 d-flex justify-content-between">
           <span>Sản phẩm trong giỏ</span>
@@ -65,8 +68,7 @@ function AllCartItem(props, refs) {
                     <Button
                       variant="outline-danger py-0"
                       onClick={(evt) => handleRemove(evt, i)}
-                      className="close-button"
-                    >
+                      className="close-button">
                       <GoTrashcan />
                     </Button>
                     <div className="cart-item__item cart-item__thumb">
@@ -98,9 +100,7 @@ function AllCartItem(props, refs) {
                       </div>
                     </div>
                     <div className="cart-item__item vertical__block">
-                      <p className="text-end fs--8 vertical--center">
-                        {comma(total)}₫
-                      </p>
+                      <p className="text-end fs--8 vertical--center">{comma(total)}₫</p>
                     </div>
                   </div>
                 );
@@ -114,6 +114,7 @@ function AllCartItem(props, refs) {
       </Row>
     </>
   );
-}
+});
 
-export default React.memo(React.forwardRef(AllCartItem));
+AllCartItem.displayName = 'AllCartItem';
+export default React.memo(AllCartItem);

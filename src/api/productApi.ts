@@ -1,4 +1,5 @@
-import { IProduct, IResponse } from '@types';
+import { IProduct } from '@types';
+
 import AxiosClient from './AxiosClient';
 
 const productApi = {

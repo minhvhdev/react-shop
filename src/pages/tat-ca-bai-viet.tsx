@@ -1,15 +1,16 @@
+import React, { useEffect, useState } from 'react';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
+import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
+import ReactPaginate from 'react-paginate';
 import { IPost } from '@types';
 import postApi from 'api/postApi';
-import PostCard from 'components/PostCard';
 import { sortJSON } from 'helper';
 import NullPage from 'layouts/NullPage';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
-import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
-import ReactPaginate from 'react-paginate';
+
+import PostCard from 'components/PostCard';
 
 type Props = {
   posts: IPost[];
@@ -30,7 +31,7 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
   const handleSort: React.ChangeEventHandler<HTMLSelectElement> = (evt) => {
     const value = evt.target.value;
     if (value === '0') {
-      setList(sortJSON(list, 'numView', false));
+      setList(sortJSON(list, 'numView', false) as IPost[]);
     }
     if (value === '1') {
       setList([...sortJSON(list, 'createDate', false)]);

@@ -1,24 +1,24 @@
-import { comma, renderImageLink } from 'helper';
-import React, { useEffect, useRef } from 'react';
-import { Form, Row } from 'react-bootstrap';
+import React, { useRef } from 'react';
+import { Form } from 'react-bootstrap';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
-import { checkShippingFee } from 'redux/slice/orderSlice';
-import store from 'redux/store';
-import PromotionForm from './Form/PromotionForm';
-function CheckOutItem() {
-  const order = useSelector((state) => state.order).data;
-  const total = order.orderItem.reduce((total, item) => {
+import { comma, renderImageLink } from 'helper';
+import { RootState } from 'redux/store';
+
+const CheckOutItem: React.FC = () => {
+  const order = useSelector((state: RootState) => state.order).data;
+  const total = order.orderItems.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
   }, 0);
   const discount = order.promotionCode ? order.promotionCode.discount : 0;
   const shippingFee = order.shippingFee;
-  const shippingFeeReal = total < 200000 ? shippingFee : 0;
+  const shippingFeeReal = total < 200000 && shippingFee ? shippingFee : 0;
   const afterDiscount = total * (discount / 100);
-  const showCart = useRef({ current: null });
+  const showCart = useRef<HTMLDivElement>(null);
 
   const handleShowItem = () => {
-    const status = showCart.current?.classList[4];
+    if (!showCart.current) return;
+    const status = showCart.current.classList[4];
     if (status === 'hide') {
       showCart.current.classList.replace('hide', 'show');
     } else {
@@ -29,11 +29,11 @@ function CheckOutItem() {
   return (
     <div className="d-flex flex-column">
       <Form.Label>Chi tiết đơn hàng</Form.Label>
-      <Row className="mb-3 order-1 position-relative">
+      {/* <Row className="mb-3 order-1 position-relative">
         <PromotionForm />
-      </Row>
+      </Row> */}
       <div ref={showCart} className="order-5 mb-lg-3 order-lg-2 check-out show">
-        {order.orderItem.map((item, i) => {
+        {order.orderItems.map((item, i) => {
           const quantity = item.quantity;
           const price = item.product.price;
           return (
@@ -78,12 +78,12 @@ function CheckOutItem() {
         <p>Phí giao hàng:</p>
         <div className="flex-grow-1 text-end">
           {total < 200000 ? (
-            comma(shippingFee)
+            comma(shippingFee || 0)
           ) : (
             <>
               0<span className="fs--11">₫</span>
               <BsArrowLeftShort className="icon" />
-              <span className="text-decoration-line-through">{comma(shippingFee)}</span>
+              <span className="text-decoration-line-through">{comma(shippingFee || 0)}</span>
             </>
           )}
           <span className="fs--11">₫</span>
@@ -103,6 +103,6 @@ function CheckOutItem() {
       </div>
     </div>
   );
-}
+};
 
 export default React.memo(CheckOutItem);

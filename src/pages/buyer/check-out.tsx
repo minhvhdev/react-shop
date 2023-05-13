@@ -1,8 +1,3 @@
-import orderApi from 'api/orderApi';
-import CheckOutItem from 'components/CheckOutItem';
-import AddressForm from 'components/Form/AddressForm';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import {
   Breadcrumb,
@@ -10,22 +5,24 @@ import {
   Col,
   Container,
   Form as BForm,
-  Row,
-  FormControlProps
+  FormControlProps,
+  Row
 } from 'react-bootstrap';
-import { GoLocation } from 'react-icons/go';
 import { useSelector } from 'react-redux';
-import { checkShippingFee, resetOrder } from 'redux/slice/orderSlice';
+import { genTemplateOrderInformationEmail, sendEmail } from '@helper';
+import { IEmailCallbacks, IOrder } from '@types';
+import { Spin } from 'antd';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import NotFound from 'layouts/NotFound';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { checkShippingFee } from 'redux/slice/orderSlice';
+import { resetCart } from 'redux/slice/shopcartSlice';
 import store, { RootState } from 'redux/store';
 import * as Yup from 'yup';
-//@ts-ignore
-import Loading from 'layouts/Loading';
-import NotFound from 'layouts/NotFound';
-import { useRouter } from 'next/router';
 
-import { resetCart } from 'redux/slice/shopcartSlice';
-import { IOrder } from '@types';
-import { genTemplateOrderInformationEmail, sendEmail } from '@helper';
+import CheckOutItem from 'components/CheckOutItem';
+import AddressForm from 'components/Form/AddressForm';
 
 interface formikValues {
   fullName: string;
@@ -36,8 +33,9 @@ interface formikValues {
 const CheckOutPage: React.FC = () => {
   const router = useRouter();
   const order = useSelector((state: RootState) => state.order).data;
-  const refAddress = useRef<{ value: string }>({ value: '' });
+  const refAddress = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState('idle');
+
   const sendEmailCallBacks: IEmailCallbacks<IOrder> = {
     genMessage: genTemplateOrderInformationEmail,
     onSuccess: function (): void {
@@ -58,7 +56,7 @@ const CheckOutPage: React.FC = () => {
   };
 
   const handleSubmitNoLogin = (values: formikValues): IOrder | null => {
-    const addressObj = JSON.parse(refAddress.current.value);
+    const addressObj = refAddress.current ? JSON.parse(refAddress.current.value) : '';
     const pCode = addressObj.province.value;
     const dCode = addressObj.district.value;
     const wCode = addressObj.ward.value;
@@ -71,7 +69,7 @@ const CheckOutPage: React.FC = () => {
         phone: values.phone,
         note: values.note,
         address: addressStr,
-        orderItems: order.orderItem
+        orderItems: order.orderItems
       };
     } else {
       setStatus('miss');
@@ -90,7 +88,7 @@ const CheckOutPage: React.FC = () => {
 
   return (
     <>
-      {order.orderItem.length ? (
+      {order.orderItems.length ? (
         <Container className=" position-relative">
           <Breadcrumb className="fs--11 mt-3">
             <li className="breadcrumb-item">
@@ -117,7 +115,7 @@ const CheckOutPage: React.FC = () => {
                 onSubmit={handleSubmit}>
                 <Form>
                   <>
-                    <AddressForm ref={refAddress} onWard={handleOnWard} address={{}} />
+                    <AddressForm ref={refAddress} onWard={handleOnWard} />
                     <BForm.Text className="text-danger">
                       {status === 'miss' ? 'Chưa nhập đầy đủ địa chỉ!!!' : null}
                     </BForm.Text>
@@ -156,17 +154,13 @@ const CheckOutPage: React.FC = () => {
                       )}
                     </Field>
                   </BForm.Group>
-                  <div className="d-flex justify-content-end">
-                    <Button variant="primary" className="px-5" type="submit">
-                      Đặt hàng
-                    </Button>
-                  </div>
-                  {status === 'loading' ? (
-                    <>
-                      <div className="backdrop"></div>
-                      <Loading type="inline" />
-                    </>
-                  ) : null}
+                  <Spin spinning={status === 'loading'}>
+                    <div className="d-flex justify-content-end">
+                      <Button variant="primary" className="px-5" type="submit">
+                        Đặt hàng
+                      </Button>
+                    </div>
+                  </Spin>
                 </Form>
               </Formik>
             </Col>

@@ -1,9 +1,11 @@
 import { EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, EMAIL_USER_ID } from '@constants';
+import { IEmailCallbacks, IEmailParams, IOrder } from '@types';
 import emailjs from 'emailjs-com';
-import { formatDateTime } from './data-processing.help';
-import { IOrder } from '@types';
 
-export const sendEmail = (data: any, callbacks: IEmailCallbacks<any>) => {
+import { formatDateTime } from './data-processing.help';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sendEmail = (data: unknown, callbacks: IEmailCallbacks<any>) => {
   const params: IEmailParams = {
     fromDate: '',
     message: ''

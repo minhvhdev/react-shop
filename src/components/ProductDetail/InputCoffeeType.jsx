@@ -1,10 +1,11 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 InputCoffeeType.propTypes = {
   type: PropTypes.string.isRequired,
-  handleChangeType: PropTypes.func.isRequired,
+  handleChangeType: PropTypes.func.isRequired
 };
+
 function InputCoffeeType(props) {
   const type = props.type;
   const handleChangeType = props.handleChangeType;
@@ -14,9 +15,8 @@ function InputCoffeeType(props) {
         <label>Chọn loại: </label>
         <span
           onClick={handleChangeType}
-          type-coffee="Bột"
-          className={`a type ${type === "Bột" ? "active" : ""}`}
-        >
+          data-type="Bột"
+          className={`a type ${type === 'Bột' ? 'active' : ''}`}>
           <i className="icon-attribute">
             <span className="path1"></span>
             <span className="path2"></span>
@@ -25,9 +25,8 @@ function InputCoffeeType(props) {
         </span>
         <span
           onClick={handleChangeType}
-          type-coffee="Hạt"
-          className={`a type ${type === "Hạt" ? "active" : ""}`}
-        >
+          data-type="Hạt"
+          className={`a type ${type === 'Hạt' ? 'active' : ''}`}>
           <i className="icon-attribute">
             <span className="path1"></span>
             <span className="path2"></span>

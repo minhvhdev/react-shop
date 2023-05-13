@@ -1,4 +1,4 @@
-interface IEmailCallbacks<T> {
+export default interface IEmailCallbacks<T> {
   genMessage: (data: T) => string;
   onSuccess: () => void;
   onError: () => void;

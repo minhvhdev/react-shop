@@ -1,34 +1,35 @@
 #footer {
-    padding: 50px 0;
-    background-color: black;
+  height: 292px;
+  padding: 50px 0;
+  background-color: black;
 
-    a {
-        text-decoration: none;
-        color: #eee;
+  a {
+    text-decoration: none;
+    color: #eee;
 
-        &:hover {
-            color: $primary;
-        }
+    &:hover {
+      color: $primary;
     }
+  }
 }
 
 .scroll-to-top {
-    text-align: center;
-    width: pxToRem(40);
-    height: pxToRem(40);
-    position: fixed;
-    right: pxToRem(40);
-    bottom: pxToRem(40);
-    font-size: pxToRem(25);
-    color: $primary;
-    background: $dark;
-    border: 1px solid $primary;
-    border-radius: 10px;
-    cursor: pointer;
+  text-align: center;
+  width: pxToRem(40);
+  height: pxToRem(40);
+  position: fixed;
+  right: pxToRem(40);
+  bottom: pxToRem(40);
+  font-size: pxToRem(25);
+  color: $primary;
+  background: $dark;
+  border: 1px solid $primary;
+  border-radius: 10px;
+  cursor: pointer;
 
-    &:hover {
-        color: white;
-        background: $primary;
-        border: 1px solid white;
-    }
+  &:hover {
+    color: white;
+    background: $primary;
+    border: 1px solid white;
+  }
 }

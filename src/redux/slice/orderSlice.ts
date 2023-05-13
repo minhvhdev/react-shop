@@ -1,65 +1,62 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import orderApi from "api/orderApi";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IOrder } from '@types';
+import orderApi from 'api/orderApi';
 
-const order = {
-  fullName: "",
-  phone: "",
-  note: "",
+const initOrder: IOrder = {
+  fullName: '',
+  phone: '',
+  note: '',
   shippingFee: 0,
-  promotionCode: null,
-  orderItem: [],
-  address: "",
-  buyNow: false,
+  promotionCode: undefined,
+  orderItems: [],
+  address: '',
+  buyNow: false
 };
 export const checkShippingFee = createAsyncThunk(
-  "order/shippingFee",
-  async (districtId: number | string) => {
+  'order/shippingFee',
+  async (districtId: string) => {
     const fee = await orderApi.checkShippingFee(districtId);
     return fee.data.data.total;
   }
 );
 const orderSlice = createSlice({
-  name: "orders",
-  initialState: { status: "idle", data: order, error: {} },
+  name: 'orders',
+  initialState: { status: 'idle', data: initOrder, error: {} },
   reducers: {
     createOrder: (state, action) => {
-      state.data.orderItem = action.payload;
+      state.data.orderItems = action.payload;
       state.data.buyNow = false;
     },
     addPromotion: (state, action) => {
       state.data.promotionCode = action.payload;
     },
     removePromotion: (state) => {
-      state.data.promotionCode = null;
+      state.data.promotionCode = undefined;
     },
     resetOrder: (state) => {
-      state.data = order;
+      state.data = initOrder;
     },
     createBuyNowOrder: (state, action) => {
-      state.data.orderItem = action.payload;
+      state.data.orderItems = action.payload;
       state.data.buyNow = true;
-    },
+    }
   },
-  extraReducers: {
-    [checkShippingFee.pending.type]: (state, action) => {
-      state.status = "loading";
-    },
-    [checkShippingFee.fulfilled.type]: (state, action) => {
-      state.status = "idle";
+  extraReducers(builder) {
+    builder.addCase(checkShippingFee.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(checkShippingFee.fulfilled, (state, action) => {
+      state.status = 'idle';
       state.data.shippingFee = action.payload;
-    },
-    [checkShippingFee.rejected.type]: (state, action) => {
-      state.status = "idle";
-      state.error = action.payload;
-    },
-  },
+    });
+    builder.addCase(checkShippingFee.rejected, (state, action) => {
+      state.status = 'idle';
+      state.error = action.payload as Record<string, unknown>;
+    });
+  }
 });
+
 const { reducer, actions } = orderSlice;
-export const {
-  createOrder,
-  addPromotion,
-  removePromotion,
-  resetOrder,
-  createBuyNowOrder,
-} = actions;
+export const { createOrder, addPromotion, removePromotion, resetOrder, createBuyNowOrder } =
+  actions;
 export default reducer;

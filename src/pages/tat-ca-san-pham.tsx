@@ -1,19 +1,21 @@
+import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import { Accordion, Breadcrumb, Col, Container, Form, Row } from 'react-bootstrap';
 import { IProduct } from '@types';
 import productApi from 'api/productApi';
-import ListAllProduct from 'components/ListAllProduct';
 import { comma } from 'helper';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ChangeEventHandler, useEffect, useState } from 'react';
-import { Accordion, Breadcrumb, Col, Container, Form, Row } from 'react-bootstrap';
+
+import ListAllProduct from 'components/ListAllProduct';
+
 import NullPage from '../layouts/NullPage';
 
 interface Props {
   products: IProduct[];
 }
 
-function AllProductPage({ products }: Props) {
+const AllProductPage: React.FC<Props> = ({ products }: Props) => {
   const router = useRouter();
   const { type } = router.query;
   const [range, setRange] = useState(300000);
@@ -164,7 +166,7 @@ function AllProductPage({ products }: Props) {
       </Row>
     </Container>
   );
-}
+};
 
 export async function getStaticProps() {
   const products = await productApi.getAll();

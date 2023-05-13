@@ -1,11 +1,18 @@
-import Link from "next/link";
-import { Container } from "react-bootstrap";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-import ProductCard from "./ProductCard";
+import { Container } from 'react-bootstrap';
+import Slider from 'react-slick';
+import { IProduct } from '@types';
+import Link from 'next/link';
 
-function TopProductSlide({ products }) {
+import ProductCard from './ProductCard';
+
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+
+interface Props {
+  products: IProduct[];
+}
+
+const TopProductSlide: React.FC<Props> = ({ products }: Props) => {
   return (
     <div id="top-products" className="py-5">
       <Container className="px-4 text-center">
@@ -19,30 +26,29 @@ function TopProductSlide({ products }) {
             {
               breakpoint: 1400,
               settings: {
-                slidesToShow: 4,
-              },
+                slidesToShow: 4
+              }
             },
             {
               breakpoint: 1200,
               settings: {
-                slidesToShow: 3,
-              },
+                slidesToShow: 3
+              }
             },
             {
               breakpoint: 992,
               settings: {
-                slidesToShow: 2,
-              },
+                slidesToShow: 2
+              }
             },
             {
               breakpoint: 480,
               settings: {
-                slidesToShow: 1,
-              },
-            },
+                slidesToShow: 1
+              }
+            }
           ]}
-          className="product-slide"
-        >
+          className="product-slide">
           {products.slice(0, 6).map((item, index) => {
             return (
               <div className="px-2" key={index}>
@@ -51,15 +57,12 @@ function TopProductSlide({ products }) {
             );
           })}
         </Slider>
-        <Link
-          href="/tat-ca-san-pham"
-          className="btn btn-lg btn-primary mt-5 px-5"
-        >
+        <Link href="/tat-ca-san-pham" className="btn btn-lg btn-primary mt-5 px-5">
           Xem tất cả sản phẩm
         </Link>
       </Container>
     </div>
   );
-}
+};
 
 export default TopProductSlide;

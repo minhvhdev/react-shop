@@ -1,3 +1,2 @@
-export * from "./global.constant";
-export * from "./redux.constant";
-
+export * from './global.constant';
+export * from './redux.constant';

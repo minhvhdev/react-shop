@@ -1,11 +1,12 @@
-import AllCartItem from 'components/ShowShopcart/AllCartItem';
-import NullCartItem from 'components/ShowShopcart/NullCartItem';
-import Link from 'next/link';
 import { useRef } from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import { createOrder } from 'redux/slice/orderSlice';
 import store, { RootState } from 'redux/store';
+
+import AllCartItem from 'components/ShowShopcart/AllCartItem';
+import NullCartItem from 'components/ShowShopcart/NullCartItem';
 
 const ShopcartPage: React.FC = () => {
   const shopcart = useSelector((state: RootState) => state.shopcart).data;
@@ -24,13 +25,7 @@ const ShopcartPage: React.FC = () => {
         <Breadcrumb.Item active>Giỏ hàng của bạn</Breadcrumb.Item>
       </Breadcrumb>
       <Row>
-        <Col xs={12}>
-          {shopcart.length !== 0 ? (
-            <AllCartItem shopcart={shopcart} ref={update} />
-          ) : (
-            <NullCartItem />
-          )}
-        </Col>
+        <Col xs={12}>{shopcart.length !== 0 ? <AllCartItem ref={update} /> : <NullCartItem />}</Col>
       </Row>
       {shopcart.length !== 0 ? (
         <Row className="justify-content-end">
