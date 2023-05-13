@@ -4,8 +4,8 @@ import { ParsedUrlQuery } from 'querystring';
 export const comma = (data: number): string => {
   const number = '' + data;
   if (number.length > 3) {
-    var mod = number.length % 3;
-    var output = mod > 0 ? number.substring(0, mod) : '';
+    const mod = number.length % 3;
+    let output = mod > 0 ? number.substring(0, mod) : '';
     for (let i = 0; i < Math.floor(number.length / 3); i++) {
       if (mod === 0 && i === 0) output += number.substring(mod + 3 * i, mod + 3 * i + 3);
       else output += '.' + number.substring(mod + 3 * i, mod + 3 * i + 3);
@@ -17,36 +17,10 @@ export const comma = (data: number): string => {
 //remove comma from currency
 export const noComma = (number: string): number => {
   const len = number.length / 4;
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     number = number.replace('.', '');
   }
   return parseInt(number);
-};
-
-export const setWithExpiry = (key: string, value: any, ttl = 1): void => {
-  const isClient = typeof window !== 'undefined';
-  if (isClient) {
-    const item = {
-      value: value,
-      expiry: new Date().getTime() + ttl * 86400000
-    };
-    localStorage.setItem(key, JSON.stringify(item));
-  }
-};
-export const getWithExpiry = (key: string): any => {
-  const isClient = typeof window !== 'undefined';
-  if (isClient) {
-    const itemStr = localStorage.getItem(key);
-    if (!itemStr) {
-      return null;
-    }
-    const item = JSON.parse(itemStr);
-    if (new Date().getTime() > item.expiry) {
-      localStorage.removeItem(key);
-      return null;
-    }
-    return item.value;
-  }
 };
 
 export const renderImageLink = (data: string, type: number): string => {
@@ -81,7 +55,7 @@ export const renderImageLink = (data: string, type: number): string => {
 };
 
 export const formatDateTime = (date: string | number | Date, isTime = true): string => {
-  let d = typeof date === 'object' ? date : new Date(date);
+  const d = typeof date === 'object' ? date : new Date(date);
   if (isTime) {
     return new Intl.DateTimeFormat('vi-VN', {
       year: 'numeric',
@@ -98,15 +72,16 @@ export const formatDateTime = (date: string | number | Date, isTime = true): str
     }).format(d);
   }
 };
-export const sortJSON = (arr: Array<any>, prop: string = '', asc: boolean = true): any[] => {
-  arr.sort((a, b) => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sortJSON = (arr: Record<string, any>[], prop: string, asc = true): any[] => {
+  return arr.sort((a, b) => {
     if (asc) {
       return a[prop] > b[prop] ? 1 : a[prop] < b[prop] ? -1 : 0;
     } else {
       return a[prop] < b[prop] ? 1 : a[prop] > b[prop] ? -1 : 0;
     }
   });
-  return arr;
 };
 
 export const validateEmail = (email: string): boolean => {
@@ -130,7 +105,7 @@ export const convertToUrl = (name = ''): string => {
 
 export const getIdFromUrl = (params: ParsedUrlQuery | undefined): string | number => {
   if (!params) return '';
-  const url = Object.values(params as Object)[0];
+  const url = Object.values(params as object)[0];
   const index = url.lastIndexOf('-');
   return url.substring(index + 1, url.length);
 };

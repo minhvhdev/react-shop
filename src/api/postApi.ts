@@ -1,5 +1,4 @@
 import { IPost } from '@types';
-import AxiosClient from './AxiosClient';
 
 const postApi = {
   getAll: function (): Promise<IPost[]> {

@@ -1,34 +1,17 @@
-import Link from "next/link";
-import React, { useState } from "react";
-import { Accordion, CloseButton, Container, Nav } from "react-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import { AiOutlineMenu } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import Shopcart from "./Shopcart";
+import React, { useState } from 'react';
+import { Accordion, CloseButton, Container, Nav } from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import { AiOutlineMenu } from 'react-icons/ai';
+import Link from 'next/link';
+
+import Shopcart from './Shopcart';
 
 function Header() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
-  const handleCloseLogin = () => {
-    setShowLogin(false);
-    setShow(false);
-  };
-  const handleCloseSignup = () => {
-    setShowSignup(false);
-    setShow(false);
-  };
-  const handleShowLogin = () => {
-    setShowLogin(true);
-  };
-  const handleShowSignup = () => {
-    setShowSignup(true);
-  };
-  // @ts-ignore
-  const logged = useSelector((state) => state.logged);
+
   return (
     <>
       <Navbar id="header" bg="dark" variant="dark">
@@ -41,29 +24,17 @@ function Header() {
               Bài viết
             </Link>
             <div className="dropdown">
-              <Link
-                href="/tat-ca-san-pham"
-                className="nav-link dropdown-toggle"
-              >
+              <Link href="/tat-ca-san-pham" className="nav-link dropdown-toggle">
                 Sản phẩm
               </Link>
-              <ul
-                className="dropdown-menu dropdown-menu-dark fw-4"
-                aria-labelledby=""
-              >
+              <ul className="dropdown-menu dropdown-menu-dark fw-4" aria-labelledby="">
                 <li>
-                  <Link
-                    href="/tat-ca-san-pham?type=1"
-                    className="dropdown-item"
-                  >
+                  <Link href="/tat-ca-san-pham?type=1" className="dropdown-item">
                     Cà phê
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/tat-ca-san-pham?type=0"
-                    className="dropdown-item"
-                  >
+                  <Link href="/tat-ca-san-pham?type=0" className="dropdown-item">
                     Đặc sản khác
                   </Link>
                 </li>
@@ -74,10 +45,7 @@ function Header() {
             <Shopcart />
             <Nav className="d-block d-lg-none">
               <Nav.Link onClick={handleShow} className="ms-3">
-                <AiOutlineMenu
-                  style={{ verticalAlign: "text-top" }}
-                  className="icon fs--3"
-                />
+                <AiOutlineMenu style={{ verticalAlign: 'text-top' }} className="icon fs--3" />
               </Nav.Link>
             </Nav>
           </Navbar>
@@ -90,8 +58,7 @@ function Header() {
         show={show}
         backdrop={true}
         // scroll={true}
-        enforceFocus={false}
-      >
+        enforceFocus={false}>
         <Offcanvas.Header>
           <i className="icon-logo-full fs--logo"></i>
           <CloseButton variant="white" onClick={handleClose} />

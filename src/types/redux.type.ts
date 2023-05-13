@@ -1,11 +1,13 @@
+import { AnyAction } from 'redux';
+
 export interface IReduxState<T> {
   status: string;
   data: T;
-  error: {};
+  error: Record<string, unknown>;
 }
 
 export interface IExtraReducerStatusHandle {
-  pen: Object;
-  ful: Function;
-  rej: Object;
+  pen: (action: unknown, payload: AnyAction) => void;
+  ful: (action: unknown, payload: AnyAction) => void;
+  rej: (action: unknown, payload: AnyAction) => void;
 }

@@ -1,3 +1,6 @@
 export default interface IAddress {
-  id: number;
+  provinceCode: string;
+  districtCode: string;
+  wardCode: string;
+  street: string;
 }

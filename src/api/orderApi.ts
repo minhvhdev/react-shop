@@ -1,10 +1,8 @@
-import { IOrder } from '@types';
-import axios from 'axios';
-import axiosClient from './AxiosClient';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const orderApi = {
   checkShippingFee: function (districtID: string | number) {
-    const config: axios.AxiosRequestConfig<any> = {
+    const config: axios.AxiosRequestConfig<AxiosRequestConfig> = {
       method: 'get'
     };
     config.headers = {

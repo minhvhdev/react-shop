@@ -1,23 +1,24 @@
-import { NOTI } from "constants";
-import { forwardRef, memo, useState } from "react";
+import React, { memo, useState } from 'react';
 
+interface Props {
+  index?: number;
+  value?: number;
+  onChange?: (value: number, index: number) => void;
+  className?: string;
+}
 
-function InputNumber(props, ref) {
+const InputNumber = React.forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
   const [value, setValue] = useState(props.value || 1);
   const [oldValue, setOldValue] = useState(value);
   const index = props.index || 0;
-  const options = {
-    ...NOTI,
-    type: "warning",
-    dismiss: {
-      duration: 2000,
-    },
-  };
-  const handleChange = (evt) => {
-    setValue(evt.target.value);
-  };
+
   const handleChangeExtra = props.onChange;
-  const handleBlur = (evt) => {
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
+    setValue(Number(evt.target.value));
+  };
+
+  const handleBlur: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const value = +evt.target.value;
     if (!Number.isInteger(value)) {
       setValue(oldValue);
@@ -38,7 +39,8 @@ function InputNumber(props, ref) {
       }
     }
   };
-  const handleIncrease = (evt) => {
+
+  const handleIncrease = () => {
     if (+value !== 999) {
       setValue(+value + 1);
       if (handleChangeExtra) {
@@ -46,7 +48,8 @@ function InputNumber(props, ref) {
       }
     }
   };
-  const handleDecrease = (evt) => {
+
+  const handleDecrease = () => {
     if (+value !== 1) {
       setValue(+value - 1);
       if (handleChangeExtra) {
@@ -54,13 +57,11 @@ function InputNumber(props, ref) {
       }
     }
   };
+
   return (
     <>
       <ul className={`input--number ${props.className}`}>
-        <li
-          className={`qty-opt left ${+value <= 1 ? "" : "active"}`}
-          onClick={handleDecrease}
-        >
+        <li className={`qty-opt left ${+value <= 1 ? '' : 'active'}`} onClick={handleDecrease}>
           <span className="icon icon-reduce">
             <i className="icon icon-minus"></i>
           </span>
@@ -79,9 +80,8 @@ function InputNumber(props, ref) {
         </li>
         <li
           role="button"
-          className={`qty-opt right ${+value >= 999 ? "" : "active"}`}
-          onClick={handleIncrease}
-        >
+          className={`qty-opt right ${+value >= 999 ? '' : 'active'}`}
+          onClick={handleIncrease}>
           <span className="iconfont icon-add">
             <i className="icon icon-plus"></i>
           </span>
@@ -89,6 +89,7 @@ function InputNumber(props, ref) {
       </ul>
     </>
   );
-}
+});
 
-export default memo(forwardRef(InputNumber));
+InputNumber.displayName = 'InputNumber';
+export default memo(InputNumber);

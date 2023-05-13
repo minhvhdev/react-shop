@@ -1,5 +1,5 @@
 export const EXTRA_REDUCERS_STATUS = {
-    PENDING: 'pending',
-    FULFILLED: 'fulfilled',
-    REJECTED: 'rejected',
-}
+  PENDING: 'pending',
+  FULFILLED: 'fulfilled',
+  REJECTED: 'rejected'
+};

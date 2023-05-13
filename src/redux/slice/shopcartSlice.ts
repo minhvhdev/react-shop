@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IOrder, IProduct, IReduxState, IShopcartItem } from '@types';
+import { IReduxState, IShopcartItem } from '@types';
 
 function addProduct(arr: IShopcartItem[], data: IShopcartItem) {
   const len = arr.length;
@@ -27,12 +27,12 @@ const shopcartSlice = createSlice({
       state.data = addProduct(state.data, action.payload);
       localStorage.setItem('_shopcart', JSON.stringify(state.data));
     },
-    updateQuantity: (state, action) => {
-      action.payload.forEach((element) => {
-        state.data[element.index].quantity = element.value;
-      });
-      localStorage.setItem('_shopcart', JSON.stringify(state.data));
-    },
+    // updateQuantity: (state, action) => {
+    //   action.payload.forEach((element:IShopcartItem) => {
+    //     state.data[element.index].quantity = element.value;
+    //   });
+    //   localStorage.setItem('_shopcart', JSON.stringify(state.data));
+    // },
     removeItem: (state, action) => {
       const index = +action.payload;
       state.data.splice(index, 1);
@@ -48,5 +48,5 @@ const shopcartSlice = createSlice({
   }
 });
 const { reducer, actions } = shopcartSlice;
-export const { addToCart, updateQuantity, removeItem, asyncCart, resetCart, initialCart } = actions;
+export const { addToCart, removeItem, asyncCart, resetCart, initialCart } = actions;
 export default reducer;

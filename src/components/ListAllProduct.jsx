@@ -1,19 +1,20 @@
-import ProductCard from "components/ProductCard";
-import { sortJSON } from "helper";
-import NullPage from "layouts/NullPage";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
-import ReactPaginate from "react-paginate";
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
+import ReactPaginate from 'react-paginate';
+import { sortJSON } from 'helper';
+import NullPage from 'layouts/NullPage';
+import PropTypes from 'prop-types';
+
+import ProductCard from 'components/ProductCard';
 
 ListAllProduct.propTypes = {
   coffee: PropTypes.bool.isRequired,
   other: PropTypes.bool.isRequired,
   range: PropTypes.number.isRequired,
-  products: PropTypes.array.isRequired,
+  products: PropTypes.array.isRequired
 };
-function ListAllProduct({products, range, other, coffee}) {
+function ListAllProduct({ products, range, other, coffee }) {
   const [list, setList] = useState([]);
   const [offset, setOffset] = useState(0);
   const perPage = 12;
@@ -26,9 +27,9 @@ function ListAllProduct({products, range, other, coffee}) {
   const handleSort = (evt) => {
     const value = evt.target.value;
     if (+value === 0) {
-      setList([...sortJSON(list, "price")]);
+      setList([...sortJSON(list, 'price')]);
     } else {
-      setList([...sortJSON(list, "price", false)]);
+      setList([...sortJSON(list, 'price', false)]);
     }
   };
   useEffect(() => {
@@ -61,8 +62,7 @@ function ListAllProduct({products, range, other, coffee}) {
           className="ms-2 mb-1"
           id="product-sort"
           onChange={handleSort}
-          defaultValue="-1"
-        >
+          defaultValue="-1">
           <option disabled hidden value="-1">
             --- Lựa chọn ---
           </option>
@@ -75,13 +75,7 @@ function ListAllProduct({products, range, other, coffee}) {
           <>
             {list.slice(offset, offset + perPage).map((product, i) => {
               return (
-                <Col
-                  xs={12}
-                  className="col-ssm-6 mb-3 text-center"
-                  lg={4}
-                  xxl={3}
-                  key={i}
-                >
+                <Col xs={12} className="col-ssm-6 mb-3 text-center" lg={4} xxl={3} key={i}>
                   <ProductCard product={product} />
                 </Col>
               );

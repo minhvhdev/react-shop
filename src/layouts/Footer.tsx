@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { FaAngleUp, FaFacebookF } from "react-icons/fa";
-import {
-  HiOutlineLocationMarker,
-  HiOutlineMail,
-  HiPhone
-} from "react-icons/hi";
-function Footer() {
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import { FaAngleUp, FaFacebookF } from 'react-icons/fa';
+import { HiOutlineLocationMarker, HiOutlineMail, HiPhone } from 'react-icons/hi';
+
+const Footer: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
       setIsVisible(true);
@@ -15,24 +13,27 @@ function Footer() {
       setIsVisible(false);
     }
   };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth'
     });
   };
+
   useEffect(() => {
-    const scroll = window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
     return () => {
-      window.removeEventListener("scroll", scroll);
+      window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
+
   return (
     <div id="footer" className="text-white">
       <Container>
         <Row>
           <Col xs={12} md={6}>
-            <div style={{ fontSize: "70px" }}>
+            <div style={{ fontSize: '70px' }}>
               <i className="icon-logo-full"></i>
             </div>
           </Col>
@@ -46,8 +47,7 @@ function Footer() {
                 <HiPhone /> 091 402 87 13
               </li>
               <li>
-                <HiOutlineLocationMarker /> 176 Nguyễn Chí Thanh, Quảng Phú,
-                CưMgar, Đăk Lăk.
+                <HiOutlineLocationMarker /> 176 Nguyễn Chí Thanh, Quảng Phú, CưMgar, Đăk Lăk.
               </li>
               <li>
                 <a href="https://www.facebook.com/C%C3%A0-ph%C3%AA-Th%C6%A1-D%C5%A9ng-100560468308205">
@@ -67,6 +67,6 @@ function Footer() {
       )}
     </div>
   );
-}
+};
 
 export default React.memo(Footer);

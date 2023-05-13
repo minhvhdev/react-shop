@@ -1,13 +1,14 @@
+import { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import Layout from 'layouts/Layout';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
 import { initialCart } from 'redux/slice/shopcartSlice';
 import store from 'redux/store';
+
 import '../styles/index.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const start = () => {
@@ -39,6 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Provider>
     </>
   );
-}
+};
 
 export default MyApp;

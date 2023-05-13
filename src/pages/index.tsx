@@ -1,12 +1,13 @@
+import { Col, Container, Row } from 'react-bootstrap';
 import { IPost, IProduct } from '@types';
 import postApi from 'api/postApi';
 import productApi from 'api/productApi';
+import { GetStaticProps } from 'next';
+import Head from 'next/head';
+
 import BannerSlide from 'components/BannerSlide';
 import TopPost from 'components/TopPost';
 import TopProductSlide from 'components/TopProductSlide';
-import { GetStaticProps } from 'next';
-import Head from 'next/head';
-import { Col, Container, Row } from 'react-bootstrap';
 
 interface Props {
   products: IProduct[];

@@ -1,14 +1,15 @@
-import { IProduct } from '@types';
-import productApi from 'api/productApi';
-import ProductDetail from 'components/ProductDetail/ProductDetail';
-import ProductDetailImage from 'components/ProductDetail/ProductDetailImage';
-import { convertToUrl, getIdFromUrl, renderImageLink, shortDescriptionProduct } from 'helper';
-import Head from 'next/head';
-import Link from 'next/link';
-import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import React from 'react';
 import { Breadcrumb, Col, Container, Row, Tab, Tabs } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
+import { IProduct } from '@types';
+import productApi from 'api/productApi';
+import { convertToUrl, getIdFromUrl, renderImageLink, shortDescriptionProduct } from 'helper';
+import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+
+import ProductDetail from 'components/ProductDetail/ProductDetail';
+import ProductDetailImage from 'components/ProductDetail/ProductDetailImage';
 
 interface Props {
   product: IProduct;

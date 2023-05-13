@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-function NotFound() {
+const NotFound: React.FC = () => {
   return (
     <>
       <p id="not-found" className="text-muted text-center">
@@ -8,5 +8,6 @@ function NotFound() {
       </p>
     </>
   );
-}
+};
+
 export default NotFound;

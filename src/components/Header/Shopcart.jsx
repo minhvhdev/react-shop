@@ -1,8 +1,8 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { Nav } from "react-bootstrap";
-import { AiFillShopping } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { Nav } from 'react-bootstrap';
+import { AiFillShopping } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
+import Link from 'next/link';
 
 function Shopcart() {
   const shopcart = useSelector((state) => state.shopcart).data;
