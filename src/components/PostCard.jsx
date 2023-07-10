@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { BsClock, BsEye } from 'react-icons/bs';
+import { BsClock } from 'react-icons/bs';
 import { convertToUrl, formatDateTime, renderImageLink } from 'helper';
 import Link from 'next/link';
 import PropTypes from 'prop-types';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { AiOutlineClockCircle, AiOutlineEye, AiOutlineFacebook } from 'react-icons/ai';
+import { AiOutlineClockCircle, AiOutlineFacebook } from 'react-icons/ai';
 import ReactMarkdown from 'react-markdown';
 import { IPost } from '@types';
 import postApi from 'api/postApi';

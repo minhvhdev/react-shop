@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import { Col } from 'react-bootstrap';
 import Slider from 'react-slick';
+import Image from 'next/image';
 
 function BannerSlide() {
   return (
