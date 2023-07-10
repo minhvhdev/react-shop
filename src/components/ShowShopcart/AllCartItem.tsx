@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
-import { GoTrashcan } from 'react-icons/go';
+import { IoIosTrash } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { IShopcartItem } from '@types';
 import { message } from 'antd';
@@ -62,7 +62,7 @@ const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
                       variant="outline-danger py-0"
                       onClick={(evt) => handleRemove(evt, i)}
                       className="close-button">
-                      <GoTrashcan />
+                      <IoIosTrash />
                     </Button>
                     <div className="cart-item__item cart-item__thumb">
                       <Link href={productUrl(item)}>
