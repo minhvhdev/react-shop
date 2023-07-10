@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { MdAddShoppingCart, MdLocalShipping, MdSentimentVerySatisfied } from 'react-icons/md';
 import { IProduct } from '@types';
+import { message } from 'antd';
 import { comma } from 'helper';
 import Link from 'next/link';
 import { createBuyNowOrder } from 'redux/slice/orderSlice';
@@ -27,14 +28,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
   const handleAddToCart = () => {
     const id = product.id;
     const quantity = inputQuantity.current ? +inputQuantity.current.value : 0;
-    // noti.addNotification({
-    //   ...NOTI,
-    //   message: <Message type="success" mess="Thêm sản phẩm thành công" />,
-    //   type: "success",
-    //   dismiss: {
-    //     duration: 2000,
-    //   },
-    // });
+    message.success('Thêm sản phẩm thành công');
     store.dispatch(
       addToCart({
         product: {

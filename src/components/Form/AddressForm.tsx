@@ -3,7 +3,7 @@ import { Col, Form as BForm, Row } from 'react-bootstrap';
 import { Select } from 'antd';
 import addressApi from 'api/addressApi';
 
-import * as ghnProvince from '../../../public/statics/json/ghn-province.json';
+import ghnProvince from '../../../public/statics/data/ghn-province.json';
 
 interface Props {
   onWard: (value: string) => void;
@@ -32,7 +32,6 @@ const AddressForm = React.forwardRef<HTMLInputElement, Props>(({ onWard }: Props
   const [wardOption, setWardOption] = useState<SelectOption>({ value: '', label: '' });
 
   const getProvince = (): SelectOption[] => {
-    console.log(ghnProvince);
     const options: SelectOption[] = ghnProvince.map((item) => ({
       value: item.ProvinceID.toString(),
       label: item.ProvinceName

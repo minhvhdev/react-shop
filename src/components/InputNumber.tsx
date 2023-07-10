@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { message } from 'antd';
 
 interface Props {
   index?: number;
@@ -22,15 +23,9 @@ const InputNumber = React.forwardRef<HTMLInputElement, Props>((props: Props, ref
     const value = +evt.target.value;
     if (!Number.isInteger(value)) {
       setValue(oldValue);
-      // noti.addNotification({
-      //   ...options,
-      //   message: <Message type="warning" mess="Vui lòng nhập số"/>,
-      // });
+      message.warning('Vui lòng nhập số');
     } else if (value > 999 || value < 1) {
-      // noti.addNotification({
-      //   ...options,
-      //   message: <Message type="warning" mess="Vui lòng nhập số từ 1-999"/>,
-      // });
+      message.warning('Vui lòng nhập số từ 1-999');
       setValue(oldValue);
     } else {
       setOldValue(value);

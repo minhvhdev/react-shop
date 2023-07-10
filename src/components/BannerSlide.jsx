@@ -1,7 +1,6 @@
-import React from 'react';
+import Image from 'next/image';
 import { Col } from 'react-bootstrap';
 import Slider from 'react-slick';
-import Image from 'next/image';
 
 function BannerSlide() {
   return (
@@ -9,7 +8,7 @@ function BannerSlide() {
       <Slider dots={true} infinite={true} speed={800} autoplay={true} autoplaySpeed={4000}>
         <div className="image-wrapper">
           <Image
-            src="/statics/img/iSlide1.jpg"
+            src="/statics/images/iSlide1.jpg"
             priority={true}
             fill
             className="d-block w-100"
@@ -21,7 +20,7 @@ function BannerSlide() {
                 </div> */}
         {/* <div className="image-wrapper">
           <Image
-            src="/statics/img/iSlide3.jpg"
+            src="/statics/images/iSlide3.jpg"
             priority={true}
             fill
             className="d-block w-100"

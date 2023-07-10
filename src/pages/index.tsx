@@ -145,14 +145,14 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
               </Col>
               <img
                 className="main-img-know d-lg-block d-none"
-                src="/statics/img/banner.png"
+                src="/statics/images/banner.png"
                 alt="Cà phê nguyên chất là gì "
               />
               <Col xs={12} md={5} className="text-end pe-5 pr-md-0">
                 <Col className="position-relative">
                   <img
                     className="img-know-left"
-                    src="/statics/img/icon7.png"
+                    src="/statics/images/icon7.png"
                     alt="Cà phê nguyên chất là gì "
                   />
                   <div className="pe-2">
@@ -167,7 +167,7 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
                 <Col xs={12} className="position-relative">
                   <img
                     className="img-know-left"
-                    src="/statics/img/icon8.png"
+                    src="/statics/images/icon8.png"
                     alt="Bột cà phê nguyên chất "
                   />
                   <div className="pe-2">
@@ -182,7 +182,7 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
                 <Col xs={12} className="position-relative">
                   <img
                     className="img-know-left"
-                    src="/statics/img/icon9.png"
+                    src="/statics/images/icon9.png"
                     alt="Cafe nguyên chất khi pha "
                   />
                   <div className="pe-2">
@@ -200,7 +200,7 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
                 <Col xs={12} className="position-relative">
                   <img
                     className="img-know-right"
-                    src="/statics/img/icon10.png"
+                    src="/statics/images/icon10.png"
                     alt="Nhận biết sau khi pha "
                   />
                   <div className="ps-2">
@@ -215,7 +215,7 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
                 <Col xs={12} className="position-relative">
                   <img
                     className="img-know-right"
-                    src="/statics/img/icon11.png"
+                    src="/statics/images/icon11.png"
                     alt="Vị cafe rang xay nguyên chất "
                   />
                   <div className="ps-2">
@@ -230,7 +230,7 @@ const HomePage: React.FC<Props> = ({ products, posts }: Props) => {
                 <Col xs={12} className="position-relative">
                   <img
                     className="img-know-right"
-                    src="/statics/img/icon12.png"
+                    src="/statics/images/icon12.png"
                     alt="cà phê Thơ Dũng"
                   />
                   <div className="ps-2">

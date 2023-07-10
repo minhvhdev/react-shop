@@ -32,12 +32,27 @@ const Footer: React.FC = () => {
     <div id="footer" className="text-white">
       <Container>
         <Row>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={4}>
             <div style={{ fontSize: '70px' }}>
               <i className="icon-logo-full"></i>
             </div>
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} lg={4}>
+            <h5>Các giấy tờ liên</h5>
+            <ul className="list-unstyled">
+              <li>
+                <a href="/statics/PDFs/ngu-coc/ban-tu-cong-bo-san-pham.pdf" target="_blank">
+                  - Bản tự công bố sản phẩm ngũ cốc
+                </a>
+              </li>
+              <li>
+                <a href="/statics/PDFs/ngu-coc/tieu-chuan-co-so.pdf" target="_blank">
+                  - Tiêu chuẩn cơ sở ngũ cốc
+                </a>
+              </li>
+            </ul>
+          </Col>
+          <Col xs={12} md={6} lg={4}>
             <h5>Liên lạc</h5>
             <ul className="list-unstyled">
               <li>

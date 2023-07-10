@@ -37,7 +37,7 @@ const ProductPage: React.FC<Props> = ({ product }: Props) => {
             <Link href="/">Trang chủ</Link>
           </li>
           <li className="breadcrumb-item">
-            <Link href="/allProduct">Tất cả sản phẩm</Link>
+            <Link href="/tat-ca-san-pham">Tất cả sản phẩm</Link>
           </li>
           <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
         </Breadcrumb>

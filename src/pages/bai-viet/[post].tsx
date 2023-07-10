@@ -46,9 +46,6 @@ const PostPage: React.FC<Props> = ({ post }) => {
             <span>
               <AiOutlineClockCircle className="icon" /> {formatDateTime(post.createDate, false)}
             </span>
-            <span>
-              <AiOutlineEye className="icon" /> {post.numView}
-            </span>
             <a
               rel="noreferrer"
               target="_blank"

@@ -22,9 +22,6 @@ function PostCard({ post }) {
             <div>
               <BsClock className="icon" /> {formatDateTime(post.createDate, false)}
             </div>
-            <div>
-              <BsEye className="icon fs--8" /> {post.numView}
-            </div>
           </div>
         </Card.Body>
       </Link>

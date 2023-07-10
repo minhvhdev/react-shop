@@ -11,7 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { genTemplateOrderInformationEmail, sendEmail } from '@helper';
 import { IEmailCallbacks, IOrder } from '@types';
-import { Spin } from 'antd';
+import { message, Spin } from 'antd';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import NotFound from 'layouts/NotFound';
 import Link from 'next/link';
@@ -39,14 +39,14 @@ const CheckOutPage: React.FC = () => {
   const sendEmailCallBacks: IEmailCallbacks<IOrder> = {
     genMessage: genTemplateOrderInformationEmail,
     onSuccess: function (): void {
-      // TODO show notification
+      message.success('Đặt hàng thành công');
       if (!order.buyNow) {
         store.dispatch(resetCart());
       }
       router.push('/');
     },
     onError: function (): void {
-      // TODO show notification
+      message.error('Có lỗi xảy ra, vui lòng thử lại sau!');
       setStatus('idle');
     }
   };

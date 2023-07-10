@@ -3,6 +3,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { GoTrashcan } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import { IShopcartItem } from '@types';
+import { message } from 'antd';
 import { comma, convertToUrl, renderImageLink } from 'helper';
 import Link from 'next/link';
 import { removeItem } from 'redux/slice/shopcartSlice';
@@ -37,15 +38,7 @@ const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
     setQuantity(JSON.stringify(quan));
   };
   const handleRemove = (_: React.MouseEvent, index: number): void => {
-    // noti.addNotification({
-    //   ...NOTI,
-    //   message: <Message type="success" mess="Xóa sản phẩm thành công" />,
-    //   type: "success",
-    //   dismiss: {
-    //     duration: 2000,
-    //   },
-    //   width: 160,
-    // });
+    message.success('Xóa sản phẩm thành công');
     dispatch(removeItem(index));
   };
 

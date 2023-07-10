@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
+import { Select } from 'antd';
 import { sortJSON } from 'helper';
 import NullPage from 'layouts/NullPage';
 import PropTypes from 'prop-types';
@@ -24,8 +25,7 @@ function ListAllProduct({ products, range, other, coffee }) {
     setOffset(selectedPage * perPage);
     window.scrollTo(0, 120);
   };
-  const handleSort = (evt) => {
-    const value = evt.target.value;
+  const handleSort = (value) => {
     if (+value === 0) {
       setList([...sortJSON(list, 'price')]);
     } else {
@@ -57,7 +57,7 @@ function ListAllProduct({ products, range, other, coffee }) {
     <>
       <div className="d-flex justify-content-end mb-3">
         <span className="fs-5">Sắp xếp theo:</span>
-        <select
+        <Select
           name="product-sort"
           className="ms-2 mb-1"
           id="product-sort"
@@ -68,7 +68,7 @@ function ListAllProduct({ products, range, other, coffee }) {
           </option>
           <option value="0">Giá tăng dần</option>
           <option value="1">Giá giảm dần</option>
-        </select>
+        </Select>
       </div>
       <Row>
         {list.length > 0 ? (

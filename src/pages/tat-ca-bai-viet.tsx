@@ -3,6 +3,7 @@ import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
 import { IPost } from '@types';
+import { Select } from 'antd';
 import postApi from 'api/postApi';
 import { sortJSON } from 'helper';
 import NullPage from 'layouts/NullPage';
@@ -19,7 +20,7 @@ type Props = {
 const ListAllPost: React.FC<Props> = ({ posts }) => {
   const [list, setList] = useState<IPost[]>([]);
   const [offset, setOffset] = useState(0);
-  const perPage = 2;
+  const perPage = 3;
   const [pageCount, setPageCount] = useState(0);
 
   const handlePageClick = (selectedItem: { selected: number }): void => {
@@ -28,11 +29,7 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
     window.scrollTo(0, 120);
   };
 
-  const handleSort: React.ChangeEventHandler<HTMLSelectElement> = (evt) => {
-    const value = evt.target.value;
-    if (value === '0') {
-      setList(sortJSON(list, 'numView', false) as IPost[]);
-    }
+  const handleSort = (value: string): void => {
     if (value === '1') {
       setList([...sortJSON(list, 'createDate', false)]);
     } else {
@@ -68,20 +65,14 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
               <span className="fs-5">Các bài viết</span>
             </div>
             <div>
-              <span className="fs-5">Sắp xếp theo:</span>
-              <select
-                name="post-sort"
-                className="ms-2 mb-1"
-                id="post-sort"
-                onChange={handleSort}
-                defaultValue="-1">
+              <span className="fs-6">Sắp xếp theo:</span>
+              <Select className="ms-2 mb-1" onChange={handleSort} defaultValue="-1">
                 <option disabled hidden value="-1">
                   --- Lựa chọn ---
                 </option>
-                <option value="0">Lượt xem</option>
                 <option value="1">Mới nhất</option>
                 <option value="2">Cũ nhất</option>
-              </select>
+              </Select>
             </div>
           </div>
           <Row className="position-relative">

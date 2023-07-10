@@ -86,13 +86,13 @@ function Header() {
                   <Accordion.Body>
                     <ul className="collapse__menu fs--9 fw--3">
                       <li onClick={handleClose}>
-                        <Link href="/allProduct">Tất cả sản phẩm</Link>
+                        <Link href="/tat-ca-san-pham">Tất cả sản phẩm</Link>
                       </li>
                       <li onClick={handleClose}>
-                        <Link href="/allProduct?type=1">Cà phê</Link>
+                        <Link href="/tat-ca-san-pham?type=1">Cà phê</Link>
                       </li>
                       <li onClick={handleClose}>
-                        <Link href="/allProduct?type=0">Đặc sản khác</Link>
+                        <Link href="/tat-ca-san-pham?type=0">Đặc sản khác</Link>
                       </li>
                     </ul>
                   </Accordion.Body>

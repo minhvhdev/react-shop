@@ -1,30 +1,30 @@
 import axios from 'axios';
 import { REACT_APP_API_URL } from 'constants/global.constant';
-import Cookie from 'universal-cookie';
 
-export const getToken = () => {
-  const cookie = new Cookie();
-  const token = cookie.get('_token');
-  if (!token) {
-    return null;
-  }
-  return token.accessToken;
-};
 const AxiosClient = axios.create({
   baseURL: REACT_APP_API_URL,
   headers: {
     'content-type': 'application/json'
   }
-  // paramsSerializer: params => queryString.stringify(params),
 });
 
-AxiosClient.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Authenticator
+// const getToken = () => {
+//   const cookie = new Cookie();
+//   const token = cookie.get('_token');
+//   if (!token) {
+//     return null;
+//   }
+//   return token.accessToken;
+// };
+//
+// AxiosClient.interceptors.request.use((config) => {
+//   const token = getToken();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 AxiosClient.interceptors.response.use(
   (response) => {
@@ -34,7 +34,6 @@ AxiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    //handle errors
     throw error;
   }
 );

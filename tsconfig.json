@@ -1,34 +1,63 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "noUnusedLocals": false,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "incremental": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "module": "esnext",
-        "moduleResolution": "node16",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "baseUrl": "./src",
-        "paths": {
-            "@api": ["api"],
-            "@components": ["components"],
-            "@constants": ["constants"],
-            "@helper": ["helper"],
-            "@layouts": ["layouts"],
-            "@pages": ["pages"],
-            "@redux": ["redux"],
-            "@styles": ["styles"],
-            "@types": ["types"],
-        }
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/**/*"],
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "paths": {
+      "@api": [
+        "api"
+      ],
+      "@components": [
+        "components"
+      ],
+      "@constants": [
+        "constants"
+      ],
+      "@helper": [
+        "helper"
+      ],
+      "@layouts": [
+        "layouts"
+      ],
+      "@pages": [
+        "pages"
+      ],
+      "@redux": [
+        "redux"
+      ],
+      "@styles": [
+        "styles"
+      ],
+      "@types": [
+        "types"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

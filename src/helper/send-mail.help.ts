@@ -14,8 +14,7 @@ export const sendEmail = (data: unknown, callbacks: IEmailCallbacks<any>) => {
   params.message = callbacks.genMessage(data);
 
   emailjs.send(EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, params, EMAIL_USER_ID).then(
-    (response) => {
-      console.log(response);
+    () => {
       callbacks.onSuccess();
     },
     (error) => {

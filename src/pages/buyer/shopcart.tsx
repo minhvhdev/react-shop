@@ -44,7 +44,7 @@ const ShopcartPage: React.FC = () => {
         </Row>
       ) : (
         <div className="d-flex justify-content-end mb-3">
-          <Link href="/allProduct" className="btn btn-primary px-3">
+          <Link href="/tat-ca-san-pham" className="btn btn-primary px-3">
             Chọn mua sản phẩm
           </Link>
         </div>
