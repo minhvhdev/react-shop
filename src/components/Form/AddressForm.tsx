@@ -65,8 +65,8 @@ const AddressForm = React.forwardRef<HTMLInputElement, Props>(({ onWard }: Props
     }
   };
 
-  const handleProvince = (_: string, option: SelectOption | SelectOption[]) => {
-    if (Array.isArray(option)) return;
+  const handleProvince = (_: string, option: SelectOption | SelectOption[] | undefined) => {
+    if (!option || Array.isArray(option)) return;
     setProvinceOption(option);
     setDistrictOption({ value: '', label: '' });
     getDistrict(option.value);
@@ -74,15 +74,18 @@ const AddressForm = React.forwardRef<HTMLInputElement, Props>(({ onWard }: Props
     setWard([]);
   };
 
-  const handleDistrict = (_: string, option: SelectOption | SelectOption[]) => {
-    if (Array.isArray(option)) return;
+  const handleDistrict = (_: string, option: SelectOption | SelectOption[] | undefined) => {
+    if (!option || Array.isArray(option)) return;
     setDistrictOption(option);
     getWard(option.value);
     setWardOption({ value: '', label: '' });
   };
 
-  const handleOnChangeWard = (_: string, option: SelectOption | SelectOption[]): void => {
-    if (Array.isArray(option)) return;
+  const handleOnChangeWard = (
+    _: string,
+    option: SelectOption | SelectOption[] | undefined
+  ): void => {
+    if (!option || Array.isArray(option)) return;
     setWardOption(option);
     if (onWard) {
       onWard(districtOption.value);

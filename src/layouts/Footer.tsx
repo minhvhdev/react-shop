@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
             </div>
           </Col>
           <Col xs={12} md={6} lg={4}>
-            <h5>Các giấy tờ liên</h5>
+            <h5>Các giấy tờ liên quan</h5>
             <ul className="list-unstyled">
               <li>
                 <a href="/statics/PDFs/ngu-coc/ban-tu-cong-bo-san-pham.pdf" target="_blank">
