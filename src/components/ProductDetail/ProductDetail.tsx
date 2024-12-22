@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { MdAddShoppingCart, MdLocalShipping, MdSentimentVerySatisfied } from 'react-icons/md';
+import { FREE_SHIPPING } from '@constants';
 import { IProduct } from '@types';
 import { message } from 'antd';
 import { comma } from 'helper';
@@ -93,8 +94,8 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
           <MdSentimentVerySatisfied className="icon" /> Bạn có thể xem mô tả sản phẩm ở phía dưới!
         </p>
         <p>
-          <MdLocalShipping className="icon" /> Miễn phí vận chuyển toàn quốc với đơn hàng từ
-          200.000₫
+          <MdLocalShipping className="icon" /> Miễn phí vận chuyển toàn quốc với đơn hàng từ{' '}
+          {comma(FREE_SHIPPING)}₫
         </p>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
+import { FREE_SHIPPING } from '@constants';
 import { comma, renderImageLink } from 'helper';
 import { RootState } from 'redux/store';
 
@@ -12,7 +13,7 @@ const CheckOutItem: React.FC = () => {
   }, 0);
   const discount = order.promotionCode ? order.promotionCode.discount : 0;
   const shippingFee = order.shippingFee;
-  const shippingFeeReal = total < 200000 && shippingFee ? shippingFee : 0;
+  const shippingFeeReal = total < FREE_SHIPPING && shippingFee ? shippingFee : 0;
   const afterDiscount = total * (discount / 100);
   const showCart = useRef<HTMLDivElement>(null);
 
@@ -77,7 +78,7 @@ const CheckOutItem: React.FC = () => {
       <div className="check-out__total fs--9 order-3 order-lg-4">
         <p>Phí giao hàng:</p>
         <div className="flex-grow-1 text-end">
-          {total < 200000 ? (
+          {total < FREE_SHIPPING ? (
             comma(shippingFee || 0)
           ) : (
             <>

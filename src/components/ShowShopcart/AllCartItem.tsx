@@ -6,7 +6,7 @@ import { IShopcartItem } from '@types';
 import { message } from 'antd';
 import { comma, convertToUrl, renderImageLink } from 'helper';
 import Link from 'next/link';
-import { removeItem } from 'redux/slice/shopcartSlice';
+import { removeItem, updateQuantity } from 'redux/slice/shopcartSlice';
 import { RootState } from 'redux/store';
 
 import InputNumber from 'components/InputNumber';
@@ -17,14 +17,14 @@ const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
   const totalPrice = shopcart.reduce((total, item) => {
     return +item.quantity * +item.product.price + total;
   }, 0);
-  const [quantity, setQuantity] = useState('[]');
+  const [quantity, setQuantity] = useState<{ index: number; value: number }[]>([]);
 
   const productUrl = (item: IShopcartItem) => {
     return convertToUrl(`${item.product.name}-${item.product.id}`);
   };
 
   const handleChange = (value: number, index: number): void => {
-    const quan = JSON.parse(quantity);
+    const quan = [...quantity];
     let isExist = false;
     quan.forEach((element: { index: number; value: number }) => {
       if (element.index === index) {
@@ -35,8 +35,10 @@ const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
     if (!isExist) {
       quan.push({ index, value });
     }
-    setQuantity(JSON.stringify(quan));
+    dispatch(updateQuantity({ index: index, value }));
+    setQuantity(quan);
   };
+
   const handleRemove = (_: React.MouseEvent, index: number): void => {
     message.success('Xóa sản phẩm thành công');
     dispatch(removeItem(index));

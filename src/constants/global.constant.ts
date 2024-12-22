@@ -9,3 +9,6 @@ export const VERSION = '4.0';
 export const EMAIL_SERVICE_ID = 'caphethodung';
 export const EMAIL_TEMPLATE_ID = 'caphethodung_order';
 export const EMAIL_USER_ID = '2rzcie3_V0LmBfKFX';
+
+//config
+export const FREE_SHIPPING = 400000;
