@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -10,7 +9,6 @@ import NullCartItem from 'components/ShowShopcart/NullCartItem';
 
 const ShopcartPage: React.FC = () => {
   const shopcart = useSelector((state: RootState) => state.shopcart).data;
-  const update = useRef(null);
 
   const handleCheckOut = () => {
     store.dispatch(createOrder(shopcart));
@@ -25,7 +23,7 @@ const ShopcartPage: React.FC = () => {
         <Breadcrumb.Item active>Giỏ hàng của bạn</Breadcrumb.Item>
       </Breadcrumb>
       <Row>
-        <Col xs={12}>{shopcart.length !== 0 ? <AllCartItem ref={update} /> : <NullCartItem />}</Col>
+        <Col xs={12}>{shopcart.length !== 0 ? <AllCartItem /> : <NullCartItem />}</Col>
       </Row>
       {shopcart.length !== 0 ? (
         <Row className="justify-content-end">

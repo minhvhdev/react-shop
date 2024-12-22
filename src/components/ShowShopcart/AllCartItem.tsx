@@ -46,7 +46,7 @@ const AllCartItem = React.forwardRef<HTMLInputElement>((_, ref) => {
 
   return (
     <>
-      <input ref={ref} type="hidden" value={quantity} />
+      <input ref={ref} type="hidden" />
       <Row id="shopcart__item">
         <div className="border-bottom fs--9 fw--3 d-flex justify-content-between">
           <span>Sản phẩm trong giỏ</span>
