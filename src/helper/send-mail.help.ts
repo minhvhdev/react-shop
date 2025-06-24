@@ -29,6 +29,7 @@ export const genTemplateOrderInformationEmail = (data: IOrder): string => {
   Tên người đặt:  ${data.fullName}
   Số điện thoại:  ${data.phone}
   Địa chỉ nhận:   ${data.address}
+  Phí Ship:       ${data.shippingFee}
   Đơn hàng: ${data.orderItems
     .map(
       (item) => `
