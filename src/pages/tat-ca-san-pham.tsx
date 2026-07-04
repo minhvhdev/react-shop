@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import { Accordion, Breadcrumb, Col, Container, Form, Row } from 'react-bootstrap';
 import { IProduct } from '@types';
 import productApi from 'api/productApi';
@@ -15,12 +15,14 @@ interface Props {
   products: IProduct[];
 }
 
-const AllProductPage: React.FC<Props> = ({ products }: Props) => {
-  const router = useRouter();
-  const { type } = router.query;
+const ProductFiltersView: React.FC<{
+  products: IProduct[];
+  initialCoffee: boolean;
+  initialOther: boolean;
+}> = ({ products, initialCoffee, initialOther }) => {
   const [range, setRange] = useState(300000);
-  const [coffee, setCoffee] = useState(type === '0' ? false : true);
-  const [other, setOther] = useState(type === '1' ? false : true);
+  const [coffee, setCoffee] = useState(initialCoffee);
+  const [other, setOther] = useState(initialOther);
 
   const handleRange: ChangeEventHandler<HTMLInputElement> = (evt) => {
     setRange(Number(evt.target.value));
@@ -33,11 +35,6 @@ const AllProductPage: React.FC<Props> = ({ products }: Props) => {
   const handleChangeOther: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     setOther(evt.target.checked);
   };
-
-  useEffect(() => {
-    setCoffee(type === '0' ? false : true);
-    setOther(type === '1' ? false : true);
-  }, [type]);
 
   return (
     <Container>
@@ -165,6 +162,22 @@ const AllProductPage: React.FC<Props> = ({ products }: Props) => {
         </Col>
       </Row>
     </Container>
+  );
+};
+const AllProductPage: React.FC<Props> = ({ products }: Props) => {
+  const router = useRouter();
+  const currentType = Array.isArray(router.query.type) ? router.query.type[0] : router.query.type;
+  const typeKey = currentType ?? 'all';
+  const initialCoffee = currentType === '0' ? false : true;
+  const initialOther = currentType === '1' ? false : true;
+
+  return (
+    <ProductFiltersView
+      key={typeKey}
+      products={products}
+      initialCoffee={initialCoffee}
+      initialOther={initialOther}
+    />
   );
 };
 

@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const orderApi = {
   checkShippingFee: function (districtID: string | number) {
-    const config: axios.AxiosRequestConfig<AxiosRequestConfig> = {
+    const config: AxiosRequestConfig = {
       method: 'get'
     };
     config.headers = {

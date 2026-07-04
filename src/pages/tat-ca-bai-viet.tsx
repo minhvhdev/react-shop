@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
 import ReactPaginate from 'react-paginate';
@@ -18,10 +18,25 @@ type Props = {
 };
 
 const ListAllPost: React.FC<Props> = ({ posts }) => {
-  const [list, setList] = useState<IPost[]>([]);
   const [offset, setOffset] = useState(0);
+  const [sortOrder, setSortOrder] = useState('-1');
   const perPage = 3;
-  const [pageCount, setPageCount] = useState(0);
+
+  const list = useMemo(() => {
+    if (sortOrder === '1') {
+      return sortJSON([...posts], 'createDate', false);
+    }
+
+    if (sortOrder === '2') {
+      return sortJSON([...posts], 'createDate');
+    }
+
+    return [...posts];
+  }, [posts, sortOrder]);
+
+  const pageCount = Math.ceil(list.length / perPage);
+  const normalizedOffset = offset < list.length ? offset : 0;
+  const currentPage = Math.floor(normalizedOffset / perPage);
 
   const handlePageClick = (selectedItem: { selected: number }): void => {
     const selectedPage = selectedItem.selected;
@@ -30,17 +45,9 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
   };
 
   const handleSort = (value: string): void => {
-    if (value === '1') {
-      setList([...sortJSON(list, 'createDate', false)]);
-    } else {
-      setList([...sortJSON(list, 'createDate')]);
-    }
+    setSortOrder(value);
+    setOffset(0);
   };
-
-  useEffect(() => {
-    setList([...posts]);
-    setPageCount(Math.ceil(posts.length / perPage));
-  }, [posts]);
 
   return (
     <Container>
@@ -78,7 +85,7 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
           <Row className="position-relative">
             {list.length > 0 ? (
               <>
-                {list.slice(offset, offset + perPage).map((post, i) => {
+                {list.slice(normalizedOffset, normalizedOffset + perPage).map((post, i) => {
                   return (
                     <Col xs={12} md={6} xl={4} key={i} className="mb-3">
                       <PostCard post={post} />
@@ -92,6 +99,7 @@ const ListAllPost: React.FC<Props> = ({ posts }) => {
                       previousLabel={<GrCaretPrevious />}
                       nextLabel={<GrCaretNext />}
                       pageCount={pageCount}
+                      forcePage={currentPage}
                       onPageChange={handlePageClick}
                       containerClassName="pagination"
                       pageClassName="page-item"

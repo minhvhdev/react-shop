@@ -1,0 +1,7 @@
+allowBuilds:
+  '@netlify/esbuild': true
+  '@parcel/watcher': true
+  core-js: true
+  core-js-pure: true
+  sharp: true
+  unrs-resolver: true

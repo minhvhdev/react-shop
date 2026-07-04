@@ -69,7 +69,8 @@ const CheckOutPage: React.FC = () => {
         phone: values.phone,
         note: values.note,
         address: addressStr,
-        orderItems: order.orderItems
+        orderItems: order.orderItems,
+        shippingFee: order.shippingFee
       };
     } else {
       setStatus('miss');

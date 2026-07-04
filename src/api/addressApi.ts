@@ -1,7 +1,7 @@
 import { GHN_API_URL, GHN_TOKEN, GITHUB_API_URL } from '@constants';
 import { IAddressDistrict, IAddressWard } from '@types';
-import { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
+import { AxiosHeaders, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const config: AxiosRequestConfig = {
   method: 'get',

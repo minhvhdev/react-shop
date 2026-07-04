@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { AiOutlineClockCircle, AiOutlineFacebook } from 'react-icons/ai';
 import ReactMarkdown from 'react-markdown';
@@ -22,11 +22,7 @@ interface Props {
 }
 
 const PostPage: React.FC<Props> = ({ post }) => {
-  const [url, setUrl] = useState('');
-
-  useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+  const url = typeof window === 'undefined' ? 'https://caphethodung.vn' : window.location.href;
 
   return (
     <div className="post-page__bg">
